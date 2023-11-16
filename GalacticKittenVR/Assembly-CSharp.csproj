@@ -186,6 +186,7 @@
     <Compile Include="Assets\BNG Framework\Scripts\Utility\FixNonUniformScale.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Components\Climbable.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Components\GrabbableRingHelper.cs" />
+    <Compile Include="Assets\SpaceSkies Free\Demo\Scripts\SkyboxChanger.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Core\SnapZoneOffset.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Helpers\HandRepresentationHelper.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Components\Tooltip.cs" />
@@ -207,6 +208,7 @@
     <Compile Include="Assets\BNG Framework\Scripts\Extras\AutoGrabGrabbable.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Extras\Explosive.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Helpers\StaticBatch.cs" />
+    <Compile Include="Assets\SpaceSkies Free\Demo\Scripts\LookCamera.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Components\RotateWithHMD.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Helpers\VRIFGrabpointUpdater.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Extras\ToggleActiveOnInputAction.cs" />

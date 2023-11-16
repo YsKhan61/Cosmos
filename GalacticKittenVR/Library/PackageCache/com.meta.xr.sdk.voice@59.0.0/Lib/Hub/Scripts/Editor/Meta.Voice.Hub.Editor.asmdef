@@ -1,0 +1,26 @@
+{
+    "name": "Meta.Voice.Hub.Editor",
+    "rootNamespace": "Meta.Voice.Hub",
+    "references": [
+        "GUID:8e054d88729a3fb4bbe539499f824363",
+        "GUID:4c3436cc699cb25459568e9fa95b7fd7",
+        "GUID:fa958eb9f0171754fb207d563a15ddfa"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "define": "OVR_UNITY_PACKAGE_MANAGER",
+            "name": "com.meta.xr.sdk.voice",
+            "expression": ""
+        }
+    ],
+    "noEngineReferences": false
+}

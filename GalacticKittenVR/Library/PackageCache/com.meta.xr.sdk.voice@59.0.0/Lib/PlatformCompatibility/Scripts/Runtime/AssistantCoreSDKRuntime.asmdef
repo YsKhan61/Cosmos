@@ -1,0 +1,10 @@
+{
+    "name": "AssistantCoreSDKRuntime",
+    "versionDefines": [
+        {
+            "define": "OVR_UNITY_PACKAGE_MANAGER",
+            "name": "com.meta.xr.sdk.voice",
+            "expression": ""
+        }
+    ]
+}

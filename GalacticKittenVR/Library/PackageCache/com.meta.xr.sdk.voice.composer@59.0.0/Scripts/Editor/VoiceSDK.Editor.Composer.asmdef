@@ -1,0 +1,32 @@
+{
+    "name": "VoiceSDK.Editor.Composer",
+    "rootNamespace": "",
+    "references": [
+        "GUID:a7c32ded21d3b9b42a71cdf39f2ed8da",
+        "GUID:4504b1a6e0fdcc3498c30b266e4a63bf",
+        "GUID:f02292e638368584080af0193f81ff5c",
+        "GUID:e545cc0678493234a9368f4e470c29e8",
+        "GUID:3493d9e5383e8684b8bcdcd4d6b3659b",
+        "GUID:2a552fee757518d459368d279c8c62b4",
+        "GUID:8bbcefc153e1f1b4a98680670797dd16",
+        "GUID:e31cc0253d8f956459091c800a16d68d",
+        "GUID:fa958eb9f0171754fb207d563a15ddfa"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "define": "OVR_UNITY_PACKAGE_MANAGER",
+            "name": "com.meta.xr.sdk.voice.composer",
+            "expression": ""
+        }
+    ],
+    "noEngineReferences": false
+}

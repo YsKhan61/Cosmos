@@ -115,6 +115,12 @@
 -define:ENABLE_TIMELINE
 -define:ENABLE_LEGACY_INPUT_MANAGER
 -define:TEXTCORE_FONT_ENGINE_1_5_OR_NEWER
+-define:USING_XR_MANAGEMENT
+-define:USING_XR_SDK_OCULUS
+-define:__OVERRIDED__PRIORITIZE_OCULUS_XR_SETTINGS
+-define:USING_QUEST_PRO_COMPATIBLE_OCULUS_XR_PLUGIN_VERSION
+-define:OCULUS_XR_DEPTH_SUBMISSION
+-define:OCULUS_XR_3_3_0_OR_NEWER
 -define:USING_META_XR_SIMULATOR
 -define:OVR_UNITY_PACKAGE_MANAGER
 -define:CSHARP_7_OR_LATER
@@ -346,6 +352,9 @@
 -r:"Library/PackageCache/com.unity.visualscripting@1.9.0/Runtime/VisualScripting.Flow/Dependencies/NCalc/Unity.VisualScripting.Antlr3.Runtime.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Oculus.VR.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Oculus.VR.ref.dll"
+-r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.XR.Management.Editor.ref.dll"
+-r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.XR.Management.ref.dll"
+-r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.XR.Oculus.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEditor.TestRunner.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEngine.TestRunner.ref.dll"

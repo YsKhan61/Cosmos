@@ -4,6 +4,8 @@ Library\Bee\artifacts\mvdfrm\Unity.RenderPipelines.Core.Editor.ref.dll_5F7FF7A96
 Library\Bee\artifacts\mvdfrm\Unity.RenderPipelines.Core.Runtime.ref.dll_7D87AD5D9C29EDF3.mvfrm
 Library\Bee\artifacts\mvdfrm\Unity.RenderPipelines.Universal.Runtime.ref.dll_20EFA45AC0361BB1.mvfrm
 Library\Bee\artifacts\mvdfrm\Unity.ShaderGraph.Editor.ref.dll_319B33408212A519.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.XR.Management.Editor.ref.dll_D37870CA885E0CBB.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.XR.Management.ref.dll_4D8A44BEDB30B256.mvfrm
 Library\Bee\artifacts\mvdfrm\UnityEditor.TestRunner.ref.dll_3CEDFFDC50464BDC.mvfrm
 Library\Bee\artifacts\mvdfrm\UnityEditor.UI.ref.dll_5DAE2CC8CF4B8C9E.mvfrm
 Library\Bee\artifacts\mvdfrm\UnityEngine.TestRunner.ref.dll_090C4A8A7C09A9C7.mvfrm

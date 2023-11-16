@@ -221,7 +221,6 @@
     <None Include="Assets\BNG Framework\HandPoser\Third-Party Notices.txt" />
     <None Include="Assets\BNG Framework\Textures\particleTextures.txt" />
     <None Include="Assets\BNG Framework\Fonts\license.txt" />
-    <None Include="Assets\SpaceSkybox\Credits.txt" />
     <None Include="Assets\BNG Framework\Integrations\Emerald AI\Instructions.txt" />
     <None Include="Assets\BNG Framework\Materials\ColumnGlow.shader" />
     <None Include="Assets\BNG Framework\Integrations\Oculus Integration\Readme.txt" />

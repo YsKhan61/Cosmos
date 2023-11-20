@@ -15,7 +15,9 @@ MonoBehaviour:
   k_AssetVersion: 3
   m_RenderingLayerNames:
   - Default
-  m_ValidRenderingLayers: 1
+  - Screen
+  - Lamps
+  m_ValidRenderingLayers: 7
   lightLayerName0: 
   lightLayerName1: 
   lightLayerName2: 
@@ -25,7 +27,7 @@ MonoBehaviour:
   lightLayerName6: 
   lightLayerName7: 
   m_StripDebugVariants: 1
-  m_StripUnusedPostProcessingVariants: 0
+  m_StripUnusedPostProcessingVariants: 1
   m_StripUnusedVariants: 1
   m_StripUnusedLODCrossFadeVariants: 1
   m_StripScreenCoordOverrideVariants: 1

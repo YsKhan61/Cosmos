@@ -3,14 +3,22 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - cockpit_capitalLaser
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Temp_Post
   - Water
   - UI
+  - Terminal
+  - Location
+  - LookInteractor
+  - Screen
+  - Occluder
+  - Camera
+  - MainCameraOnly
   - 
   - 
   - 
@@ -18,20 +26,13 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Cockpit
+  - Cockpit_3DSkybox
+  - Cockpit_3DSkybox_BG
+  - Cockpit_Ally
+  - Cockpit_Invader
+  - Cockpit_BG
+  - Cockpit_DepthClear
   - 
   - 
   - 

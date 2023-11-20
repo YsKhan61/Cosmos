@@ -435,10 +435,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5616861828862047741, guid: cc4c2a506cd50844aad2f9469842c6aa, type: 3}
-      propertyPath: _oneGrabTransformer
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 7545981925807410279, guid: cc4c2a506cd50844aad2f9469842c6aa, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -395,7 +395,7 @@ MonoBehaviour:
   _transferOnSecondSelection: 0
   _addNewPointsToFront: 0
   _forwardElement: {fileID: 0}
-  _oneGrabTransformer: {fileID: 0}
+  _oneGrabTransformer: {fileID: 2741909027734678865}
   _twoGrabTransformer: {fileID: 0}
   _targetTransform: {fileID: 0}
   _maxGrabPoints: -1
@@ -414,6 +414,7 @@ MonoBehaviour:
   _pivotTransform: {fileID: 3446798331665676321}
   _visualTransform: {fileID: 2315516755181484998}
   _axis: 0
+  _angleConstraint: 10
 --- !u!1 &8346974183443272017
 GameObject:
   m_ObjectHideFlags: 0

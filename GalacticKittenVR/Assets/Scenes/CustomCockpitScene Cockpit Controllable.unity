@@ -17555,7 +17555,7 @@ PlayableDirector:
   - key: {fileID: 6647066434588751551, guid: 6aab882a5cc7a4c65a17900bef6ad649, type: 2}
     value: {fileID: 162593673}
   - key: {fileID: 1878572427620169931, guid: 6aab882a5cc7a4c65a17900bef6ad649, type: 2}
-    value: {fileID: 7341270770775429978}
+    value: {fileID: 0}
   - key: {fileID: 4904232081652405907, guid: 6aab882a5cc7a4c65a17900bef6ad649, type: 2}
     value: {fileID: 1158680871}
   - key: {fileID: 8058170054742336848, guid: 6aab882a5cc7a4c65a17900bef6ad649, type: 2}
@@ -29518,17 +29518,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cockpit
       objectReference: {fileID: 0}
-    - target: {fileID: 3184291029736374322, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
-      propertyPath: constraintA
-      value: 
-      objectReference: {fileID: 1193146714}
-    - target: {fileID: 3184291029736374322, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
-      propertyPath: constraintB
-      value: 
-      objectReference: {fileID: 1747397242}
     - target: {fileID: 4324301902731297595, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.56
+      value: -2.63
       objectReference: {fileID: 0}
     - target: {fileID: 4324301902731297595, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
       propertyPath: m_LocalPosition.y
@@ -29566,6 +29558,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6594446086358706823, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
+      propertyPath: _invertMultiplier
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -29595,11 +29591,6 @@ Animator:
 --- !u!1 &7267113477948915009 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7662943421072143601, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
-  m_PrefabInstance: {fileID: 5579043108512962431}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &7341270770775429978 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 3191951370904295925, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
   m_PrefabInstance: {fileID: 5579043108512962431}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7852103731789407338

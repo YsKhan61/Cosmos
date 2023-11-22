@@ -32,6 +32,7 @@ namespace GalacticKittenVR.Spaceship
 
         [SerializeField, Tooltip("The max angle between visual transform's axis of orientation and pivot transform's Y axis")]
         private int _angleConstraint = 10;
+        public int AngleConstraint => _angleConstraint;
 
         private IGrabbable _grabbable;
         private Vector3 _localAxisOfRotationOfPivotTransform;
@@ -74,7 +75,6 @@ namespace GalacticKittenVR.Spaceship
                 Quaternion.FromToRotation(
                     axisToOrient,
                     projectedVectorFromPivotToGrabberInWorldSpaceAlongPlaneWithNormalOfAxisToOrient) * _visualTransform.rotation;
-
         }
 
         public void EndTransform()

@@ -19,8 +19,8 @@ TagManager:
   - Occluder
   - Camera
   - MainCameraOnly
-  - 
-  - 
+  - Grabbable
+  - Grabber
   - 
   - 
   - 

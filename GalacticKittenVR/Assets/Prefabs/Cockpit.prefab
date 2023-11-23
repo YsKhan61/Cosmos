@@ -199,8 +199,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 7987208988483158782}
-  _maxForceToInput: 50
-  _maxForceAllowed: 100
+  _maxForceToInput: 10
+  _maxForceAllowed: 20
   _damping: 10
 --- !u!114 &4330010369853147401
 MonoBehaviour:

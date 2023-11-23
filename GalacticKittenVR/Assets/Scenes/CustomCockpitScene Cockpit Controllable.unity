@@ -4183,7 +4183,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &443869310
 Transform:
   m_ObjectHideFlags: 0
@@ -6700,7 +6700,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &745492263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9578,7 +9578,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1002923149
 Transform:
   m_ObjectHideFlags: 0
@@ -10993,7 +10993,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1132629171
 Transform:
   m_ObjectHideFlags: 0
@@ -29557,10 +29557,6 @@ PrefabInstance:
     - target: {fileID: 4324301902731297595, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6594446086358706823, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
-      propertyPath: _invertMultiplier
-      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

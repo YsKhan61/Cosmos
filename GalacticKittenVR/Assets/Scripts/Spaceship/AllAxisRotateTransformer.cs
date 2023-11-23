@@ -19,6 +19,7 @@ namespace GalacticKittenVR.Spaceship
 
         [SerializeField, Tooltip("This will be the pivot relative to calculate orientations of handle")]
         private Transform _pivotTransform;
+        public Transform PivotTransform => _pivotTransform;
 
         [SerializeField, Tooltip("This will be the visual that will be oriented")]
         private Transform _visualTransform;
@@ -28,6 +29,7 @@ namespace GalacticKittenVR.Spaceship
 
         [SerializeField, Tooltip("The max angle between visual transform's axis of orientation and pivot transform's Y axis")] 
         private int _angleConstraint = 10;
+        public int AngleConstraint => _angleConstraint;
 
         private IGrabbable _grabbable;
         private Vector3 _localAxisToOrient;

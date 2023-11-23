@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7674291551681985746}
+  - component: {fileID: 2923800742281578956}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -35,6 +36,21 @@ Transform:
   - {fileID: 8077574293823384242}
   m_Father: {fileID: 6230202199778948516}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2923800742281578956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 256497040691354997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2120e99cef8a0484893baf07a6bab623, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _controlTransformer: {fileID: 3486199663498377452}
+  _controlMovement: {fileID: 4330010369853147401}
+  _deadZoneLimit: 0.1
 --- !u!1 &600638100572950348
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,6 +133,7 @@ GameObject:
   - component: {fileID: 4324301902731297595}
   - component: {fileID: 7987208988483158782}
   - component: {fileID: 2938359322938058273}
+  - component: {fileID: 4330010369853147401}
   m_Layer: 0
   m_Name: Cockpit
   m_TagString: Untagged
@@ -152,7 +169,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -181,9 +198,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7972f5e6be05a64fb8331205bbf6864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _throttleValue: 0
   _rigidbody: {fileID: 7987208988483158782}
-  _maxForce: 1000
+  _maxForceToInput: 50
+  _maxForceAllowed: 100
+  _damping: 10
+--- !u!114 &4330010369853147401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751941554305108126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb44d76c2da6c5f4bb1c205041bf3783, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _torqueDirection: {x: 0, y: 0, z: 0}
+  _torqueMultiplier: 1
+  _maxTorqueToInput: 20
+  _maxTorqueAllowed: 50
+  _rigidbody: {fileID: 7987208988483158782}
+  _damping: 10
 --- !u!1 &1139229883932890659
 GameObject:
   m_ObjectHideFlags: 0
@@ -656,7 +692,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _throttleTransformer: {fileID: 6712747242063208923}
   _throttleMovement: {fileID: 2938359322938058273}
-  _invertMultiplier: 1
+  _invertMultiplier: -1
+  _deadZoneLimit: 0.1
 --- !u!1 &1870926830340139734
 GameObject:
   m_ObjectHideFlags: 0

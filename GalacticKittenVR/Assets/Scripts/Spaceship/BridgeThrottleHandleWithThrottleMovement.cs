@@ -32,7 +32,7 @@ namespace GalacticKittenVR.Spaceship
 
             float throttleValue = (throttleVisualAngle / (float)_throttleTransformer.AngleConstraint) * _invertMultiplier;
 
-            _throttleMovement.SetThrottleValue = Mathf.Abs(throttleValue) > _deadZoneLimit ? throttleValue : 0f;
+            _throttleMovement.ThrottleValue = Mathf.Abs(throttleValue) > _deadZoneLimit ? throttleValue : 0f;
                 
         }
     }

@@ -18,8 +18,8 @@ namespace GalacticKittenVR.Spaceship
         [SerializeField, Tooltip("1 or -1 : to invert the throttle visual angle value")]
         private int _invertMultiplier = 1;
 
-        [SerializeField, Tooltip("If the angle of this visual is less than deadzone limit, consider the value to be 0")]
-        private float _deadZoneLimit = 0.1f;
+        /*[SerializeField, Tooltip("If the angle of this visual is less than deadzone limit, consider the value to be 0")]
+        private float _deadZoneLimit = 0.1f;*/
 
         private void Update()
         {
@@ -30,9 +30,9 @@ namespace GalacticKittenVR.Spaceship
                 throttleVisualAngle = throttleVisualAngle - 360f;
             }
 
-            float throttleValue = (throttleVisualAngle / (float)_throttleTransformer.AngleConstraint) * _invertMultiplier;
+            _throttleMovement.ThrottleValue = (throttleVisualAngle / (float)_throttleTransformer.AngleConstraint) * _invertMultiplier;
 
-            _throttleMovement.ThrottleValue = Mathf.Abs(throttleValue) > _deadZoneLimit ? throttleValue : 0f;
+            // _throttleMovement.ThrottleValue = Mathf.Abs(throttleValue) > _deadZoneLimit ? throttleValue : 0f;
                 
         }
     }

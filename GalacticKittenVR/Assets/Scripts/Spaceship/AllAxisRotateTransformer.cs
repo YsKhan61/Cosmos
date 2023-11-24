@@ -1,4 +1,5 @@
 using Oculus.Interaction;
+using System.Collections;
 using UnityEngine;
 
 
@@ -34,16 +35,24 @@ namespace GalacticKittenVR.Spaceship
         private IGrabbable _grabbable;
         private Vector3 _localAxisToOrient;
 
+        private Quaternion _initialVisualLocalRotation;
+        private Coroutine _resetOrientationRoutine;
+
         public void Initialize(IGrabbable grabbable)
         {
             _grabbable = grabbable;
             _localAxisToOrient = Vector3.zero;
             _localAxisToOrient[(int)_axis] = 1;
+            _initialVisualLocalRotation = _visualTransform.localRotation;
         }
 
         public void BeginTransform()
         {
-            
+            if (_resetOrientationRoutine != null)
+            {
+                StopCoroutine(_resetOrientationRoutine);
+                _resetOrientationRoutine = null;
+            }
         }
 
         public void UpdateTransform()
@@ -75,7 +84,21 @@ namespace GalacticKittenVR.Spaceship
 
         public void EndTransform()
         {
+            _resetOrientationRoutine ??= StartCoroutine(ResetOrientationRoutine());
+        }
 
+        IEnumerator ResetOrientationRoutine()
+        {
+            float time = 0f;
+            float duration = 0.5f;
+            Quaternion startRotation = _visualTransform.localRotation;
+
+            while (time < duration)
+            {
+                time += Time.deltaTime;
+                _visualTransform.rotation = Quaternion.Slerp(startRotation, _initialVisualLocalRotation, time / duration);
+                yield return null;
+            }
         }
     }
 

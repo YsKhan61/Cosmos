@@ -15,7 +15,7 @@ namespace GalacticKittenVR.Spaceship
         private int _invertMultiplier = 1;*/
 
         [SerializeField, Tooltip("If the angle of this visual is less than deadzone limit, consider the value to be 0")]
-        private float _deadZoneLimit = 0.1f;
+        // private float _deadZoneLimit = 0.1f;
 
         private void Update()
         {

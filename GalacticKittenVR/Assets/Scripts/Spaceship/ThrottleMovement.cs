@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.Serialization;
 
 namespace GalacticKittenVR.Spaceship
 {
@@ -17,14 +17,15 @@ namespace GalacticKittenVR.Spaceship
         private float _maxForceToInput = 1000f;
 
         [SerializeField, Tooltip("The max force to allow to the rigidbody")]
-        private float _maxForceAllowed = 1000f;
+        [FormerlySerializedAs("_maxForceAllowed")]
+        private float _maxLinearVelocityAllowed = 1000f;
 
         [SerializeField, Tooltip("Damping factor at 0 force")]
-        private float _damping = 100f;
+        private float _damping = 5f;
 
         private void Start()
         {
-            _rigidbody.maxLinearVelocity = _maxForceAllowed;
+            _rigidbody.maxLinearVelocity = _maxLinearVelocityAllowed;
         }
 
         private void FixedUpdate()

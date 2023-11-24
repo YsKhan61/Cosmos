@@ -50,7 +50,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _controlTransformer: {fileID: 3486199663498377452}
   _controlMovement: {fileID: 4330010369853147401}
-  _deadZoneLimit: 0.1
 --- !u!1 &600638100572950348
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,7 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 7987208988483158782}
   _maxForceToInput: 10
-  _maxForceAllowed: 20
+  _maxLinearVelocityAllowed: 20
   _damping: 5
 --- !u!114 &4330010369853147401
 MonoBehaviour:
@@ -709,7 +708,6 @@ MonoBehaviour:
   _throttleTransformer: {fileID: 6712747242063208923}
   _throttleMovement: {fileID: 2938359322938058273}
   _invertMultiplier: -1
-  _deadZoneLimit: 0.1
 --- !u!1 &1870926830340139734
 GameObject:
   m_ObjectHideFlags: 0
@@ -5849,7 +5847,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8731360125240049958}
-  - component: {fileID: 2450072002735162256}
   m_Layer: 0
   m_Name: HUD
   m_TagString: Untagged
@@ -5873,19 +5870,6 @@ Transform:
   - {fileID: 4554536666515347138}
   m_Father: {fileID: 247866756696307975}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2450072002735162256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2975962633701109518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4255ac75576447fba24a12ad183987b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fighterShip: {fileID: 3792636002925228937}
 --- !u!1 &2989402951680191767
 GameObject:
   m_ObjectHideFlags: 0
@@ -7325,6 +7309,7 @@ GameObject:
   - component: {fileID: 3792636002925228937}
   - component: {fileID: 7373576405499356375}
   - component: {fileID: 2326332269573082660}
+  - component: {fileID: 6461968499425688612}
   m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
@@ -7340,13 +7325,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9220478754352655975}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.14780943, y: -0, z: -0, w: 0.9890159}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4554536666515347138}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -95.39, y: 0, z: 0}
 --- !u!33 &7373576405499356375
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -7397,6 +7382,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6461968499425688612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9220478754352655975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e23025842da1b7145b5af1b7c968d733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spaceShipIndicatorTransform: {fileID: 3792636002925228937}
+  _spaceShipTransform: {fileID: 4324301902731297595}
 --- !u!1001 &4276866818159755289
 PrefabInstance:
   m_ObjectHideFlags: 0

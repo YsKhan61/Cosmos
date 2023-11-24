@@ -23205,7 +23205,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1747081045
 Transform:
   m_ObjectHideFlags: 0
@@ -23240,7 +23240,7 @@ MonoBehaviour:
     m_Bits: 6291456
   stencilRef: 0
   depthClearMat: {fileID: -876546973899608171, guid: 47244556baf24404bb44ad0012dab234, type: 3}
-  scale: 512
+  scale: 1024
 --- !u!1 &1747397241
 GameObject:
   m_ObjectHideFlags: 0

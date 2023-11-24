@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 7987208988483158782}
   - component: {fileID: 2938359322938058273}
   - component: {fileID: 4330010369853147401}
+  - component: {fileID: 7327610187140348830}
   m_Layer: 0
   m_Name: Cockpit
   m_TagString: Untagged
@@ -220,6 +221,21 @@ MonoBehaviour:
   _maxTorqueAllowed: 50
   _rigidbody: {fileID: 7987208988483158782}
   _damping: 10
+--- !u!114 &7327610187140348830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751941554305108126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfe540264a9418a48b01024eb7280846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _checkInterval: 1
+  _boundaryDistance: 1000
+  _huperSpaceTunnelGO: {fileID: 7662943421072143601}
 --- !u!1 &1139229883932890659
 GameObject:
   m_ObjectHideFlags: 0
@@ -7067,6 +7083,7 @@ GameObject:
   - component: {fileID: 7211345203072169289}
   - component: {fileID: 1645343511421406563}
   - component: {fileID: 3562159882130293203}
+  - component: {fileID: 3646515234898522618}
   m_Layer: 0
   m_Name: HyperSpaceTunnel
   m_TagString: Untagged
@@ -7117,7 +7134,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: cb1d4a7d583934fa6954c13b9b95c6cc, type: 3}
+  - {fileID: -876546973899608171, guid: 63426ea461da3214b8007c6f5958908b, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7139,6 +7156,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3646515234898522618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7662943421072143601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 775a1a6d9684c184fafc192c7bbba41a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _secondsToWait: 3
 --- !u!1 &8579854366176872109
 GameObject:
   m_ObjectHideFlags: 0

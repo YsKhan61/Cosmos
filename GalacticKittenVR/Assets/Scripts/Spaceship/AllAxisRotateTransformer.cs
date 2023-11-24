@@ -43,7 +43,7 @@ namespace GalacticKittenVR.Spaceship
             _grabbable = grabbable;
             _localAxisToOrient = Vector3.zero;
             _localAxisToOrient[(int)_axis] = 1;
-            _initialVisualLocalRotation = _visualTransform.localRotation;
+            _initialVisualLocalRotation = Quaternion.Inverse(_pivotTransform.rotation) * _visualTransform.rotation;
         }
 
         public void BeginTransform()
@@ -91,12 +91,15 @@ namespace GalacticKittenVR.Spaceship
         {
             float time = 0f;
             float duration = 0.5f;
-            Quaternion startRotation = _visualTransform.localRotation;
 
             while (time < duration)
             {
                 time += Time.deltaTime;
-                _visualTransform.rotation = Quaternion.Slerp(startRotation, _initialVisualLocalRotation, time / duration);
+                Quaternion startLocalRotation = Quaternion.Inverse(_pivotTransform.rotation) * _visualTransform.rotation;
+
+                _visualTransform.rotation =
+                    _pivotTransform.rotation * Quaternion.Slerp(startLocalRotation, _initialVisualLocalRotation, time / duration);
+
                 yield return null;
             }
         }

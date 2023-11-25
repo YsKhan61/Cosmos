@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace GalacticKittenVR.Spaceship
+namespace Cosmos.Spaceship
 {
     /// <summary>
     /// The movement caused by the control handle

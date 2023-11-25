@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 
-namespace GalacticKittenVR.Spaceship
+namespace Cosmos.Spaceship
 {
     public class BoundaryRestriction : MonoBehaviour
     {

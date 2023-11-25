@@ -1,12 +1,13 @@
+using Cosmos.SpaceShip;
 using UnityEngine;
 
 
-namespace GalacticKittenVR.Spaceship
+namespace Cosmos.Spaceship
 {
     public class BridgeControlHandleWithControlMovement : MonoBehaviour
     {
         [SerializeField] 
-        private AllAxisRotateTransformer _controlTransformer = null;
+        private IControlHandle _controlTransformer = null;
 
         [SerializeField]
         private ControlMovement _controlMovement = null;
@@ -21,11 +22,6 @@ namespace GalacticKittenVR.Spaceship
         {
             Vector3 v = _controlTransformer.PivotTransform.InverseTransformDirection(transform.up);
 
-            /*float angleBetweenVectorFromPivotTransformToTransformUpInWorldSpaceAndPivotTransformUp = 
-                Vector3.Angle(
-                    vectorFromPivotTransformToTransformUpInWorldSpace, 
-                    projectedVectorOfTransformUpOnPlaneWithNormalPivotTransformUp);*/
-
             _controlMovement.TorqueDirection =
                 new Vector3(
                     v.x, 
@@ -33,12 +29,6 @@ namespace GalacticKittenVR.Spaceship
                     v.z).normalized;
 
             _controlMovement.TorqueMultiplier = 1f;
-
-            /*_controlMovement.TorqueMultiplier = 
-                Mathf.Lerp(
-                    0f, 
-                    1f, 
-                    angleBetweenVectorFromPivotTransformToTransformUpInWorldSpaceAndPivotTransformUp / _controlTransformer.AngleConstraint);*/
         }
     }
 

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace GalacticKittenVR
+namespace Cosmos
 {
     public interface ISpawnable
     {

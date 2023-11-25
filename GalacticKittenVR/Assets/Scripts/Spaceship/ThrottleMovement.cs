@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace GalacticKittenVR.Spaceship
+namespace Cosmos.Spaceship
 {
     /// <summary>
     /// The movement caused by the throttle handle

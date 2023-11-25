@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-namespace GalacticKittenVR
+namespace Cosmos
 {
     /// <summary>
     /// GameObjects that are spawned and despawned are pooled

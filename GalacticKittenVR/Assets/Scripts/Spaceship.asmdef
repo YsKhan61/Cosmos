@@ -1,9 +1,10 @@
 {
-    "name": "GalacticKittenVR",
+    "name": "Spaceship",
     "rootNamespace": "",
     "references": [
         "GUID:3b8ed52f1b5c64994af4c4e0aa4b6c4b",
         "GUID:2a230cb87a1d3ba4a98bdc0ddae76e6c",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
         "GUID:f51ebe6a0ceec4240a699833d6309b23",
         "GUID:1491147abca9d7d4bb7105af628b223e"
     ],

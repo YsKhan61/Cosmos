@@ -1,8 +1,8 @@
-using GalacticKittenVR.Spaceship;
+using Cosmos.Spaceship;
 using UnityEngine;
 
 
-namespace GalacticKittenVR
+namespace Cosmos
 {
     /// <summary>
     /// Use this class for injecting references to other classes and scriptable objects

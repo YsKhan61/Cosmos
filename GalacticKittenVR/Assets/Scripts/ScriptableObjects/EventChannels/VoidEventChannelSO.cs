@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GalacticKittenVR.ScriptableObjects.EventChannels
+namespace Cosmos.ScriptableObjects.EventChannels
 {
     public class VoidEventChannelSO : ScriptableObject
     {

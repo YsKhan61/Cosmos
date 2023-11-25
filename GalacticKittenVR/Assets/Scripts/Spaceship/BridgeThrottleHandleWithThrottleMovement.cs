@@ -1,7 +1,8 @@
+using Cosmos.SpaceShip;
 using UnityEngine;
 
 
-namespace GalacticKittenVR.Spaceship
+namespace Cosmos.Spaceship
 {
     /// <summary>
     /// This class is used to connect the throttle handle with the throttle movement
@@ -10,7 +11,7 @@ namespace GalacticKittenVR.Spaceship
     public class BridgeThrottleHandleWithThrottleMovement : MonoBehaviour
     {
         [SerializeField] 
-        private OneAxisRotateTransformer _throttleTransformer = null;
+        private IThrottleHandle _throttleHandle = null;
 
         [SerializeField]
         private ThrottleMovement _throttleMovement = null;
@@ -30,7 +31,7 @@ namespace GalacticKittenVR.Spaceship
                 throttleVisualAngle = throttleVisualAngle - 360f;
             }
 
-            _throttleMovement.ThrottleValue = (throttleVisualAngle / (float)_throttleTransformer.AngleConstraint) * _invertMultiplier;
+            _throttleMovement.ThrottleValue = (throttleVisualAngle / (float)_throttleHandle.AngleConstraint) * _invertMultiplier;
 
             // _throttleMovement.ThrottleValue = Mathf.Abs(throttleValue) > _deadZoneLimit ? throttleValue : 0f;
                 

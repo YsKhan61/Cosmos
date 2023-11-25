@@ -17,18 +17,4 @@ public class CockpitHUD : MonoBehaviour
     {
         fighterShip.forward = Vector3.forward;
     }
-
-    // Use UniTask to run the update loop in a thread
-    // void Start()
-    // {
-    //     UniTask.Run(() =>
-    //     {
-    //         while (true)
-    //         {
-    //             fighterShip.forward = Vector3.forward;
-    //         }
-    //     });
-    // }
-
-
 }

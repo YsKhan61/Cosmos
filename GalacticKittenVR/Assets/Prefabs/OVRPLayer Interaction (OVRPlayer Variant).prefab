@@ -52,10 +52,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: HandGrabInteractor L
       objectReference: {fileID: 0}
+    - target: {fileID: 7351779112159494444, guid: 885ecae56b16f13428a67de5ae482a72, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 8646129326984794350, guid: 885ecae56b16f13428a67de5ae482a72, type: 3}
       propertyPath: _hand
       value: 
       objectReference: {fileID: 6888330376471263104}
+    - target: {fileID: 8924745499081199448, guid: 885ecae56b16f13428a67de5ae482a72, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -115,11 +123,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4828100765365187000, guid: 4fe7344dfb01d734084f9e41b714aa00, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.3
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 4828100765365187000, guid: 4fe7344dfb01d734084f9e41b714aa00, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.45
+      value: 0.29999998
       objectReference: {fileID: 0}
     - target: {fileID: 4828100765365187000, guid: 4fe7344dfb01d734084f9e41b714aa00, type: 3}
       propertyPath: m_LocalRotation.w
@@ -127,15 +135,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4828100765365187000, guid: 4fe7344dfb01d734084f9e41b714aa00, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4828100765365187000, guid: 4fe7344dfb01d734084f9e41b714aa00, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4828100765365187000, guid: 4fe7344dfb01d734084f9e41b714aa00, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4828100765365187000, guid: 4fe7344dfb01d734084f9e41b714aa00, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -206,7 +214,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2479950689051476939, guid: 4fe7344dfb01d734084f9e41b714aa00, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8849014951961266479}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7921948898814439333, guid: 4fe7344dfb01d734084f9e41b714aa00, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4768956340044227155}
   m_SourcePrefab: {fileID: 100100000, guid: 4fe7344dfb01d734084f9e41b714aa00, type: 3}
 --- !u!4 &1296515960653156707 stripped
 Transform:
@@ -271,6 +282,55 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8781536781119106363, guid: 4fe7344dfb01d734084f9e41b714aa00, type: 3}
   m_PrefabInstance: {fileID: 3928542353514746198}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6590058154446520051 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7921948898814439333, guid: 4fe7344dfb01d734084f9e41b714aa00, type: 3}
+  m_PrefabInstance: {fileID: 3928542353514746198}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4768956340044227155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6590058154446520051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    quality: 3
+    frameInfluence: 0.1
+    jitterScale: 1
+    mipBias: 0
+    varianceClampScale: 0.9
+    contrastAdaptiveSharpening: 0
 --- !u!114 &6888330376471263104 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7574139296568370902, guid: 4fe7344dfb01d734084f9e41b714aa00, type: 3}
@@ -433,10 +493,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: HandGrabInteractor R
       objectReference: {fileID: 0}
+    - target: {fileID: 7351779112159494444, guid: 885ecae56b16f13428a67de5ae482a72, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 8646129326984794350, guid: 885ecae56b16f13428a67de5ae482a72, type: 3}
       propertyPath: _hand
       value: 
       objectReference: {fileID: 1508268783925909230}
+    - target: {fileID: 8924745499081199448, guid: 885ecae56b16f13428a67de5ae482a72, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -510,10 +578,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: HandGrabInteractor R
       objectReference: {fileID: 0}
+    - target: {fileID: 7351779112159494444, guid: 885ecae56b16f13428a67de5ae482a72, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 8646129326984794350, guid: 885ecae56b16f13428a67de5ae482a72, type: 3}
       propertyPath: _hand
       value: 
       objectReference: {fileID: 7119644180869343545}
+    - target: {fileID: 8924745499081199448, guid: 885ecae56b16f13428a67de5ae482a72, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -664,10 +740,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: HandGrabInteractor L
       objectReference: {fileID: 0}
+    - target: {fileID: 7351779112159494444, guid: 885ecae56b16f13428a67de5ae482a72, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 8646129326984794350, guid: 885ecae56b16f13428a67de5ae482a72, type: 3}
       propertyPath: _hand
       value: 
       objectReference: {fileID: 1508268784664452951}
+    - target: {fileID: 8924745499081199448, guid: 885ecae56b16f13428a67de5ae482a72, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

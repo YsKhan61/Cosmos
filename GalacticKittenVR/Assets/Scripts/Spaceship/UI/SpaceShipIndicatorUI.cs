@@ -3,7 +3,7 @@ using System.Threading;
 using UnityEngine;
 
 
-namespace GalacticKittenVR.Spaceship.UI
+namespace Cosmos.Spaceship.UI
 {
     [ExecuteAlways]
     public class SpaceShipIndicatorUI : MonoBehaviour

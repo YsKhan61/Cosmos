@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 
-namespace GalacticKittenVR
+namespace Cosmos
 {
     public class DeactivateAfterSeconds : MonoBehaviour
     {

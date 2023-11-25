@@ -1,0 +1,91 @@
+{
+    "name": "GalacticKittenInputControls",
+    "maps": [
+        {
+            "name": "SpaceshipActionMap",
+            "id": "bd426e1b-4202-4750-aafa-58451e184342",
+            "actions": [
+                {
+                    "name": "ThrottleForward",
+                    "type": "Button",
+                    "id": "49a24af5-b5f5-46c5-99b7-fd32082fc77c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ThrottleBackward",
+                    "type": "Button",
+                    "id": "8201062c-517b-4982-bcf2-70f3c7fcffe4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ControlHandle",
+                    "type": "Value",
+                    "id": "7af1ba11-ec51-49a2-a2e6-02a5bde3b841",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "89557b55-0d6c-48a7-a2b2-19e13bdf8032",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "MnK Control Schema",
+                    "action": "ThrottleForward",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "97b37590-17fd-4789-8357-9cfb45b95fd0",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "MnK Control Schema",
+                    "action": "ThrottleBackward",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4003ecab-b03a-4fde-8e00-7097bba09a0d",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "MnK Control Schema",
+                    "action": "ControlHandle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "MnK Control Schema",
+            "bindingGroup": "MnK Control Schema",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}

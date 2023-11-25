@@ -1,2 +1,2 @@
-# GalacticKittenVR
-A replica of GalacticKitten open project of UnityTechnologies
+# Cosmos
+Roam the cosmos and discover it's beauty

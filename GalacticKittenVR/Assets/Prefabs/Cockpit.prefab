@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2120e99cef8a0484893baf07a6bab623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controlTransformer: {fileID: 3486199663498377452}
+  _controlTransformerO: {fileID: 0}
   _controlMovement: {fileID: 4330010369853147401}
 --- !u!1 &600638100572950348
 GameObject:
@@ -704,7 +704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6216e67278e528f44a6f04f5370c7483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _throttleTransformer: {fileID: 0}
+  _throttleHandleO: {fileID: 0}
   _throttleMovement: {fileID: 2938359322938058273}
   _invertMultiplier: -1
 --- !u!1 &1732718382661118816
@@ -838,7 +838,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6216e67278e528f44a6f04f5370c7483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _throttleTransformer: {fileID: 6712747242063208923}
+  _throttleHandleO: {fileID: 0}
   _throttleMovement: {fileID: 2938359322938058273}
   _invertMultiplier: -1
 --- !u!1 &1870926830340139734
@@ -5835,7 +5835,6 @@ GameObject:
   - component: {fileID: 1235987389789810948}
   - component: {fileID: 1805345206592253476}
   - component: {fileID: 5389369091205485022}
-  - component: {fileID: 6712747242063208923}
   m_Layer: 0
   m_Name: ThrottleHandle
   m_TagString: Untagged
@@ -5903,27 +5902,10 @@ MonoBehaviour:
   _transferOnSecondSelection: 0
   _addNewPointsToFront: 0
   _forwardElement: {fileID: 0}
-  _oneGrabTransformer: {fileID: 6712747242063208923}
+  _oneGrabTransformer: {fileID: 0}
   _twoGrabTransformer: {fileID: 0}
   _targetTransform: {fileID: 0}
   _maxGrabPoints: -1
---- !u!114 &6712747242063208923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2420192660918756697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c87765e10b538d4a996e2264ea9b556, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pivotTransform: {fileID: 1235987389789810948}
-  _visualTransform: {fileID: 7887243168007418133}
-  _axisOfRotation: 2
-  _axisToOrient: 1
-  _angleConstraint: 10
 --- !u!1 &2753325549944698389
 GameObject:
   m_ObjectHideFlags: 0
@@ -6899,7 +6881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2120e99cef8a0484893baf07a6bab623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controlTransformer: {fileID: 0}
+  _controlTransformerO: {fileID: 0}
   _controlMovement: {fileID: 4330010369853147401}
 --- !u!1 &5689014958412775820
 GameObject:
@@ -7556,7 +7538,6 @@ GameObject:
   - component: {fileID: 6230202199778948516}
   - component: {fileID: 4499151625551791848}
   - component: {fileID: 6510579382925734085}
-  - component: {fileID: 3486199663498377452}
   m_Layer: 0
   m_Name: ControlHandle
   m_TagString: Untagged
@@ -7624,26 +7605,10 @@ MonoBehaviour:
   _transferOnSecondSelection: 0
   _addNewPointsToFront: 0
   _forwardElement: {fileID: 0}
-  _oneGrabTransformer: {fileID: 3486199663498377452}
+  _oneGrabTransformer: {fileID: 0}
   _twoGrabTransformer: {fileID: 0}
   _targetTransform: {fileID: 0}
   _maxGrabPoints: -1
---- !u!114 &3486199663498377452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7365317072159943165}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9d8f99546d282b49b13cd85d96ff306, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pivotTransform: {fileID: 6230202199778948516}
-  _visualTransform: {fileID: 7674291551681985746}
-  _axis: 1
-  _angleConstraint: 10
 --- !u!1 &7662943421072143601
 GameObject:
   m_ObjectHideFlags: 0

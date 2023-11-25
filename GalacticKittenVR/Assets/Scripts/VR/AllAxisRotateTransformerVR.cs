@@ -27,7 +27,7 @@ namespace Cosmos.VR
         private Transform _visualTransform;
 
         [SerializeField, Tooltip("The axis of the visual transform that need to be oriented to the grabber")]
-        private Axis _axis = Axis.Up;
+        private Axis _axisOfVisualTransformToOrient = Axis.Up;
 
         [SerializeField, Tooltip("The max angle between visual transform's axis of orientation and pivot transform's Y axis")] 
         private int _angleConstraint = 10;
@@ -43,7 +43,7 @@ namespace Cosmos.VR
         {
             _grabbable = grabbable;
             _localAxisToOrient = Vector3.zero;
-            _localAxisToOrient[(int)_axis] = 1;
+            _localAxisToOrient[(int)_axisOfVisualTransformToOrient] = 1;
             _initialVisualLocalRotation = Quaternion.Inverse(_pivotTransform.rotation) * _visualTransform.rotation;
         }
 

@@ -37,7 +37,7 @@ namespace Cosmos.VR
         public float AngleConstraint => _angleConstraint;
 
         private IGrabbable _grabbable;
-        private Vector3 _localAxisOfRotationOfPivotTransform;
+        private Vector3 _axisOfRotationOfVisualTransformInLocalSpace;
         private Vector3 _localAxisOfVisualTransformToOrient;
 
         private Quaternion _initialVisualLocalRotation;
@@ -46,8 +46,8 @@ namespace Cosmos.VR
         public void Initialize(IGrabbable grabbable)
         {
             _grabbable = grabbable;
-            _localAxisOfRotationOfPivotTransform = Vector3.zero;
-            _localAxisOfRotationOfPivotTransform[(int)_axisOfRotation] = 1;
+            _axisOfRotationOfVisualTransformInLocalSpace = Vector3.zero;
+            _axisOfRotationOfVisualTransformInLocalSpace[(int)_axisOfRotation] = 1;
             _localAxisOfVisualTransformToOrient = Vector3.zero;
             _localAxisOfVisualTransformToOrient[(int)_axisToOrient] = 1;
             _initialVisualLocalRotation = Quaternion.Inverse(_pivotTransform.rotation) * _visualTransform.rotation;
@@ -67,7 +67,7 @@ namespace Cosmos.VR
             Vector3 vectorFromPivotToGrabberInWorldSpace =
                 _grabbable.GrabPoints[0].position - _pivotTransform.position;
 
-            Vector3 axisOfRotation = _pivotTransform.TransformDirection(_localAxisOfRotationOfPivotTransform);
+            Vector3 axisOfRotation = _pivotTransform.TransformDirection(_axisOfRotationOfVisualTransformInLocalSpace);
             Vector3 axisToOrient = _visualTransform.TransformDirection(_localAxisOfVisualTransformToOrient);
 
             Vector3 projectedVectorFromPivotToGrabberInWorldSpaceAlongPlaneWithNormalOfAxisToOrient =

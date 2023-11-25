@@ -1,4 +1,5 @@
 using Cosmos.SpaceShip;
+using Oculus.Interaction;
 using UnityEngine;
 
 
@@ -10,8 +11,8 @@ namespace Cosmos.Spaceship
     /// </summary>
     public class BridgeThrottleHandleWithThrottleMovement : MonoBehaviour
     {
-        [SerializeField] 
-        private IThrottleHandle _throttleHandle = null;
+        [SerializeField, Interface(typeof(IThrottleHandle))] 
+        private Object _throttleHandleO = null;
 
         [SerializeField]
         private ThrottleMovement _throttleMovement = null;
@@ -21,6 +22,19 @@ namespace Cosmos.Spaceship
 
         /*[SerializeField, Tooltip("If the angle of this visual is less than deadzone limit, consider the value to be 0")]
         private float _deadZoneLimit = 0.1f;*/
+
+        private IThrottleHandle _throttleHandle = null;
+
+        private void Start()
+        {
+            if (_throttleHandleO == null)
+            {
+                Debug.LogError("Throttle Handle is not set");
+                enabled = false;
+                return;
+            }
+            _throttleHandle = _throttleHandleO as IThrottleHandle;
+        }
 
         private void Update()
         {

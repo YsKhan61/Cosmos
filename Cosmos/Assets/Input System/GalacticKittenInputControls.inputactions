@@ -6,7 +6,7 @@
             "id": "bd426e1b-4202-4750-aafa-58451e184342",
             "actions": [
                 {
-                    "name": "ThrottleForward",
+                    "name": "ThrottleForwardAction",
                     "type": "Button",
                     "id": "49a24af5-b5f5-46c5-99b7-fd32082fc77c",
                     "expectedControlType": "Button",
@@ -15,7 +15,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ThrottleBackward",
+                    "name": "ThrottleBackwardAction",
                     "type": "Button",
                     "id": "8201062c-517b-4982-bcf2-70f3c7fcffe4",
                     "expectedControlType": "Button",
@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ControlHandle",
+                    "name": "ControlHandleAction",
                     "type": "Value",
                     "id": "7af1ba11-ec51-49a2-a2e6-02a5bde3b841",
                     "expectedControlType": "Vector2",
@@ -41,7 +41,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "MnK Control Schema",
-                    "action": "ThrottleForward",
+                    "action": "ThrottleForwardAction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -52,7 +52,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "MnK Control Schema",
-                    "action": "ThrottleBackward",
+                    "action": "ThrottleBackwardAction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -63,7 +63,55 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "MnK Control Schema",
-                    "action": "ControlHandle",
+                    "action": "ControlHandleAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "PlayerActionMap",
+            "id": "12c47ecc-3499-40fa-8d7e-2d5b316ac0f0",
+            "actions": [
+                {
+                    "name": "HorizontalLookAction",
+                    "type": "Value",
+                    "id": "eb4cf211-743d-496c-acd5-d62dc1c5b821",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "VerticalLookAction",
+                    "type": "Value",
+                    "id": "e5cbd2d0-3928-4b0a-ab26-526b85809dec",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "498c0f11-892d-469c-b6b4-0255a5f0a786",
+                    "path": "<Mouse>/delta/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "MnK Control Schema",
+                    "action": "HorizontalLookAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8e8d6013-be92-4dd6-91c3-7ceb51658085",
+                    "path": "<Mouse>/delta/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "MnK Control Schema",
+                    "action": "VerticalLookAction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

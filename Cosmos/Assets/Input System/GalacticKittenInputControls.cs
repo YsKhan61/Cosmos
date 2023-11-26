@@ -28,7 +28,7 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
             ""id"": ""bd426e1b-4202-4750-aafa-58451e184342"",
             ""actions"": [
                 {
-                    ""name"": ""ThrottleForward"",
+                    ""name"": ""ThrottleForwardAction"",
                     ""type"": ""Button"",
                     ""id"": ""49a24af5-b5f5-46c5-99b7-fd32082fc77c"",
                     ""expectedControlType"": ""Button"",
@@ -37,7 +37,7 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ThrottleBackward"",
+                    ""name"": ""ThrottleBackwardAction"",
                     ""type"": ""Button"",
                     ""id"": ""8201062c-517b-4982-bcf2-70f3c7fcffe4"",
                     ""expectedControlType"": ""Button"",
@@ -46,7 +46,7 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ControlHandle"",
+                    ""name"": ""ControlHandleAction"",
                     ""type"": ""Value"",
                     ""id"": ""7af1ba11-ec51-49a2-a2e6-02a5bde3b841"",
                     ""expectedControlType"": ""Vector2"",
@@ -63,7 +63,7 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""MnK Control Schema"",
-                    ""action"": ""ThrottleForward"",
+                    ""action"": ""ThrottleForwardAction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -74,7 +74,7 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""MnK Control Schema"",
-                    ""action"": ""ThrottleBackward"",
+                    ""action"": ""ThrottleBackwardAction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -85,7 +85,55 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""MnK Control Schema"",
-                    ""action"": ""ControlHandle"",
+                    ""action"": ""ControlHandleAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""PlayerActionMap"",
+            ""id"": ""12c47ecc-3499-40fa-8d7e-2d5b316ac0f0"",
+            ""actions"": [
+                {
+                    ""name"": ""HorizontalLookAction"",
+                    ""type"": ""Value"",
+                    ""id"": ""eb4cf211-743d-496c-acd5-d62dc1c5b821"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""VerticalLookAction"",
+                    ""type"": ""Value"",
+                    ""id"": ""e5cbd2d0-3928-4b0a-ab26-526b85809dec"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""498c0f11-892d-469c-b6b4-0255a5f0a786"",
+                    ""path"": ""<Mouse>/delta/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MnK Control Schema"",
+                    ""action"": ""HorizontalLookAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8e8d6013-be92-4dd6-91c3-7ceb51658085"",
+                    ""path"": ""<Mouse>/delta/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MnK Control Schema"",
+                    ""action"": ""VerticalLookAction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -113,9 +161,13 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
 }");
         // SpaceshipActionMap
         m_SpaceshipActionMap = asset.FindActionMap("SpaceshipActionMap", throwIfNotFound: true);
-        m_SpaceshipActionMap_ThrottleForward = m_SpaceshipActionMap.FindAction("ThrottleForward", throwIfNotFound: true);
-        m_SpaceshipActionMap_ThrottleBackward = m_SpaceshipActionMap.FindAction("ThrottleBackward", throwIfNotFound: true);
-        m_SpaceshipActionMap_ControlHandle = m_SpaceshipActionMap.FindAction("ControlHandle", throwIfNotFound: true);
+        m_SpaceshipActionMap_ThrottleForwardAction = m_SpaceshipActionMap.FindAction("ThrottleForwardAction", throwIfNotFound: true);
+        m_SpaceshipActionMap_ThrottleBackwardAction = m_SpaceshipActionMap.FindAction("ThrottleBackwardAction", throwIfNotFound: true);
+        m_SpaceshipActionMap_ControlHandleAction = m_SpaceshipActionMap.FindAction("ControlHandleAction", throwIfNotFound: true);
+        // PlayerActionMap
+        m_PlayerActionMap = asset.FindActionMap("PlayerActionMap", throwIfNotFound: true);
+        m_PlayerActionMap_HorizontalLookAction = m_PlayerActionMap.FindAction("HorizontalLookAction", throwIfNotFound: true);
+        m_PlayerActionMap_VerticalLookAction = m_PlayerActionMap.FindAction("VerticalLookAction", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -177,16 +229,16 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
     // SpaceshipActionMap
     private readonly InputActionMap m_SpaceshipActionMap;
     private List<ISpaceshipActionMapActions> m_SpaceshipActionMapActionsCallbackInterfaces = new List<ISpaceshipActionMapActions>();
-    private readonly InputAction m_SpaceshipActionMap_ThrottleForward;
-    private readonly InputAction m_SpaceshipActionMap_ThrottleBackward;
-    private readonly InputAction m_SpaceshipActionMap_ControlHandle;
+    private readonly InputAction m_SpaceshipActionMap_ThrottleForwardAction;
+    private readonly InputAction m_SpaceshipActionMap_ThrottleBackwardAction;
+    private readonly InputAction m_SpaceshipActionMap_ControlHandleAction;
     public struct SpaceshipActionMapActions
     {
         private @GalacticKittenInputControls m_Wrapper;
         public SpaceshipActionMapActions(@GalacticKittenInputControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @ThrottleForward => m_Wrapper.m_SpaceshipActionMap_ThrottleForward;
-        public InputAction @ThrottleBackward => m_Wrapper.m_SpaceshipActionMap_ThrottleBackward;
-        public InputAction @ControlHandle => m_Wrapper.m_SpaceshipActionMap_ControlHandle;
+        public InputAction @ThrottleForwardAction => m_Wrapper.m_SpaceshipActionMap_ThrottleForwardAction;
+        public InputAction @ThrottleBackwardAction => m_Wrapper.m_SpaceshipActionMap_ThrottleBackwardAction;
+        public InputAction @ControlHandleAction => m_Wrapper.m_SpaceshipActionMap_ControlHandleAction;
         public InputActionMap Get() { return m_Wrapper.m_SpaceshipActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -196,28 +248,28 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
         {
             if (instance == null || m_Wrapper.m_SpaceshipActionMapActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_SpaceshipActionMapActionsCallbackInterfaces.Add(instance);
-            @ThrottleForward.started += instance.OnThrottleForward;
-            @ThrottleForward.performed += instance.OnThrottleForward;
-            @ThrottleForward.canceled += instance.OnThrottleForward;
-            @ThrottleBackward.started += instance.OnThrottleBackward;
-            @ThrottleBackward.performed += instance.OnThrottleBackward;
-            @ThrottleBackward.canceled += instance.OnThrottleBackward;
-            @ControlHandle.started += instance.OnControlHandle;
-            @ControlHandle.performed += instance.OnControlHandle;
-            @ControlHandle.canceled += instance.OnControlHandle;
+            @ThrottleForwardAction.started += instance.OnThrottleForwardAction;
+            @ThrottleForwardAction.performed += instance.OnThrottleForwardAction;
+            @ThrottleForwardAction.canceled += instance.OnThrottleForwardAction;
+            @ThrottleBackwardAction.started += instance.OnThrottleBackwardAction;
+            @ThrottleBackwardAction.performed += instance.OnThrottleBackwardAction;
+            @ThrottleBackwardAction.canceled += instance.OnThrottleBackwardAction;
+            @ControlHandleAction.started += instance.OnControlHandleAction;
+            @ControlHandleAction.performed += instance.OnControlHandleAction;
+            @ControlHandleAction.canceled += instance.OnControlHandleAction;
         }
 
         private void UnregisterCallbacks(ISpaceshipActionMapActions instance)
         {
-            @ThrottleForward.started -= instance.OnThrottleForward;
-            @ThrottleForward.performed -= instance.OnThrottleForward;
-            @ThrottleForward.canceled -= instance.OnThrottleForward;
-            @ThrottleBackward.started -= instance.OnThrottleBackward;
-            @ThrottleBackward.performed -= instance.OnThrottleBackward;
-            @ThrottleBackward.canceled -= instance.OnThrottleBackward;
-            @ControlHandle.started -= instance.OnControlHandle;
-            @ControlHandle.performed -= instance.OnControlHandle;
-            @ControlHandle.canceled -= instance.OnControlHandle;
+            @ThrottleForwardAction.started -= instance.OnThrottleForwardAction;
+            @ThrottleForwardAction.performed -= instance.OnThrottleForwardAction;
+            @ThrottleForwardAction.canceled -= instance.OnThrottleForwardAction;
+            @ThrottleBackwardAction.started -= instance.OnThrottleBackwardAction;
+            @ThrottleBackwardAction.performed -= instance.OnThrottleBackwardAction;
+            @ThrottleBackwardAction.canceled -= instance.OnThrottleBackwardAction;
+            @ControlHandleAction.started -= instance.OnControlHandleAction;
+            @ControlHandleAction.performed -= instance.OnControlHandleAction;
+            @ControlHandleAction.canceled -= instance.OnControlHandleAction;
         }
 
         public void RemoveCallbacks(ISpaceshipActionMapActions instance)
@@ -235,6 +287,60 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
         }
     }
     public SpaceshipActionMapActions @SpaceshipActionMap => new SpaceshipActionMapActions(this);
+
+    // PlayerActionMap
+    private readonly InputActionMap m_PlayerActionMap;
+    private List<IPlayerActionMapActions> m_PlayerActionMapActionsCallbackInterfaces = new List<IPlayerActionMapActions>();
+    private readonly InputAction m_PlayerActionMap_HorizontalLookAction;
+    private readonly InputAction m_PlayerActionMap_VerticalLookAction;
+    public struct PlayerActionMapActions
+    {
+        private @GalacticKittenInputControls m_Wrapper;
+        public PlayerActionMapActions(@GalacticKittenInputControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @HorizontalLookAction => m_Wrapper.m_PlayerActionMap_HorizontalLookAction;
+        public InputAction @VerticalLookAction => m_Wrapper.m_PlayerActionMap_VerticalLookAction;
+        public InputActionMap Get() { return m_Wrapper.m_PlayerActionMap; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(PlayerActionMapActions set) { return set.Get(); }
+        public void AddCallbacks(IPlayerActionMapActions instance)
+        {
+            if (instance == null || m_Wrapper.m_PlayerActionMapActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_PlayerActionMapActionsCallbackInterfaces.Add(instance);
+            @HorizontalLookAction.started += instance.OnHorizontalLookAction;
+            @HorizontalLookAction.performed += instance.OnHorizontalLookAction;
+            @HorizontalLookAction.canceled += instance.OnHorizontalLookAction;
+            @VerticalLookAction.started += instance.OnVerticalLookAction;
+            @VerticalLookAction.performed += instance.OnVerticalLookAction;
+            @VerticalLookAction.canceled += instance.OnVerticalLookAction;
+        }
+
+        private void UnregisterCallbacks(IPlayerActionMapActions instance)
+        {
+            @HorizontalLookAction.started -= instance.OnHorizontalLookAction;
+            @HorizontalLookAction.performed -= instance.OnHorizontalLookAction;
+            @HorizontalLookAction.canceled -= instance.OnHorizontalLookAction;
+            @VerticalLookAction.started -= instance.OnVerticalLookAction;
+            @VerticalLookAction.performed -= instance.OnVerticalLookAction;
+            @VerticalLookAction.canceled -= instance.OnVerticalLookAction;
+        }
+
+        public void RemoveCallbacks(IPlayerActionMapActions instance)
+        {
+            if (m_Wrapper.m_PlayerActionMapActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IPlayerActionMapActions instance)
+        {
+            foreach (var item in m_Wrapper.m_PlayerActionMapActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_PlayerActionMapActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public PlayerActionMapActions @PlayerActionMap => new PlayerActionMapActions(this);
     private int m_MnKControlSchemaSchemeIndex = -1;
     public InputControlScheme MnKControlSchemaScheme
     {
@@ -246,8 +352,13 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
     }
     public interface ISpaceshipActionMapActions
     {
-        void OnThrottleForward(InputAction.CallbackContext context);
-        void OnThrottleBackward(InputAction.CallbackContext context);
-        void OnControlHandle(InputAction.CallbackContext context);
+        void OnThrottleForwardAction(InputAction.CallbackContext context);
+        void OnThrottleBackwardAction(InputAction.CallbackContext context);
+        void OnControlHandleAction(InputAction.CallbackContext context);
+    }
+    public interface IPlayerActionMapActions
+    {
+        void OnHorizontalLookAction(InputAction.CallbackContext context);
+        void OnVerticalLookAction(InputAction.CallbackContext context);
     }
 }

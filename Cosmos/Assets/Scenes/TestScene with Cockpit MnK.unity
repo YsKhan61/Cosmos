@@ -175,6 +175,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CockpitMnK Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7276246017210970990, guid: ec1775cb934498842b5a337d99404552, type: 3}
+      propertyPath: _sensitivity
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -15,12 +15,11 @@ namespace Cosmos.MnK
         [SerializeField, Tooltip("Invert Y Axis : 1 / -1")]
         private int _invertY = -1;
 
-        private float _relativeAngleY = 0f;
+        private float _relativeAngleY;
+        private float _relativeAngleX;
 
-        private Quaternion _horizontalRotation;
-        private Quaternion _verticalRotation;
-        private float _deltaY;
         private float _deltaTimeSensitivity;
+        private float _xInput, _yInput;
 
         private void OnEnable()
         {
@@ -30,7 +29,10 @@ namespace Cosmos.MnK
 
         private void Start()
         {
-            
+            transform.rotation = _pivotTransform.rotation;
+
+            _xInput = 0f;
+            _yInput = 0f;
         }
 
         private void OnDisable()
@@ -46,29 +48,17 @@ namespace Cosmos.MnK
 
         private void UpdateCameraRotation()
         {
-            float xInput = _horizontalLookInputActionReference.action.ReadValue<float>();
-            float yInput = _verticalLookInputActionReference.action.ReadValue<float>();
-
-            Debug.Log($"xInput : {xInput} , yInput : {yInput}");
-
             _deltaTimeSensitivity = _sensitivity * Time.deltaTime;
-            _deltaY = yInput * _deltaTimeSensitivity * _invertY;
-            _relativeAngleY += _deltaY;
+            _xInput = _horizontalLookInputActionReference.action.ReadValue<float>() * _deltaTimeSensitivity;
+            _yInput = _verticalLookInputActionReference.action.ReadValue<float>() * _deltaTimeSensitivity * _invertY;
 
-            if (_relativeAngleY > -90f && _relativeAngleY < 90f)
-            {
-                _verticalRotation = Quaternion.AngleAxis(_deltaY, _pivotTransform.right);
-            }
-            else
-            {
-                _relativeAngleY -= _deltaY;
-                _verticalRotation = Quaternion.identity;
-            }
+            _relativeAngleX += _xInput;
+            _relativeAngleY = Mathf.Clamp(_relativeAngleY + _yInput, -90f, 90f);
 
-            _horizontalRotation = Quaternion.AngleAxis(xInput * _deltaTimeSensitivity, _pivotTransform.up);
+            Vector3 localEulerAngles = new Vector3(_relativeAngleY, _relativeAngleX, 0f);
 
-            transform.rotation = _horizontalRotation * _verticalRotation * transform.rotation;
-        }        
+            transform.rotation = _pivotTransform.rotation * Quaternion.Euler(localEulerAngles);
+        }
     }
 }
 

@@ -153,7 +153,7 @@ MonoBehaviour:
   _horizontalLookInputActionReference: {fileID: 3589891834255563740, guid: 80e151a7254d663438074715ad6b9697, type: 3}
   _verticalLookInputActionReference: {fileID: -2147683855251518630, guid: 80e151a7254d663438074715ad6b9697, type: 3}
   _pivotTransform: {fileID: 40290539605118393}
-  _sensitivity: 10
+  _sensitivity: 5
   _invertY: -1
 --- !u!1001 &4362903521446628994
 PrefabInstance:

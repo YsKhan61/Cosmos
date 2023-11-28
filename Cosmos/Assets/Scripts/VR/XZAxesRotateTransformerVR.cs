@@ -10,7 +10,7 @@ namespace Cosmos.VR
     /// Used to rotate a transform around any axis so that
     /// it's specified axis is oriented towards the grabber
     /// </summary>
-    public class AllAxisRotateTransformerVR : MonoBehaviour, ITransformer, IControlHandle
+    public class XZAxesRotateTransformerVR : MonoBehaviour, ITransformer, IControlHandle
     {
         private enum Axis
         {

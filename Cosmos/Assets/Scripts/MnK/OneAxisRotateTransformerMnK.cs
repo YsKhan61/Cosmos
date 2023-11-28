@@ -1,6 +1,4 @@
 using Cosmos.SpaceShip;
-using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,8 +9,6 @@ namespace Cosmos.MnK
     /// </summary>
     public class OneAxisRotateTransformerMnK : MonoBehaviour, IThrottleHandle
     {
-        private const int _ANGLE_LIMIT = 10;
-
         private enum Direction : int
         {
             Idle = 0,

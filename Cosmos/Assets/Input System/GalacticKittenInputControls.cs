@@ -59,7 +59,7 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
                 {
                     ""name"": """",
                     ""id"": ""89557b55-0d6c-48a7-a2b2-19e13bdf8032"",
-                    ""path"": ""<Keyboard>/w"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""MnK Control Schema"",
@@ -70,7 +70,7 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
                 {
                     ""name"": """",
                     ""id"": ""97b37590-17fd-4789-8357-9cfb45b95fd0"",
-                    ""path"": ""<Keyboard>/s"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""MnK Control Schema"",
@@ -79,15 +79,59 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""4003ecab-b03a-4fde-8e00-7097bba09a0d"",
-                    ""path"": ""<Mouse>/position"",
+                    ""name"": ""2D Vector MnK"",
+                    ""id"": ""133eb049-7e63-489f-a201-101b49a168a6"",
+                    ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""MnK Control Schema"",
+                    ""groups"": """",
+                    ""action"": ""ControlHandleAction"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""5f5c488e-2c6a-4645-b84c-54bfbee877cf"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
                     ""action"": ""ControlHandleAction"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""64d25ec9-6db7-4229-a62c-5fa46abc1ebd"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ControlHandleAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""6c0959f5-db1d-43a0-a5aa-b30efc4324f1"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ControlHandleAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""0f950ef5-50c8-43a7-b083-f47b903f20b3"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ControlHandleAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -112,6 +156,15 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""LookAction"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""68b6c913-ef72-40d8-93f6-ae40af0ec15d"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -134,6 +187,17 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
                     ""processors"": """",
                     ""groups"": ""MnK Control Schema"",
                     ""action"": ""VerticalLookAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9a5fa5b1-6908-4ee9-a5a4-d3dbd33f0e2a"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LookAction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -168,6 +232,7 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
         m_PlayerActionMap = asset.FindActionMap("PlayerActionMap", throwIfNotFound: true);
         m_PlayerActionMap_HorizontalLookAction = m_PlayerActionMap.FindAction("HorizontalLookAction", throwIfNotFound: true);
         m_PlayerActionMap_VerticalLookAction = m_PlayerActionMap.FindAction("VerticalLookAction", throwIfNotFound: true);
+        m_PlayerActionMap_LookAction = m_PlayerActionMap.FindAction("LookAction", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -293,12 +358,14 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
     private List<IPlayerActionMapActions> m_PlayerActionMapActionsCallbackInterfaces = new List<IPlayerActionMapActions>();
     private readonly InputAction m_PlayerActionMap_HorizontalLookAction;
     private readonly InputAction m_PlayerActionMap_VerticalLookAction;
+    private readonly InputAction m_PlayerActionMap_LookAction;
     public struct PlayerActionMapActions
     {
         private @GalacticKittenInputControls m_Wrapper;
         public PlayerActionMapActions(@GalacticKittenInputControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @HorizontalLookAction => m_Wrapper.m_PlayerActionMap_HorizontalLookAction;
         public InputAction @VerticalLookAction => m_Wrapper.m_PlayerActionMap_VerticalLookAction;
+        public InputAction @LookAction => m_Wrapper.m_PlayerActionMap_LookAction;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -314,6 +381,9 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
             @VerticalLookAction.started += instance.OnVerticalLookAction;
             @VerticalLookAction.performed += instance.OnVerticalLookAction;
             @VerticalLookAction.canceled += instance.OnVerticalLookAction;
+            @LookAction.started += instance.OnLookAction;
+            @LookAction.performed += instance.OnLookAction;
+            @LookAction.canceled += instance.OnLookAction;
         }
 
         private void UnregisterCallbacks(IPlayerActionMapActions instance)
@@ -324,6 +394,9 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
             @VerticalLookAction.started -= instance.OnVerticalLookAction;
             @VerticalLookAction.performed -= instance.OnVerticalLookAction;
             @VerticalLookAction.canceled -= instance.OnVerticalLookAction;
+            @LookAction.started -= instance.OnLookAction;
+            @LookAction.performed -= instance.OnLookAction;
+            @LookAction.canceled -= instance.OnLookAction;
         }
 
         public void RemoveCallbacks(IPlayerActionMapActions instance)
@@ -360,5 +433,6 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
     {
         void OnHorizontalLookAction(InputAction.CallbackContext context);
         void OnVerticalLookAction(InputAction.CallbackContext context);
+        void OnLookAction(InputAction.CallbackContext context);
     }
 }

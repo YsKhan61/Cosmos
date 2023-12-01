@@ -242,7 +242,7 @@ PrefabInstance:
     - target: {fileID: 6594446086358706823, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
       propertyPath: _throttleHandleO
       value: 
-      objectReference: {fileID: 8281124737385657225}
+      objectReference: {fileID: 889364922844553113}
     - target: {fileID: 6594446086358706823, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
       propertyPath: _throttleTransformer
       value: 
@@ -273,7 +273,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2420192660918756697, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8281124737385657225}
+      addedObject: {fileID: 889364922844553113}
+    - targetCorrespondingSourceObject: {fileID: 2420192660918756697, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1931794428058652954}
     - targetCorrespondingSourceObject: {fileID: 7365317072159943165, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1434875245725778227}
@@ -288,7 +291,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2420192660918756697, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
   m_PrefabInstance: {fileID: 4362903521446628994}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8281124737385657225
+--- !u!114 &889364922844553113
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -297,17 +300,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 2097100469438606299}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dff8941e9f59a14c9a7a7b055a5c57f, type: 3}
+  m_Script: {fileID: 11500000, guid: 13d97c4500c271c418e6cbec13bcf4c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _throttleForwardInputActionReference: {fileID: -5114517705252979404, guid: 80e151a7254d663438074715ad6b9697, type: 3}
-  _throttleBackwardInputActionReference: {fileID: 57577540337619585, guid: 80e151a7254d663438074715ad6b9697, type: 3}
   _pivotTransform: {fileID: 3290792502992846726}
   _visualTransform: {fileID: 5906814493363928983}
-  _axisOfRotation: 2
-  _axisToOrient: 1
   _sensitivity: 10
   _angleConstraint: 10
+  _invertThrottleValue: -1
+--- !u!114 &1931794428058652954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097100469438606299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fb3035d6d93c77469b0b3d89ff9dc62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _throttleInputActionReference: {fileID: 259123670154276363, guid: 80e151a7254d663438074715ad6b9697, type: 3}
+  _oneAxisRotateTransformer: {fileID: 889364922844553113}
 --- !u!4 &3290792502992846726 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1235987389789810948, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}

@@ -28,22 +28,13 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
             ""id"": ""bd426e1b-4202-4750-aafa-58451e184342"",
             ""actions"": [
                 {
-                    ""name"": ""ThrottleForwardAction"",
-                    ""type"": ""Button"",
-                    ""id"": ""49a24af5-b5f5-46c5-99b7-fd32082fc77c"",
-                    ""expectedControlType"": ""Button"",
+                    ""name"": ""ThrottleHandleAction"",
+                    ""type"": ""Value"",
+                    ""id"": ""8d4ba86c-a9bd-4ac1-90a4-755f6a2aeaec"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ThrottleBackwardAction"",
-                    ""type"": ""Button"",
-                    ""id"": ""8201062c-517b-4982-bcf2-70f3c7fcffe4"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""ControlHandleAction"",
@@ -57,26 +48,37 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
             ],
             ""bindings"": [
                 {
-                    ""name"": """",
-                    ""id"": ""89557b55-0d6c-48a7-a2b2-19e13bdf8032"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""name"": ""1D Axis"",
+                    ""id"": ""e916bfbc-ab07-4bc4-b801-86c10d066dcd"",
+                    ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""MnK Control Schema"",
-                    ""action"": ""ThrottleForwardAction"",
-                    ""isComposite"": false,
+                    ""groups"": """",
+                    ""action"": ""ThrottleHandleAction"",
+                    ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""97b37590-17fd-4789-8357-9cfb45b95fd0"",
+                    ""name"": ""negative"",
+                    ""id"": ""40e590c7-46f7-4f9c-b094-b8b7fec70b6e"",
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""MnK Control Schema"",
-                    ""action"": ""ThrottleBackwardAction"",
+                    ""action"": ""ThrottleHandleAction"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""a433925f-34ce-46aa-b2b2-59a4ff085f1f"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MnK Control Schema"",
+                    ""action"": ""ThrottleHandleAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""2D Vector MnK"",
@@ -225,8 +227,7 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
 }");
         // SpaceshipActionMap
         m_SpaceshipActionMap = asset.FindActionMap("SpaceshipActionMap", throwIfNotFound: true);
-        m_SpaceshipActionMap_ThrottleForwardAction = m_SpaceshipActionMap.FindAction("ThrottleForwardAction", throwIfNotFound: true);
-        m_SpaceshipActionMap_ThrottleBackwardAction = m_SpaceshipActionMap.FindAction("ThrottleBackwardAction", throwIfNotFound: true);
+        m_SpaceshipActionMap_ThrottleHandleAction = m_SpaceshipActionMap.FindAction("ThrottleHandleAction", throwIfNotFound: true);
         m_SpaceshipActionMap_ControlHandleAction = m_SpaceshipActionMap.FindAction("ControlHandleAction", throwIfNotFound: true);
         // PlayerActionMap
         m_PlayerActionMap = asset.FindActionMap("PlayerActionMap", throwIfNotFound: true);
@@ -294,15 +295,13 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
     // SpaceshipActionMap
     private readonly InputActionMap m_SpaceshipActionMap;
     private List<ISpaceshipActionMapActions> m_SpaceshipActionMapActionsCallbackInterfaces = new List<ISpaceshipActionMapActions>();
-    private readonly InputAction m_SpaceshipActionMap_ThrottleForwardAction;
-    private readonly InputAction m_SpaceshipActionMap_ThrottleBackwardAction;
+    private readonly InputAction m_SpaceshipActionMap_ThrottleHandleAction;
     private readonly InputAction m_SpaceshipActionMap_ControlHandleAction;
     public struct SpaceshipActionMapActions
     {
         private @GalacticKittenInputControls m_Wrapper;
         public SpaceshipActionMapActions(@GalacticKittenInputControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @ThrottleForwardAction => m_Wrapper.m_SpaceshipActionMap_ThrottleForwardAction;
-        public InputAction @ThrottleBackwardAction => m_Wrapper.m_SpaceshipActionMap_ThrottleBackwardAction;
+        public InputAction @ThrottleHandleAction => m_Wrapper.m_SpaceshipActionMap_ThrottleHandleAction;
         public InputAction @ControlHandleAction => m_Wrapper.m_SpaceshipActionMap_ControlHandleAction;
         public InputActionMap Get() { return m_Wrapper.m_SpaceshipActionMap; }
         public void Enable() { Get().Enable(); }
@@ -313,12 +312,9 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
         {
             if (instance == null || m_Wrapper.m_SpaceshipActionMapActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_SpaceshipActionMapActionsCallbackInterfaces.Add(instance);
-            @ThrottleForwardAction.started += instance.OnThrottleForwardAction;
-            @ThrottleForwardAction.performed += instance.OnThrottleForwardAction;
-            @ThrottleForwardAction.canceled += instance.OnThrottleForwardAction;
-            @ThrottleBackwardAction.started += instance.OnThrottleBackwardAction;
-            @ThrottleBackwardAction.performed += instance.OnThrottleBackwardAction;
-            @ThrottleBackwardAction.canceled += instance.OnThrottleBackwardAction;
+            @ThrottleHandleAction.started += instance.OnThrottleHandleAction;
+            @ThrottleHandleAction.performed += instance.OnThrottleHandleAction;
+            @ThrottleHandleAction.canceled += instance.OnThrottleHandleAction;
             @ControlHandleAction.started += instance.OnControlHandleAction;
             @ControlHandleAction.performed += instance.OnControlHandleAction;
             @ControlHandleAction.canceled += instance.OnControlHandleAction;
@@ -326,12 +322,9 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
 
         private void UnregisterCallbacks(ISpaceshipActionMapActions instance)
         {
-            @ThrottleForwardAction.started -= instance.OnThrottleForwardAction;
-            @ThrottleForwardAction.performed -= instance.OnThrottleForwardAction;
-            @ThrottleForwardAction.canceled -= instance.OnThrottleForwardAction;
-            @ThrottleBackwardAction.started -= instance.OnThrottleBackwardAction;
-            @ThrottleBackwardAction.performed -= instance.OnThrottleBackwardAction;
-            @ThrottleBackwardAction.canceled -= instance.OnThrottleBackwardAction;
+            @ThrottleHandleAction.started -= instance.OnThrottleHandleAction;
+            @ThrottleHandleAction.performed -= instance.OnThrottleHandleAction;
+            @ThrottleHandleAction.canceled -= instance.OnThrottleHandleAction;
             @ControlHandleAction.started -= instance.OnControlHandleAction;
             @ControlHandleAction.performed -= instance.OnControlHandleAction;
             @ControlHandleAction.canceled -= instance.OnControlHandleAction;
@@ -425,8 +418,7 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
     }
     public interface ISpaceshipActionMapActions
     {
-        void OnThrottleForwardAction(InputAction.CallbackContext context);
-        void OnThrottleBackwardAction(InputAction.CallbackContext context);
+        void OnThrottleHandleAction(InputAction.CallbackContext context);
         void OnControlHandleAction(InputAction.CallbackContext context);
     }
     public interface IPlayerActionMapActions

@@ -6,22 +6,13 @@
             "id": "bd426e1b-4202-4750-aafa-58451e184342",
             "actions": [
                 {
-                    "name": "ThrottleForwardAction",
-                    "type": "Button",
-                    "id": "49a24af5-b5f5-46c5-99b7-fd32082fc77c",
-                    "expectedControlType": "Button",
+                    "name": "ThrottleHandleAction",
+                    "type": "Value",
+                    "id": "8d4ba86c-a9bd-4ac1-90a4-755f6a2aeaec",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ThrottleBackwardAction",
-                    "type": "Button",
-                    "id": "8201062c-517b-4982-bcf2-70f3c7fcffe4",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "ControlHandleAction",
@@ -35,26 +26,37 @@
             ],
             "bindings": [
                 {
-                    "name": "",
-                    "id": "89557b55-0d6c-48a7-a2b2-19e13bdf8032",
-                    "path": "<Keyboard>/e",
+                    "name": "1D Axis",
+                    "id": "e916bfbc-ab07-4bc4-b801-86c10d066dcd",
+                    "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
-                    "groups": "MnK Control Schema",
-                    "action": "ThrottleForwardAction",
-                    "isComposite": false,
+                    "groups": "",
+                    "action": "ThrottleHandleAction",
+                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "97b37590-17fd-4789-8357-9cfb45b95fd0",
+                    "name": "negative",
+                    "id": "40e590c7-46f7-4f9c-b094-b8b7fec70b6e",
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "MnK Control Schema",
-                    "action": "ThrottleBackwardAction",
+                    "action": "ThrottleHandleAction",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "a433925f-34ce-46aa-b2b2-59a4ff085f1f",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "MnK Control Schema",
+                    "action": "ThrottleHandleAction",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "2D Vector MnK",

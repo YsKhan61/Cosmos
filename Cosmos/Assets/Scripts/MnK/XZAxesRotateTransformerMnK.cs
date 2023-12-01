@@ -45,7 +45,6 @@ namespace Cosmos.MnK
         private Vector3 _localAxisToOrient;
 
         private Quaternion _initialVisualLocalRotation;
-        private Coroutine _resetOrientationRoutine;
 
         private float _relativeAngleX;
         private float _relativeAngleZ;

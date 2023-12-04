@@ -7,13 +7,6 @@ namespace Cosmos.SpaceShip
     /// </summary>
     public class OneAxisRotateTransformer : MonoBehaviour, IThrottleHandle
     {
-        private enum Axis
-        {
-            Right = 0,
-            Up = 1,
-            Forward = 2
-        }
-
         [SerializeField, Tooltip("This will be the pivot relative to calculate orientations of handle")]
         private Transform _pivotTransform;
 

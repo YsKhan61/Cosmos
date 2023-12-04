@@ -179,10 +179,6 @@ PrefabInstance:
       propertyPath: _controlTransformer
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 2923800742281578956, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
-      propertyPath: _controlTransformerO
-      value: 
-      objectReference: {fileID: 1434875245725778227}
     - target: {fileID: 3792636002925228937, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.9890159
@@ -279,7 +275,10 @@ PrefabInstance:
       addedObject: {fileID: 1931794428058652954}
     - targetCorrespondingSourceObject: {fileID: 7365317072159943165, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1434875245725778227}
+      addedObject: {fileID: 6289352666020504189}
+    - targetCorrespondingSourceObject: {fileID: 7365317072159943165, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4511558663959212542}
   m_SourcePrefab: {fileID: 100100000, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
 --- !u!4 &40290539605118393 stripped
 Transform:
@@ -342,7 +341,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7365317072159943165, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
   m_PrefabInstance: {fileID: 4362903521446628994}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1434875245725778227
+--- !u!114 &6289352666020504189
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -351,15 +350,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 6537812110273292159}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e9353fd60a72eb49a78d566687afde2, type: 3}
+  m_Script: {fileID: 11500000, guid: c896e279076673742a0dffc2674c11d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pivotTransform: {fileID: 7708537790384765734}
+  _visualTransform: {fileID: 6200517852301734480}
+  _sensitivity: 10
+  _angleConstraint: 10
+--- !u!114 &4511558663959212542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6537812110273292159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9746eccff169e7d4996ab7012e1eb95a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _controlHandleInputActionReference: {fileID: 4619255261657703476, guid: 80e151a7254d663438074715ad6b9697, type: 3}
-  _pivotTransform: {fileID: 7708537790384765734}
-  _visualTransform: {fileID: 6200517852301734480}
-  _axisOfVisualTransformToOrient: 1
-  _sensitivity: 10
-  _angleConstraint: 10
+  _xzAxesRotateTransformer: {fileID: 6289352666020504189}
 --- !u!4 &7708537790384765734 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6230202199778948516, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}

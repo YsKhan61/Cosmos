@@ -215,10 +215,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2137969257426343887, guid: 755f781946c73f540a32bee19c98e290, type: 3}
-      propertyPath: _invertThrottleValue
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 2819099874020773450, guid: 755f781946c73f540a32bee19c98e290, type: 3}
       propertyPath: m_Name
       value: CockpitTouchScreen Variant

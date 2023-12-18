@@ -1,0 +1,3 @@
+-> Use .gitIgnore from work projects, for a git repo setup.
+
+-> Assembly reference for using VolumeComponent inside an assembly definition -> Unity.RenderPipelines.Core.Runtime

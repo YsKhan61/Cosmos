@@ -10,6 +10,7 @@
     "com.unity.feature.development": "1.0.1",
     "com.unity.formats.fbx": "4.2.1",
     "com.unity.inputsystem": "1.7.0",
+    "com.unity.multiplayer.samples.coop": "file:A:/Learnings/Unity Multiplayer/BossRoom/Packages/com.unity.multiplayer.samples.coop",
     "com.unity.multiplayer.tools": "1.1.1",
     "com.unity.netcode.gameobjects": "1.7.1",
     "com.unity.postprocessing": "3.2.2",

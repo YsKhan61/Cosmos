@@ -1,3 +1,21 @@
 {
-	"name": "Cosmos.Gameplay"
+    "name": "Cosmos.Gameplay",
+    "rootNamespace": "",
+    "references": [
+        "GUID:272db2a180dbefe45bea8023722c0e9a",
+        "GUID:1491147abca9d7d4bb7105af628b223e",
+        "GUID:e9e5562f77c754b2ca364915385b3d43",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:284d2290c622c4a4e95f9b38f224b72d",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

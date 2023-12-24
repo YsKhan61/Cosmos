@@ -1,5 +1,6 @@
 using Cosmos.ConnectionManagement;
 using Cosmos.Infrastructure;
+using Cosmos.UnityServices.Auth;
 using Cosmos.Utilities;
 using Unity.Netcode;
 using UnityEngine;
@@ -42,6 +43,9 @@ namespace Cosmos.ApplicationLifecycle
             builder.RegisterComponent(_networkManager);
 
             builder.Register<ProfileManager>(Lifetime.Singleton);
+
+            // all the lobby service stuff, bound here so that it persists through scene loads
+            builder.Register<AuthenticationServiceFacade>(Lifetime.Singleton);  // a manager entity that allows us to do anonymous authentication with unity services
         }
     }
 

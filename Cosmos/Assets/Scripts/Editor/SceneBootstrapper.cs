@@ -33,17 +33,17 @@ namespace Cosmos.Editor
 
         private const string TESTRUNNER_SCENE_NAME = "InitTestScene";
 
-        static bool _restartingToSwitchScene;
+        static bool s_restartingToSwitchScene;
 
-        static string _bootstrapScenePath => EditorBuildSettings.scenes[0].path;
+        static string s_bootstrapScenePath => EditorBuildSettings.scenes[0].path;
 
-        static string _previousScene
+        static string s_previousScene
         {
             get => EditorPrefs.GetString(PREVIOUS_SCENE_KEY);
             set => EditorPrefs.SetString(PREVIOUS_SCENE_KEY, value);
         }
 
-        static bool _shouldLoadBootstrapScene
+        static bool s_shouldLoadBootstrapScene
         {
             get
             {
@@ -66,25 +66,25 @@ namespace Cosmos.Editor
         [MenuItem(LOAD_BOOTSTRAP_SCENE_ON_PLAY, true)]
         static bool ShowLoadBootstrapSceneOnPlay()
         {
-            return !_shouldLoadBootstrapScene;
+            return !s_shouldLoadBootstrapScene;
         }
 
         [MenuItem(LOAD_BOOTSTRAP_SCENE_ON_PLAY)]
         static void EnableLoadBootstrapSceneOnPlay()
         {
-            _shouldLoadBootstrapScene = true;
+            s_shouldLoadBootstrapScene = true;
         }
 
         [MenuItem(DO_NOT_LOAD_BOOTSTRAP_SCENE_ON_PLAY, true)]
         static bool ShowDoNotLoadBootstrapSceneOnPlay()
         {
-            return _shouldLoadBootstrapScene;
+            return s_shouldLoadBootstrapScene;
         }
 
         [MenuItem(DO_NOT_LOAD_BOOTSTRAP_SCENE_ON_PLAY)]
         static void DisableLoadBootstrapSceneOnPlay()
         {
-            _shouldLoadBootstrapScene = false;
+            s_shouldLoadBootstrapScene = false;
         }
 
         private static void EditorApplicationOnPlayModeStateChanged(PlayModeStateChange change)
@@ -94,19 +94,19 @@ namespace Cosmos.Editor
                 return;
             }
 
-            if (!_shouldLoadBootstrapScene)
+            if (!s_shouldLoadBootstrapScene)
             {
                 return;
             }
 
-            if (_restartingToSwitchScene)
+            if (s_restartingToSwitchScene)
             {
                 if (change == PlayModeStateChange.EnteredPlayMode)
                 {
                     // For some reason there's multiple start and stops events happening while restarting the editor's play mode.
                     // We're making sure to set stopping and staring only when we're done and we've entered play mode.
                     // This way we won't corrupt "activeScene" with the multiple start and stop and will be able to return to the scene we were editing at first.
-                    _restartingToSwitchScene = false;
+                    s_restartingToSwitchScene = false;
                 }
                 return;
             }
@@ -114,26 +114,26 @@ namespace Cosmos.Editor
             if (change == PlayModeStateChange.ExitingEditMode)
             {
                 // cache previous scene so we return to this scene after play session, if possible
-                _previousScene = EditorSceneManager.GetActiveScene().path;
+                s_previousScene = EditorSceneManager.GetActiveScene().path;
 
                 if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
                 {
                     // user either hit "Save" or "Don't Save" in the dialog - we can continue to exit edit mode (current scene) and open bootstrap scene
-                    if (!string.IsNullOrEmpty(_bootstrapScenePath) &&
-                        System.Array.Exists(EditorBuildSettings.scenes, scenes => scenes.path == _bootstrapScenePath))
+                    if (!string.IsNullOrEmpty(s_bootstrapScenePath) &&
+                        System.Array.Exists(EditorBuildSettings.scenes, scenes => scenes.path == s_bootstrapScenePath))
                     {
                         Scene activeScene = EditorSceneManager.GetActiveScene();
 
-                        _restartingToSwitchScene = activeScene.path == string.Empty || !_bootstrapScenePath.Contains(activeScene.path);
+                        s_restartingToSwitchScene = activeScene.path == string.Empty || !s_bootstrapScenePath.Contains(activeScene.path);
 
                         // we only manually inject Bootstrap scene if we are in a blank empty scene,
                         // or if the active scene is not already Bootstrap scene.
-                        if (_restartingToSwitchScene)
+                        if (s_restartingToSwitchScene)
                         {
                             EditorApplication.isPlaying = false;
 
                             // scene is included in build settings; open it
-                            EditorSceneManager.OpenScene(_bootstrapScenePath);
+                            EditorSceneManager.OpenScene(s_bootstrapScenePath);
 
                             EditorApplication.isPlaying = true;
                         }
@@ -147,9 +147,9 @@ namespace Cosmos.Editor
             }
             else if (change == PlayModeStateChange.EnteredEditMode)
             {
-                if (!string.IsNullOrEmpty(_previousScene))
+                if (!string.IsNullOrEmpty(s_previousScene))
                 {
-                    EditorSceneManager.OpenScene(_previousScene);
+                    EditorSceneManager.OpenScene(s_previousScene);
                 }
             }
         }

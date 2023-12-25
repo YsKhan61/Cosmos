@@ -84,13 +84,13 @@ namespace Cosmos.Gameplay.GameState
             
         }
 
-        public void OnStartButtonClicked()
+        public void OnLobbyStartButtonClicked()
         {
             _lobbyUIMediator.ToggleJoinLobbyUI();
             _lobbyUIMediator.Show();
         }
 
-        public void OnDirectIPClicked()
+        public void OnDirectIPButtonClicked()
         {
             _lobbyUIMediator.Hide();
             

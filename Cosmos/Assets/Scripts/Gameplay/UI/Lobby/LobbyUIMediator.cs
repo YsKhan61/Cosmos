@@ -236,7 +236,7 @@ namespace Cosmos.Gameplay.UI
             _lobbyJoiningUI.Hide();
         }
 
-        private void RegenerateName()
+        public void RegenerateName()
         {
             _localLobbyUser.DisplayName = _nameGenerationData.GenerateName();
             _playerNameLabel.text = _localLobbyUser.DisplayName;

@@ -38,6 +38,9 @@ namespace Cosmos.Gameplay.GameState
         [SerializeField]
         UIProfileSelector _uiProfileSelector;
 
+        [SerializeField, Tooltip("Detect hovering and check if UGS is initialized correctly or not, and show a tooltip!")]
+        private UITooltipDetector _ugsSetupTooltipDetector;
+
         
 
         [Inject]
@@ -123,6 +126,7 @@ namespace Cosmos.Gameplay.GameState
         private void OnAuthSignIn()
         {
             _lobbyButton.interactable = true;
+            _ugsSetupTooltipDetector.enabled = false;
             _signInSpinner.SetActive(false);
 
 #if UNITY_EDITOR
@@ -142,6 +146,7 @@ namespace Cosmos.Gameplay.GameState
             if (_lobbyButton)
             {
                 _lobbyButton.interactable = false;
+                _ugsSetupTooltipDetector.enabled = true;
 
             }
 

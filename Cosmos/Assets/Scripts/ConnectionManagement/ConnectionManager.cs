@@ -52,6 +52,11 @@ namespace Cosmos.ConnectionManagement
         {
             throw new NotImplementedException();
         }
+
+        public void RequestShutdown()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

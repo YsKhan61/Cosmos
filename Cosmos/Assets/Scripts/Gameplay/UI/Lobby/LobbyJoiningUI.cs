@@ -23,9 +23,9 @@ namespace Cosmos.Gameplay.UI
         private IObjectResolver _objectResolver;
         private LobbyUIMediator _lobbyUIMediator;
         private UpdateRunner _updateRunner;
-        ISubscriber<LobbyListFetchMessage> _localLobbiesRefreshedSubscribers;
+        private ISubscriber<LobbyListFetchedMessage> _localLobbiesRefreshedSubscribers;
 
-        List<LobbyListItemUI> _lobbyListItems = new List<LobbyListItemUI>();
+        private List<LobbyListItemUI> _lobbyListItems = new List<LobbyListItemUI>();
 
         private void Awake()
         {
@@ -49,11 +49,11 @@ namespace Cosmos.Gameplay.UI
         }
 
         [Inject]
-        private void InjectDependenciesAndInitialize(
+        void InjectDependenciesAndInitialize(
             IObjectResolver objectResolver,
             LobbyUIMediator lobbyMediator,
             UpdateRunner updateRunner,
-            ISubscriber<LobbyListFetchMessage> localLobbiesRefreshedSubscribers)
+            ISubscriber<LobbyListFetchedMessage> localLobbiesRefreshedSubscribers)
         {
             _objectResolver = objectResolver;
             _lobbyUIMediator = lobbyMediator;
@@ -111,7 +111,7 @@ namespace Cosmos.Gameplay.UI
             _lobbyUIMediator.QueryLobbiesRequest(false);
         }
 
-        private void UpdateUI(LobbyListFetchMessage message)
+        private void UpdateUI(LobbyListFetchedMessage message)
         {
             EnsureNumberOfActiveUISlots(message.LocalLobbies.Count);
 

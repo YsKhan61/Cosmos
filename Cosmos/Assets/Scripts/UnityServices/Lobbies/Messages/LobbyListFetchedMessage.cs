@@ -2,11 +2,11 @@ using System.Collections.Generic;
 
 namespace Cosmos.UnityServices.Lobbies
 {
-    public struct LobbyListFetchMessage
+    public struct LobbyListFetchedMessage
     {
         public readonly IReadOnlyList<LocalLobby> LocalLobbies;
 
-        public LobbyListFetchMessage(List<LocalLobby> localLobbies)
+        public LobbyListFetchedMessage(List<LocalLobby> localLobbies)
         {
             LocalLobbies = localLobbies;
         }

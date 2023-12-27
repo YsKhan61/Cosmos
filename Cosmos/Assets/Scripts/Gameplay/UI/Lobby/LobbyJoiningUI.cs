@@ -18,7 +18,6 @@ namespace Cosmos.Gameplay.UI
         [SerializeField] private TMP_InputField _joinCodeInputField;
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private Graphic _emptyLobbyListLabel;
-        [SerializeField] private Button _joinLobbyButton;
 
         private IObjectResolver _objectResolver;
         private LobbyUIMediator _lobbyUIMediator;
@@ -71,19 +70,14 @@ namespace Cosmos.Gameplay.UI
             _joinCodeInputField.interactable = _joinCodeInputField.text.Length > 0;
         }
 
-        public void OnJoinButtonPressed()
+        public void OnJoinButtonClicked()
         {
             _lobbyUIMediator.JoinLobbyWithCodeRequest(SanitizeJoinCode(_joinCodeInputField.text));
         }
 
-        public void OnRefresh()
+        public void OnRefreshButtonClicked()
         {
             _lobbyUIMediator.QueryLobbiesRequest(true);
-        }
-
-        private string SanitizeJoinCode(string dirtyString)
-        {
-            return Regex.Replace(dirtyString.ToUpper(), "[^A-Z0-9]", "");
         }
 
         public void OnQuickJoinClicked()
@@ -103,6 +97,11 @@ namespace Cosmos.Gameplay.UI
             _canvasGroup.alpha = 1f;
             _canvasGroup.blocksRaycasts = true;
             _updateRunner.Subscribe(PeriodicRefresh, 10f);
+        }
+
+        private string SanitizeJoinCode(string dirtyString)
+        {
+            return Regex.Replace(dirtyString.ToUpper(), "[^A-Z0-9]", "");
         }
 
         private void PeriodicRefresh(float _)

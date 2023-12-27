@@ -45,17 +45,22 @@ namespace Cosmos.ConnectionManagement
 
         public void StartHostLobby(string playerName)
         {
-
+            _currentState.StartHostLobby(playerName);
         }
 
-        public void StartClientLobby(string displayName)
+        public void StartClientLobby(string playerName)
         {
-            throw new NotImplementedException();
+            _currentState.StartClientLobby(playerName);
+        }
+
+        public void StartHostIp(string text, string ip, int portNumber)
+        {
+            _currentState.StartHostIP(text, ip, portNumber);
         }
 
         public void RequestShutdown()
         {
-            throw new NotImplementedException();
+            _currentState.OnUserRequestedShutdown();
         }
     }
 }

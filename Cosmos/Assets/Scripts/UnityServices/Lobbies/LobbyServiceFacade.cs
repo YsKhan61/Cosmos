@@ -181,9 +181,34 @@ namespace Cosmos.UnityServices.Lobbies
             _localLobby.ApplyRemoteData(lobby);
         }
 
-        public Task RetrieveAndPublishLobbyListAsync()
+        /// <summary>
+        /// Used for getting the list of all active lobbies, without needing full into for each.
+        /// </summary>
+        /// <returns></returns>
+        public async Task RetrieveAndPublishLobbyListAsync()
         {
-            throw new NotImplementedException();
+            if (!_rateLimitQuery.CanCall)
+            {
+                Debug.LogError("Retrieve lobby list hit the rate limit. Will try again soon...");
+                return;
+            }
+
+            try
+            {
+                QueryResponse response = await _lobbyApiInterface.QueryAllLobbies();
+                _lobbyListFetchedMessagePublisher.Publish(new LobbyListFetchedMessage(LocalLobby.CreateLocalLobbies(response)));
+            }
+            catch (LobbyServiceException e)
+            {
+                if (e.Reason == LobbyExceptionReason.RateLimited)
+                {
+                    _rateLimitQuery.PutOnCooldown();
+                }
+                else
+                {
+                    PublishError(e);
+                }
+            }
         }
 
         /// <summary>

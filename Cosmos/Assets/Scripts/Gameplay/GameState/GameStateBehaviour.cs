@@ -7,7 +7,7 @@ namespace Cosmos.Gameplay.GameState
     {
         MainMenu,
         CharSelect,
-        BossRoom,
+        Cosmos,
         PostGame
     }
 

@@ -169,7 +169,7 @@ namespace Cosmos.UnityServices.Lobbies
             }
 
             Dictionary<string, LocalLobbyUser> localLobbyUsers = new Dictionary<string, LocalLobbyUser>();
-            foreach (var player in lobby.Players)
+            foreach (Player player in lobby.Players)
             {
                 if (player.Data != null)
                 {
@@ -204,6 +204,41 @@ namespace Cosmos.UnityServices.Lobbies
         public void CopyDataFrom(LobbyDataStruct lobbyData, Dictionary<string, LocalLobbyUser> currentLocalLobbyUsers)
         {
             _lobbyData = lobbyData;
+
+            if (currentLocalLobbyUsers == null)
+            {
+                currentLocalLobbyUsers = new Dictionary<string, LocalLobbyUser>();
+            }
+            else
+            {
+                List<LocalLobbyUser> localLobbyUserToRemove = new List<LocalLobbyUser>();
+                foreach (KeyValuePair<string, LocalLobbyUser> oldLocalLobbyUser in _localLobbyUsers)
+                {
+                    if (currentLocalLobbyUsers.ContainsKey(oldLocalLobbyUser.Key))
+                    {
+                        oldLocalLobbyUser.Value.CopyDataFrom(currentLocalLobbyUsers[oldLocalLobbyUser.Key]);
+                    }
+                    else
+                    {
+                        localLobbyUserToRemove.Add(oldLocalLobbyUser.Value);
+                    }
+                }
+
+                foreach (LocalLobbyUser localLobbyUser in localLobbyUserToRemove)
+                {
+                    DoRemoveUser(localLobbyUser);
+                }
+
+                foreach (KeyValuePair<string, LocalLobbyUser> newLocalLobbyUser in currentLocalLobbyUsers)
+                {
+                    if (!_localLobbyUsers.ContainsKey(newLocalLobbyUser.Key))
+                    {
+                        DoAddUser(newLocalLobbyUser.Value);
+                    }
+                }
+            }
+
+            OnChanged?.Invoke(this);
         }
 
         private void DoAddUser(LocalLobbyUser localLobbyUser)

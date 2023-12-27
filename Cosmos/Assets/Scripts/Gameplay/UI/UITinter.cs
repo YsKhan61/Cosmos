@@ -16,7 +16,7 @@ namespace Cosmos.Gameplay.UI
             _image = GetComponent<Image>();
         }
 
-        public void SetTintColor(int index)
+        public void SetToColor(int index)
         {
             if (index < 0 || index >= _tintColors.Length)
             {
@@ -25,11 +25,6 @@ namespace Cosmos.Gameplay.UI
             }
 
             _image.color = _tintColors[index];
-        }
-
-        internal void SetToColor(int v)
-        {
-            throw new NotImplementedException();
         }
     }
 }

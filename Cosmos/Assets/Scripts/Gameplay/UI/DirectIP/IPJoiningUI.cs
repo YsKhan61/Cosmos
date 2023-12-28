@@ -22,9 +22,9 @@ public class IPJoiningUI : MonoBehaviour
         _portInputField.text = IPUIMediator.DEFAULT_PORT.ToString();
     }
 
-    public void OnJoinButtonClicked()
+    public void JoinWithIP()
     {
-        _ipUIMediator.JoinWithIP(_ipInputField.text, _portInputField.text);
+        _ipUIMediator.JoinIPRequest(_ipInputField.text, _portInputField.text);
     }
 
     /// <summary>

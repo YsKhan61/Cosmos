@@ -62,6 +62,11 @@ namespace Cosmos.ConnectionManagement
         {
             _currentState.OnUserRequestedShutdown();
         }
+
+        public void StartClientIP(string text, string ip, int portNumber)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

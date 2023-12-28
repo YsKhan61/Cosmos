@@ -22,7 +22,10 @@ namespace Cosmos.Gameplay.UI
             _portInputField.text = IPUIMediator.DEFAULT_PORT.ToString();
         }
 
-        public void OnCreateButtonClicked()
+        /// <summary>
+        /// Added to the Host with IP Button's OnClick callback.
+        /// </summary>
+        public void CreateHostWithIP()
         {
             _ipUIMediator.HostIPRequest(_ipInputField.text, _portInputField.text);
         }

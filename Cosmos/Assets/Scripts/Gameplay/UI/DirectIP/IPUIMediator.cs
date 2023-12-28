@@ -99,7 +99,7 @@ namespace Cosmos.Gameplay.UI
             _connectionManager.StartHostIp(_playerNameText.text, ip, portNumber);
         }
 
-        public void JoinWithIP(string ip, string port)
+        public void JoinIPRequest(string ip, string port)
         {
             int.TryParse(port, out int portNumber);
             if (portNumber <= 0)
@@ -110,7 +110,8 @@ namespace Cosmos.Gameplay.UI
             ip = string.IsNullOrEmpty(ip) ? DEFAULT_IP : ip;
 
             _signInSpinner.SetActive(true);
-            _connectionManager.StartHostIp(_playerNameText.text, ip, portNumber);
+            _connectionManager.StartClientIP(_playerNameText.text, ip, portNumber);
+            _ipConnectionWindow.ShowConnectingWindow();
         }
 
         public void OnJoiningWindowCancelled()

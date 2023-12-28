@@ -37,7 +37,7 @@ namespace Cosmos.Gameplay.UI
             _connectStatusSubscriber.Subscribe(OnConnectStatusMessage);
         }
 
-        public void ShowConnectionWindow()
+        public void ShowConnectingWindow()
         {
             void OnTimeElapsed()
             {

@@ -67,9 +67,9 @@ namespace Cosmos.Gameplay.UI
             _ipJoiningUI.Hide();
             _ipHostingUI.Show();
             _joinTabButtonHighlightTinter.SetToColor(0);
-            _joinTabButtonTabBlockerTinter.SetToColor(1);
+            _joinTabButtonTabBlockerTinter.SetToColor(0);
             _hostTabButtonHighlightTinter.SetToColor(1);
-            _hostTabButtonTabBlockerTinter.SetToColor(0);
+            _hostTabButtonTabBlockerTinter.SetToColor(1);
         }
 
         /// <summary>
@@ -80,9 +80,9 @@ namespace Cosmos.Gameplay.UI
             _ipHostingUI.Hide();
             _ipJoiningUI.Show();
             _joinTabButtonHighlightTinter.SetToColor(1);
-            _joinTabButtonTabBlockerTinter.SetToColor(0);
+            _joinTabButtonTabBlockerTinter.SetToColor(1);
             _hostTabButtonHighlightTinter.SetToColor(0);
-            _hostTabButtonTabBlockerTinter.SetToColor(1);
+            _hostTabButtonTabBlockerTinter.SetToColor(0);
         }
 
         public void HostIPRequest(string ip, string port)

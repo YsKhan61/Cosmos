@@ -93,6 +93,13 @@ namespace Cosmos.ApplicationLifecycle
             builder.RegisterInstance(new MessageChannel<UnityServiceErrorMessage>()).AsImplementedInterfaces();
             builder.RegisterInstance(new MessageChannel<ConnectStatus>()).AsImplementedInterfaces();
 
+            // these message channels are essential and persist for the lifetime of the lobby and relay services.
+            // they are networked so that the clients can subscribe to those messages that are published by the server.
+            builder.RegisterComponent(new NetworkedMessageChannel<ConnectionEventMessage>()).AsImplementedInterfaces();
+
+            // this message channel is essential and persists for the lifetime of the lobby and relay services.
+            builder.RegisterInstance(new MessageChannel<ReconnectMessage>()).AsImplementedInterfaces();
+
             // buffered message channels hold the latest received message in buffer and pass to any new subscribers
             builder.RegisterInstance(new BufferedMessageChannel<LobbyListFetchedMessage>()).AsImplementedInterfaces();
 

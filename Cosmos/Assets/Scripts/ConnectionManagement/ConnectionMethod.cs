@@ -83,6 +83,47 @@ namespace Cosmos.ConnectionManagement
     }
 
     /// <summary>
+    /// Simple IP connection setup with UTP
+    /// </summary>
+    internal class ConnectionMethodIP : ConnectionMethodBase
+    {
+        private string _ipAddress;
+        private ushort _port;
+
+        public ConnectionMethodIP(string ip, ushort port, ConnectionManager connectionManager, ProfileManager profileManager, string playerName)
+            : base(connectionManager, profileManager, playerName)
+        {
+            _ipAddress = ip;
+            _port = port;
+            _connectionManager = connectionManager;
+        }
+
+        public override async Task SetupHostConnectionAsync()
+        {
+            SetConnectionPayload(GetPlayerId(), _playerName);   // Need to set connection payload for host as well, as host is a client too
+            UnityTransport utp = (UnityTransport)_connectionManager.NetworkManager.NetworkConfig.NetworkTransport;
+            utp.SetConnectionData(_ipAddress, _port);
+            await Task.CompletedTask;
+        }
+
+        public override async Task SetupClientConnectionAsync()
+        {
+            SetConnectionPayload(GetPlayerId(), _playerName);
+            UnityTransport utp = (UnityTransport)_connectionManager.NetworkManager.NetworkConfig.NetworkTransport;
+            utp.SetConnectionData(_ipAddress, _port);
+            await Task.CompletedTask;
+        }
+
+        public override async Task<(bool success, bool shouldTryAgain)> SetupClientReconnectionAsync()
+        {
+            await Task.CompletedTask;
+            // Nothing to do here
+            return (true, true);
+        }
+    }
+
+
+    /// <summary>
     /// UTP's Relay connection setup using the Lobby integration
     /// </summary>
     internal class ConnectionMethodRelay : ConnectionMethodBase

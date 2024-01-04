@@ -135,19 +135,19 @@ namespace Cosmos.ConnectionManagement
             _currentState.StartClientLobby(playerName);
         }
 
-        public void StartHostIp(string text, string ip, int portNumber)
+        public void StartHostIp(string playerName, string ip, int portNumber)
         {
-            _currentState.StartHostIP(text, ip, portNumber);
-        }
-
-        public void RequestShutdown()
-        {
-            _currentState.OnUserRequestedShutdown();
+            _currentState.StartHostIP(playerName, ip, portNumber);
         }
 
         public void StartClientIP(string text, string ip, int portNumber)
         {
             _currentState.StartClientIP(text, ip, portNumber);
+        }
+
+        public void RequestShutdown()
+        {
+            _currentState.OnUserRequestedShutdown();
         }
 
         private void OnServerStarted()

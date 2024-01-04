@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 4dd5b3f02cc6aad4da4b119d0fd3bde9
+  - enabled: 0
+    path: Assets/Scenes/TestScene with Cockpit VR.unity
+    guid: b606280ae91bd80419eb38ea6856d5a9
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 1f3017f23e1cb6a40bb94ca41f995fcc, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: ff826c69dd2084d4e96e27e426855b6c, type: 2}

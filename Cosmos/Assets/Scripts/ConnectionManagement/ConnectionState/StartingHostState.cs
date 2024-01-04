@@ -26,6 +26,12 @@ namespace Cosmos.ConnectionManagement
 
         public override void Exit() { }
 
+        internal StartingHostState Configure(ConnectionMethodBase connectionMethodBase)
+        {
+            _connectionMethodBase = connectionMethodBase;
+            return this;
+        }
+
         public override void OnServerStarted()
         {
             _connectStatusPublisher.Publish(ConnectStatus.Success);
@@ -41,7 +47,7 @@ namespace Cosmos.ConnectionManagement
             if (clientId == _connectionManager.NetworkManager.LocalClientId)
             {
                 string payload = System.Text.Encoding.UTF8.GetString(connectionData);
-                ConnectionPayload connectionPayload = JsonUtility.FromJson<ConnectionPayload>(payload);
+                ConnectionPayload connectionPayload = JsonUtility.FromJson<ConnectionPayload>(payload); // https://docs.unity3d.com/2020.2/Documentation/Manual/JSONSerialization.html
 
                 SessionManager<SessionPlayerData>.Instance.SetupConnectingPlayerSessionData(clientId, connectionPayload.playerId,
                     new SessionPlayerData(clientId, connectionPayload.playerName, new NetworkGuid(), 0, true));
@@ -55,12 +61,6 @@ namespace Cosmos.ConnectionManagement
         public override void OnServerStopped()
         {
             StartHostFailed();
-        }
-
-        internal StartingHostState Configure(ConnectionMethodBase connectionMethodBase)
-        {
-            _connectionMethodBase = connectionMethodBase;
-            return this;
         }
 
         private async void StartHost()

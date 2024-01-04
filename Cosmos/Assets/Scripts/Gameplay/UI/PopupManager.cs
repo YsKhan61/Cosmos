@@ -9,7 +9,7 @@ namespace Cosmos.Gameplay.UI
     /// Handles the display of Popup messages. 
     /// Instantiates and reuses popup panel prefabs to allow displaying multiple messages in succession
     /// </summary>
-    public class PopupManager : SingletonPersistent<PopupManager>
+    public class PopupManager : MonoBehaviour
     {
         private const float OFFSET = 30;
         private const float MAX_OFFSET = 200;
@@ -22,6 +22,20 @@ namespace Cosmos.Gameplay.UI
 
         private List<PopupPanel> _popupPanels = new List<PopupPanel>();
 
+        private static PopupManager _instance;
+
+        private void Awake()
+        {
+            if (_instance != null) throw new System.Exception("Invalid state, instance already exists");
+            _instance = this;
+            DontDestroyOnLoad(_canvas);             // since DontdestroyOnLoad only works on root objects, we need to make sure the canvas is a root object
+        }
+
+        private void OnDestroy()
+        {
+            _instance = null;
+        }
+
         /// <summary>
         /// Displays a popup panel message with the specified title and main text
         /// </summary>
@@ -31,9 +45,9 @@ namespace Cosmos.Gameplay.UI
         /// <returns></returns>
         public static PopupPanel ShowPopupPanel(string titleText, string mainText, bool closeableByUser = true)
         {
-            if (Instance != null)
+            if (_instance != null)
             {
-                return Instance.DisplayPopupPanel(titleText, mainText, closeableByUser);
+                return _instance.DisplayPopupPanel(titleText, mainText, closeableByUser);
             }
 
             Debug.LogError($"No popuppanel instance found. Cannot display message: {titleText}: {mainText}");

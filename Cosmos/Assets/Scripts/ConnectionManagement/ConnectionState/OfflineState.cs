@@ -47,11 +47,28 @@ namespace Cosmos.ConnectionManagement
 
         public override void StartClientLobby(string playerName)
         {
-            ConnectionMethodRelay connectionMethod = 
+            ConnectionMethodRelay connectionMethodRelay = 
                 new(_lobbyServiceFacade, _localLobby, _connectionManager, _profileManager, playerName);
 
-            _connectionManager._clientReconnectingState.Configure(connectionMethod);
-            _connectionManager.ChangeState(_connectionManager._clientConnectingState.Configure(connectionMethod));
+            _connectionManager._clientReconnectingState.Configure(connectionMethodRelay);
+            _connectionManager.ChangeState(_connectionManager._clientConnectingState.Configure(connectionMethodRelay));
+        }
+
+        public override void StartHostIP(string playerName, string ipAddress, int port)
+        {
+            ConnectionMethodIP connectionMethodIP =
+                new(ipAddress, (ushort)port, _connectionManager, _profileManager, playerName);
+
+            _connectionManager.ChangeState(_connectionManager._startingHostState.Configure(connectionMethodIP));
+        }
+
+        public override void StartClientIP(string playerName, string ipAddress, int port)
+        {
+            ConnectionMethodIP connectionMethodIP =
+                new(ipAddress, (ushort)port, _connectionManager, _profileManager, playerName);
+
+            _connectionManager._clientReconnectingState.Configure(connectionMethodIP);
+            _connectionManager.ChangeState(_connectionManager._clientConnectingState.Configure(connectionMethodIP));
         }
     }
 }

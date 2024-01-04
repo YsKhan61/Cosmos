@@ -26,8 +26,8 @@ namespace Unity.Multiplayer.Samples.BossRoom
     {
         SessionManager()
         {
-            m_ClientData = new Dictionary<string, T>();
-            m_ClientIDToPlayerId = new Dictionary<ulong, string>();
+            _clientData = new Dictionary<string, T>();
+            _clientIDToPlayerId = new Dictionary<ulong, string>();
         }
 
         public static SessionManager<T> Instance
@@ -48,44 +48,44 @@ namespace Unity.Multiplayer.Samples.BossRoom
         /// <summary>
         /// Maps a given client player id to the data for a given client player.
         /// </summary>
-        Dictionary<string, T> m_ClientData;
+        Dictionary<string, T> _clientData;
 
         /// <summary>
         /// Map to allow us to cheaply map from player id to player data.
         /// </summary>
-        Dictionary<ulong, string> m_ClientIDToPlayerId;
+        Dictionary<ulong, string> _clientIDToPlayerId;
 
-        bool m_HasSessionStarted;
+        bool _hasSessionStarted;
 
         /// <summary>
         /// Handles client disconnect."
         /// </summary>
         public void DisconnectClient(ulong clientId)
         {
-            if (m_HasSessionStarted)
+            if (_hasSessionStarted)
             {
                 // Mark client as disconnected, but keep their data so they can reconnect.
-                if (m_ClientIDToPlayerId.TryGetValue(clientId, out var playerId))
+                if (_clientIDToPlayerId.TryGetValue(clientId, out var playerId))
                 {
                     var playerData = GetPlayerData(playerId);
                     if (playerData != null && playerData.Value.ClientID == clientId)
                     {
-                        var clientData = m_ClientData[playerId];
+                        var clientData = _clientData[playerId];
                         clientData.IsConnected = false;
-                        m_ClientData[playerId] = clientData;
+                        _clientData[playerId] = clientData;
                     }
                 }
             }
             else
             {
                 // Session has not started, no need to keep their data
-                if (m_ClientIDToPlayerId.TryGetValue(clientId, out var playerId))
+                if (_clientIDToPlayerId.TryGetValue(clientId, out var playerId))
                 {
-                    m_ClientIDToPlayerId.Remove(clientId);
+                    _clientIDToPlayerId.Remove(clientId);
                     var playerData = GetPlayerData(playerId);
                     if (playerData != null && playerData.Value.ClientID == clientId)
                     {
-                        m_ClientData.Remove(playerId);
+                        _clientData.Remove(playerId);
                     }
                 }
             }
@@ -98,7 +98,7 @@ namespace Unity.Multiplayer.Samples.BossRoom
         /// <returns>True if a player with this ID is already connected.</returns>
         public bool IsDuplicateConnection(string playerId)
         {
-            return m_ClientData.ContainsKey(playerId) && m_ClientData[playerId].IsConnected;
+            return _clientData.ContainsKey(playerId) && _clientData[playerId].IsConnected;
         }
 
         /// <summary>
@@ -119,9 +119,9 @@ namespace Unity.Multiplayer.Samples.BossRoom
             }
 
             // If another client exists with the same playerId
-            if (m_ClientData.ContainsKey(playerId))
+            if (_clientData.ContainsKey(playerId))
             {
-                if (!m_ClientData[playerId].IsConnected)
+                if (!_clientData[playerId].IsConnected)
                 {
                     // If this connecting client has the same player Id as a disconnected client, this is a reconnection.
                     isReconnecting = true;
@@ -133,14 +133,14 @@ namespace Unity.Multiplayer.Samples.BossRoom
             if (isReconnecting)
             {
                 // Update player session data
-                sessionPlayerData = m_ClientData[playerId];
+                sessionPlayerData = _clientData[playerId];
                 sessionPlayerData.ClientID = clientId;
                 sessionPlayerData.IsConnected = true;
             }
 
             //Populate our dictionaries with the SessionPlayerData
-            m_ClientIDToPlayerId[clientId] = playerId;
-            m_ClientData[playerId] = sessionPlayerData;
+            _clientIDToPlayerId[clientId] = playerId;
+            _clientData[playerId] = sessionPlayerData;
         }
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace Unity.Multiplayer.Samples.BossRoom
         /// <returns>The Player ID matching the given client ID</returns>
         public string GetPlayerId(ulong clientId)
         {
-            if (m_ClientIDToPlayerId.TryGetValue(clientId, out string playerId))
+            if (_clientIDToPlayerId.TryGetValue(clientId, out string playerId))
             {
                 return playerId;
             }
@@ -184,7 +184,7 @@ namespace Unity.Multiplayer.Samples.BossRoom
         /// <returns>Player data struct matching the given ID</returns>
         public T? GetPlayerData(string playerId)
         {
-            if (m_ClientData.TryGetValue(playerId, out T data))
+            if (_clientData.TryGetValue(playerId, out T data))
             {
                 return data;
             }
@@ -200,9 +200,9 @@ namespace Unity.Multiplayer.Samples.BossRoom
         /// <param name="sessionPlayerData"> new data to overwrite the old </param>
         public void SetPlayerData(ulong clientId, T sessionPlayerData)
         {
-            if (m_ClientIDToPlayerId.TryGetValue(clientId, out string playerId))
+            if (_clientIDToPlayerId.TryGetValue(clientId, out string playerId))
             {
-                m_ClientData[playerId] = sessionPlayerData;
+                _clientData[playerId] = sessionPlayerData;
             }
             else
             {
@@ -215,7 +215,7 @@ namespace Unity.Multiplayer.Samples.BossRoom
         /// </summary>
         public void OnSessionStarted()
         {
-            m_HasSessionStarted = true;
+            _hasSessionStarted = true;
         }
 
         /// <summary>
@@ -225,7 +225,7 @@ namespace Unity.Multiplayer.Samples.BossRoom
         {
             ClearDisconnectedPlayersData();
             ReinitializePlayersData();
-            m_HasSessionStarted = false;
+            _hasSessionStarted = false;
         }
 
         /// <summary>
@@ -233,26 +233,26 @@ namespace Unity.Multiplayer.Samples.BossRoom
         /// </summary>
         public void OnServerEnded()
         {
-            m_ClientData.Clear();
-            m_ClientIDToPlayerId.Clear();
-            m_HasSessionStarted = false;
+            _clientData.Clear();
+            _clientIDToPlayerId.Clear();
+            _hasSessionStarted = false;
         }
 
         void ReinitializePlayersData()
         {
-            foreach (var id in m_ClientIDToPlayerId.Keys)
+            foreach (var id in _clientIDToPlayerId.Keys)
             {
-                string playerId = m_ClientIDToPlayerId[id];
-                T sessionPlayerData = m_ClientData[playerId];
+                string playerId = _clientIDToPlayerId[id];
+                T sessionPlayerData = _clientData[playerId];
                 sessionPlayerData.Reinitialize();
-                m_ClientData[playerId] = sessionPlayerData;
+                _clientData[playerId] = sessionPlayerData;
             }
         }
 
         void ClearDisconnectedPlayersData()
         {
             List<ulong> idsToClear = new List<ulong>();
-            foreach (var id in m_ClientIDToPlayerId.Keys)
+            foreach (var id in _clientIDToPlayerId.Keys)
             {
                 var data = GetPlayerData(id);
                 if (data is { IsConnected: false })
@@ -263,14 +263,14 @@ namespace Unity.Multiplayer.Samples.BossRoom
 
             foreach (var id in idsToClear)
             {
-                string playerId = m_ClientIDToPlayerId[id];
+                string playerId = _clientIDToPlayerId[id];
                 var playerData = GetPlayerData(playerId);
                 if (playerData != null && playerData.Value.ClientID == id)
                 {
-                    m_ClientData.Remove(playerId);
+                    _clientData.Remove(playerId);
                 }
 
-                m_ClientIDToPlayerId.Remove(id);
+                _clientIDToPlayerId.Remove(id);
             }
         }
     }

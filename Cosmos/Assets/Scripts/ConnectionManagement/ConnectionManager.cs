@@ -1,4 +1,6 @@
+using Cosmos.Utilities;
 using System;
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using VContainer;
@@ -21,20 +23,58 @@ namespace Cosmos.ConnectionManagement
         StartClientFailed,          // client failed to start or connect to the server.
     }
 
+    public struct ReconnectMessage
+    {
+        public int CurrentAttempt;
+        public int MaxAttempts;
+
+        public ReconnectMessage(int currentAttempt, int maxAttempts)
+        {
+            CurrentAttempt = currentAttempt;
+            MaxAttempts = maxAttempts;
+        }
+    }
+
+    public struct ConnectionEventMessage : INetworkSerializeByMemcpy
+    {
+        public ConnectStatus ConnectStatus;
+        public FixedPlayerName PlayerName;
+    }
+
+    [Serializable]
+    public class ConnectionPayload
+    {
+        public string playerId;
+        public string playerName;
+        public bool isDebug;
+    }
+
+
     /// <summary>
     /// This state machine handles connection through the NetworkManager. It is responsible for listening to
     /// NetworkManager callbacks and other outside calls and redirecting them to the current ConnectionState.
     /// </summary>
     public class ConnectionManager : MonoBehaviour
     {
-        ConnectionState _currentState;
-
         [Inject]
         NetworkManager _networkManager;
         public NetworkManager NetworkManager => _networkManager;
 
+        [Inject]
+        IObjectResolver _objectResolver;
+
         [SerializeField]
         int _reconnectAttempts = 2;
+        public int ReconnectAttempts => _reconnectAttempts;
+
+        internal readonly OfflineState _offlineState = new OfflineState();
+        internal readonly ClientConnectingState _clientConnectingState = new ClientConnectingState();
+        internal readonly ClientConnectedState _clientConnectedState = new ClientConnectedState();
+        internal readonly ClientReconnectingState _clientReconnectingState = new ClientReconnectingState();
+        internal readonly StartingHostState _startingHostState = new StartingHostState();
+        internal readonly HostingState _hostingState = new HostingState();
+
+        private ConnectionState _currentState;
 
         public int MaxConnectedPlayers = 4;
 
@@ -42,6 +82,48 @@ namespace Cosmos.ConnectionManagement
         {
             DontDestroyOnLoad(gameObject);
         }
+
+        private void Start()
+        {
+            List<ConnectionState> connectionStates = new() { _offlineState, _clientConnectedState, _clientReconnectingState, _startingHostState, _hostingState };
+            foreach (ConnectionState connectionState in connectionStates)
+            {
+                _objectResolver.Inject(connectionState);
+            }
+
+            _currentState = _offlineState;
+
+            NetworkManager.OnServerStarted += OnServerStarted;
+            NetworkManager.OnClientConnectedCallback += OnClientConnectedCallback;
+            NetworkManager.OnClientDisconnectCallback += OnClientDisconnectCallback;
+            NetworkManager.ConnectionApprovalCallback += ConnectionApprovalCallback;
+            NetworkManager.OnTransportFailure += OnTransportFailure;
+            NetworkManager.OnServerStopped += OnServerStopped;
+        }
+
+        private void OnDestroy()
+        {
+            NetworkManager.OnServerStarted -= OnServerStarted;
+            NetworkManager.OnClientConnectedCallback -= OnClientConnectedCallback;
+            NetworkManager.OnClientDisconnectCallback -= OnClientDisconnectCallback;
+            NetworkManager.ConnectionApprovalCallback -= ConnectionApprovalCallback;
+            NetworkManager.OnTransportFailure -= OnTransportFailure;
+            NetworkManager.OnServerStopped -= OnServerStopped;
+        }
+
+        internal void ChangeState(ConnectionState nextState)
+        {
+            Debug.Log($"{name}: Changed connection state from {_currentState.GetType().Name} to {nextState.GetType().Name}.");
+
+            if (_currentState != null)
+            {
+                _currentState.Exit();
+            }
+
+            _currentState = nextState;
+            _currentState.Enter();
+        }
+
 
         public void StartHostLobby(string playerName)
         {
@@ -65,7 +147,37 @@ namespace Cosmos.ConnectionManagement
 
         public void StartClientIP(string text, string ip, int portNumber)
         {
-            throw new NotImplementedException();
+            _currentState.StartClientIP(text, ip, portNumber);
+        }
+
+        private void OnServerStarted()
+        {
+            _currentState.OnServerStarted();
+        }
+
+        private void OnClientConnectedCallback(ulong clientId)
+        {
+            _currentState.OnClientConnected(clientId);
+        }
+
+        private void OnClientDisconnectCallback(ulong clientId)
+        {
+            _currentState.OnClientDisconnect(clientId);
+        }
+
+        private void ConnectionApprovalCallback(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
+        {
+            _currentState.ApprovalCheck(request, response);
+        }
+
+        private void OnTransportFailure()
+        {
+            _currentState.OnTransportFailure();
+        }
+
+        private void OnServerStopped(bool _) // we don't need this parameter as the ConnectionState already carries the relevant information
+        {
+            _currentState.OnServerStopped();
         }
     }
 }

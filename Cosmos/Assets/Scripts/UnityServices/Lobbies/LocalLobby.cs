@@ -241,6 +241,12 @@ namespace Cosmos.UnityServices.Lobbies
             OnChanged?.Invoke(this);
         }
 
+        internal Dictionary<string, DataObject> GetDataForUnityServices() =>
+            new Dictionary<string, DataObject>
+            {
+                { "RelayJoinCode", new DataObject(DataObject.VisibilityOptions.Public, RelayJoinCode) }
+            };
+
         private void DoAddUser(LocalLobbyUser localLobbyUser)
         {
             _localLobbyUsers.Add(localLobbyUser.ID, localLobbyUser);

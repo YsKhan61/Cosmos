@@ -30,6 +30,9 @@ namespace Cosmos.Gameplay.GameState
         private LobbyUIMediator _lobbyUIMediator;
 
         [SerializeField]
+        private IPUIMediator _ipUIMediator;
+
+        [SerializeField]
         private Button _lobbyButton;
 
         [SerializeField]
@@ -40,8 +43,6 @@ namespace Cosmos.Gameplay.GameState
 
         [SerializeField, Tooltip("Detect hovering and check if UGS is initialized correctly or not, and show a tooltip!")]
         private UITooltipDetector _ugsSetupTooltipDetector;
-
-        
 
         [Inject]
         private AuthenticationServiceFacade _authServiceFacade;
@@ -84,7 +85,7 @@ namespace Cosmos.Gameplay.GameState
             base.Configure(builder);
             builder.RegisterComponent(_nameGenerationData);
             builder.RegisterComponent(_lobbyUIMediator);
-            
+            builder.RegisterComponent(_ipUIMediator);
         }
 
         public void OnLobbyStartButtonClicked()
@@ -96,7 +97,7 @@ namespace Cosmos.Gameplay.GameState
         public void OnDirectIPButtonClicked()
         {
             _lobbyUIMediator.Hide();
-            
+            _ipUIMediator.Show();
         }
 
         public void OnChangeProfileButtonClicked()
@@ -169,6 +170,7 @@ namespace Cosmos.Gameplay.GameState
             Debug.Log($"Signed in. Unity Player ID {AuthenticationService.Instance.PlayerId}");
 #endif
 
+            // Updating LocalLobbyUser and LocalLobby
             _localLobby.RemoveUser(_localLobbyUser);
             _localLobbyUser.ID = AuthenticationService.Instance.PlayerId;
             _localLobby.AddUser(_localLobbyUser);

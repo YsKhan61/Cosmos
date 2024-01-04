@@ -1,5 +1,8 @@
-using UnityEngine;
+using Cosmos.UnityServices.Lobbies;
+using Cosmos.Utilities;
+using Unity.Multiplayer.Samples.Utilities;
 using UnityEngine.SceneManagement;
+using VContainer;
 
 
 namespace Cosmos.ConnectionManagement
@@ -11,18 +14,45 @@ namespace Cosmos.ConnectionManagement
     /// </summary>
     internal class OfflineState : ConnectionState
     {
-        const string k_MainMenuSceneName = "MainMenu";
+        private const string MAIN_MENU_SCENE_NAME = "MainMenu";
+
+        [Inject]
+        private LobbyServiceFacade _lobbyServiceFacade;
+
+        [Inject]
+        private ProfileManager _profileManager;
+
+        [Inject]
+        private LocalLobby _localLobby;
 
         public override void Enter()
         {
+            _lobbyServiceFacade.EndTracking();
             _connectionManager.NetworkManager.Shutdown();
-            if (SceneManager.GetActiveScene().name != k_MainMenuSceneName)
+            if (SceneManager.GetActiveScene().name != MAIN_MENU_SCENE_NAME)
             {
-                // Load the main menu scene if we are not in it already
+                SceneLoaderWrapper.Instance.LoadScene(MAIN_MENU_SCENE_NAME, useNetworkSceneManager: false);
             }
         }
 
-        public override void Exit() { }
+        public override void Exit() {}
+
+        public override void StartHostLobby(string playerName)
+        {
+            ConnectionMethodRelay connectionMethodRelay =
+                new ConnectionMethodRelay(_lobbyServiceFacade, _localLobby, _connectionManager, _profileManager, playerName);
+
+            _connectionManager.ChangeState(_connectionManager._startingHostState.Configure(connectionMethodRelay));
+        }
+
+        public override void StartClientLobby(string playerName)
+        {
+            ConnectionMethodRelay connectionMethod = 
+                new(_lobbyServiceFacade, _localLobby, _connectionManager, _profileManager, playerName);
+
+            _connectionManager._clientReconnectingState.Configure(connectionMethod);
+            _connectionManager.ChangeState(_connectionManager._clientConnectingState.Configure(connectionMethod));
+        }
     }
 }
 

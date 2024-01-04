@@ -41,14 +41,6 @@ namespace Cosmos.Gameplay.UI
             _createProfileButton.interactable = false;
         }
 
-        public void Show()
-        {
-            _canvasGroup.alpha = 1;
-            _canvasGroup.blocksRaycasts = true;
-            _newProfileInputField.text = "";
-            InitializeUI();
-        }
-
         /// <summary>
         /// Added to the InputField component's OnValueChanged event in the inspector.
         /// </summary>
@@ -64,7 +56,7 @@ namespace Cosmos.Gameplay.UI
             if (!string.IsNullOrEmpty(profile) && !_profileManager.AvailableProfiles.Contains(profile))
             {
                 _profileManager.CreateProfile(profile);
-                _profileManager.Profile = profile;
+                // _profileManager.Profile = profile; // - added to CreateProfile Method of ProfileManager
             }
             else
             {
@@ -72,12 +64,6 @@ namespace Cosmos.Gameplay.UI
                     "Could not create new profile",
                     "A profile already exists with this same name. Select one of the already existing profiles or create a new one with a different name.");
             }
-        }
-
-        public void Hide()
-        {
-            _canvasGroup.alpha = 0;
-            _canvasGroup.blocksRaycasts = false;
         }
 
 
@@ -90,6 +76,20 @@ namespace Cosmos.Gameplay.UI
             }
 
             _emptyProfileListLabel.enabled = _profileManager.AvailableProfiles.Count == 0;
+        }
+
+        public void Show()
+        {
+            _canvasGroup.alpha = 1;
+            _canvasGroup.blocksRaycasts = true;
+            _newProfileInputField.text = "";
+            InitializeUI();
+        }
+
+        public void Hide()
+        {
+            _canvasGroup.alpha = 0;
+            _canvasGroup.blocksRaycasts = false;
         }
 
         private string SanitizeProfileName(string dirtyString)

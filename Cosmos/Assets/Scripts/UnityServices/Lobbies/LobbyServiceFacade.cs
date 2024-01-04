@@ -1,5 +1,8 @@
+using Codice.ThemeImages;
 using Cosmos.Infrastructure;
 using System;
+using System.Collections.Generic;
+using System.Net.WebSockets;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
 using Unity.Services.Lobbies;
@@ -261,34 +264,267 @@ namespace Cosmos.UnityServices.Lobbies
             }
         }
 
+        /// <summary>
+        /// Attempt to update the set of key-value pairs associated with a given lobby and unlocks it so clients can see it.
+        /// </summary>
+        /// <returns></returns>
+        public async Task UpdateLobbyDataAndUnlockAsync()
+        {
+            if (_rateLimitQuery.CanCall)
+            {
+                return;
+            }
+
+            Dictionary<string, DataObject> localData = _localLobby.GetDataForUnityServices();
+
+            Dictionary<string, DataObject> currentData = CurrentUnityLobby.Data;
+            if (currentData == null)
+            {
+                currentData = new Dictionary<string, DataObject>();
+            }
+
+            foreach (KeyValuePair<string, DataObject> newData in localData)
+            {
+                if (currentData.ContainsKey(newData.Key))
+                {
+                    currentData[newData.Key] = newData.Value;
+                }
+                else
+                {
+                    currentData.Add(newData.Key, newData.Value);
+                }
+            }
+
+            try
+            {
+                Lobby result = await _lobbyApiInterface.UpdateLobby(CurrentUnityLobby.Id, currentData, shouldLock: false);
+                if (result != null)
+                {
+                    CurrentUnityLobby = result;
+                }
+            }
+            catch (LobbyServiceException e)
+            {
+                if (e.Reason == LobbyExceptionReason.RateLimited)
+                {
+                    _rateLimitQuery.PutOnCooldown();
+                }
+                else
+                {
+                    PublishError(e);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Attempt to push a set of key-value pairs associated with the local player which will overwrite any existing data
+        /// for these keys. Lobby can be provided info about Relay (or any other remote allocation) so it can add automatic disconnect handling.
+        /// </summary>
+        /// <returns></returns>
+        public async Task UpdatePlayerDataAsync(string allocationId, string connectionInfo)
+        {
+            if (!_rateLimitQuery.CanCall)
+            {
+                return;
+            }
+
+            try
+            {
+                Lobby lobby = await _lobbyApiInterface.UpdatePlayer(CurrentUnityLobby.Id, AuthenticationService.Instance.PlayerId, _localLobbyUser.GetDataForUnityServices(), allocationId, connectionInfo);
+
+                if (lobby != null)
+                {
+                    CurrentUnityLobby = lobby; // Store the most up-to-date lobby now since we have it, instead of waiting for the next heartbeat.
+                }
+            }
+            catch (LobbyServiceException e)
+            {
+                if (e.Reason == LobbyExceptionReason.RateLimited)
+                {
+                    _rateLimitQuery.PutOnCooldown();
+                }
+                // If Lobby is not found and if we are not the host, it has already been deleted. No need to publish the error here.
+                else if (e.Reason != LobbyExceptionReason.LobbyNotFound && !_localLobbyUser.IsHost)
+                {
+                    PublishError(e);
+                }
+            }
+        }
+
+        public async Task<Lobby> ReconnectToLobbyAsync()
+        {
+            try
+            {
+                return await _lobbyApiInterface.ReconnectToLobby(_localLobby.LobbyID);
+            }
+            catch (LobbyServiceException e)
+            {
+                // If Lobby is not found and if we are not the host, it has already been deleted.
+                // No need to publish the error here.
+                if (e.Reason != LobbyExceptionReason.LobbyNotFound && !_localLobbyUser.IsHost)
+                {
+                    PublishError(e);
+                }
+            }
+
+            return null;
+        }
+
+        public async void RemovePlayerFromLobbyAsync(string uasId)
+        {
+            if (_localLobbyUser.IsHost)
+            {
+                try
+                {
+                    await _lobbyApiInterface.RemovePlayerFromLobby(uasId, _localLobby.LobbyID);
+                }
+                catch (LobbyServiceException e)
+                {
+                    PublishError(e);
+                }
+            }
+            else
+            {
+                Debug.LogError("Only the host can remove other players from the lobby.");
+            }
+        }
+
+        /// <summary>
+        /// Attempt to leave a lobby
+        /// </summary>
+        private async void LeaveLobbyAsync()
+        {
+            string uasId  = AuthenticationService.Instance.PlayerId;
+            try
+            {
+                await _lobbyApiInterface.RemovePlayerFromLobby(uasId, _localLobby.LobbyID);
+            }
+            catch (LobbyServiceException e)
+            {
+                // If Lobby is not found and if we are not the host, it has already been deleted. No need to publish the error here.
+                if (e.Reason != LobbyExceptionReason.LobbyNotFound && !_localLobbyUser.IsHost)
+                {
+                    PublishError(e);
+                }
+            }
+            finally
+            {
+                ResetLobby();
+            }
+        }
+
+        private void ResetLobby()
+        {
+            CurrentUnityLobby = null;
+            if (_localLobbyUser != null)
+            {
+                _localLobbyUser.ResetState();
+            }
+            if (_localLobby != null)
+            {
+                _localLobby.Reset(_localLobbyUser);
+            }
+
+            // no need to disconnect Netcode, it should already be handled by Netcode's Callback to disconnect
+        }
+
+        private async void DeleteLobbyAsync()
+        {
+            if (_localLobbyUser.IsHost)
+            {
+                try
+                {
+                    await _lobbyApiInterface.DeleteLobby(_localLobby.LobbyID);
+                }
+                catch (LobbyServiceException e)
+                {
+                    PublishError(e);
+                }
+                finally
+                {
+                    ResetLobby();
+                }
+            }
+            else
+            {
+                Debug.LogError("Only the host can delete a lobby.");
+            }
+        }
+
+        private void DoLobbyHeartbeat(float dt)
+        {
+            _heartBeatTime += dt;
+            if (_heartBeatTime > HEART_BEAT_PERIOD)
+            {
+                _heartBeatTime -= HEART_BEAT_PERIOD;
+                try
+                {
+                    _lobbyApiInterface.SendHeartbeatPing(CurrentUnityLobby.Id);
+                }
+                catch (LobbyServiceException e)
+                {
+                    // If Lobby is not found and if we are not the host, it has already been deleted. No need to publish the error here.
+                    if (e.Reason != LobbyExceptionReason.LobbyNotFound && !_localLobbyUser.IsHost)
+                    {
+                        PublishError(e);
+                    }
+                }
+            }
+        }
+
+        private async void SubscribeToJoinedLobbyAsync()
+        {
+            LobbyEventCallbacks lobbyEventCallbacks = new();
+            lobbyEventCallbacks.LobbyChanged += OnLobbyChanges;
+            lobbyEventCallbacks.KickedFromLobby += OnKickedFromLobby;
+            lobbyEventCallbacks.LobbyEventConnectionStateChanged += OnLobbyEventConnectionStateChanged;
+            // The LobbyEventCallbacks object created here will now be managed by the Lobby SDK.
+            // The callbacks will be unsubscribed from when we call UnsubscribeAsync on the ILobbyEvents object we receive and store here.
+            _lobbyEvents = await _lobbyApiInterface.SubscribeToLobby(_localLobby.LobbyID, lobbyEventCallbacks);
+        }
+
+        private async void UnsubscribeToJoinedLobbyAsync()
+        {
+            if (_lobbyEvents != null && _lobbyEventConnectionState != LobbyEventConnectionState.Unsubscribed)
+            {
+#if UNITY_EDITOR
+                try
+                {
+                    await _lobbyEvents.UnsubscribeAsync();
+                }
+                catch (WebSocketException e)
+                {
+                    // This exception occurs in the editor when exiting play mode without first leaving the lobby.
+                    // This is because Wire closes the websocket internally when exiting playmode in the editor.
+                    Debug.Log(e.Message);
+                }
+#else
+                await _lobbyEvents.UnsubscribeAsync();  
+#endif
+            }
+        }
+
+        private void OnLobbyChanges(ILobbyChanges changes)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnKickedFromLobby()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnLobbyEventConnectionStateChanged(LobbyEventConnectionState state)
+        {
+            throw new NotImplementedException();
+        }
+
+        
+
         private void PublishError(LobbyServiceException e)
         {
-            throw new NotImplementedException();
-        }
-
-        private void LeaveLobbyAsync()
-        {
-            
-        }
-
-        private void DeleteLobbyAsync()
-        {
-            
-        }
-
-        private void DoLobbyHeartbeat(float obj)
-        {
-            
-        }
-
-        private void SubscribeToJoinedLobbyAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void UnsubscribeToJoinedLobbyAsync()
-        {
-            
+            string reason = e.InnerException == null ? e.Message : $"{e.Message} ({e.InnerException.Message})"; // Lobby error type, then HTTP error type
+            _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Lobby Error", reason, UnityServiceErrorMessage.Service.Lobby, e));
         }
     }
 }

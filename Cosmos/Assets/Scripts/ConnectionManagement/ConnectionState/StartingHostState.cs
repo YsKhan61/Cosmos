@@ -1,5 +1,11 @@
 
+using Cosmos.Infrastructure;
+using Cosmos.UnityServices.Lobbies;
+using System;
+using Unity.Multiplayer.Samples.BossRoom;
+using Unity.Netcode;
 using UnityEngine;
+using VContainer;
 
 
 namespace Cosmos.ConnectionManagement
@@ -10,14 +16,76 @@ namespace Cosmos.ConnectionManagement
     /// </summary>
     internal class StartingHostState : OnlineState
     {
+        private ConnectionMethodBase _connectionMethodBase;
+
         public override void Enter()
         {
-            
+            StartHost();
         }
 
-        public override void Exit()
+
+        public override void Exit() { }
+
+        public override void OnServerStarted()
         {
-            
+            _connectStatusPublisher.Publish(ConnectStatus.Success);
+            _connectionManager.ChangeState(_connectionManager._hostingState);
+        }
+
+        public override void ApprovalCheck(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
+        {
+            byte[] connectionData = request.Payload;
+            ulong clientId = request.ClientNetworkId;
+
+            // This happens when starting as a host, before the end of the StartHost call. In that case, we simply approve ourselves.
+            if (clientId == _connectionManager.NetworkManager.LocalClientId)
+            {
+                string payload = System.Text.Encoding.UTF8.GetString(connectionData);
+                ConnectionPayload connectionPayload = JsonUtility.FromJson<ConnectionPayload>(payload);
+
+                SessionManager<SessionPlayerData>.Instance.SetupConnectingPlayerSessionData(clientId, connectionPayload.playerId,
+                    new SessionPlayerData(clientId, connectionPayload.playerName, new NetworkGuid(), 0, true));
+
+                // connection approval will create a player object for you
+                response.Approved = true;
+                response.CreatePlayerObject = true;
+            }
+        }
+
+        public override void OnServerStopped()
+        {
+            StartHostFailed();
+        }
+
+        internal StartingHostState Configure(ConnectionMethodBase connectionMethodBase)
+        {
+            _connectionMethodBase = connectionMethodBase;
+            return this;
+        }
+
+        private async void StartHost()
+        {
+            try
+            {
+                await _connectionMethodBase.SetupHostConnectionAsync();
+
+                // NGO's StartHost launches everything
+                if (!_connectionManager.NetworkManager.StartHost())
+                {
+                    StartHostFailed();
+                }
+            }
+            catch(Exception)
+            {
+                StartHostFailed();
+                throw;
+            }
+        }
+
+        private void StartHostFailed()
+        {
+            _connectStatusPublisher.Publish(ConnectStatus.StartHostFailed);
+            _connectionManager.ChangeState(_connectionManager._offlineState);
         }
     }
 }

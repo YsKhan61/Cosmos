@@ -2383,7 +2383,8 @@ PrefabInstance:
       value: Cancel Button
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8557115114381677920, guid: 9dbe9c46c85dc4f4faf442165e1124a8, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9dbe9c46c85dc4f4faf442165e1124a8, type: 3}

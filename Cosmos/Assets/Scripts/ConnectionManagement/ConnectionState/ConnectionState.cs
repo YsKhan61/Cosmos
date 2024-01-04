@@ -1,5 +1,6 @@
 
 
+using Cosmos.Infrastructure;
 using Unity.Netcode;
 using VContainer;
 
@@ -13,10 +14,13 @@ namespace Cosmos.ConnectionManagement
         [Inject]
         protected readonly ConnectionManager _connectionManager;
 
+        [Inject]
+        protected IPublisher<ConnectStatus> _connectStatusPublisher;
+
         public abstract void Enter();
         public abstract void Exit();
         public virtual void OnClientConnected(ulong clientId) { }
-        public virtual void OnClientDisconnected(ulong clientId) { }
+        public virtual void OnClientDisconnect(ulong clientId) { }
         public virtual void OnServerStarted() { }
         public virtual void StartClientIP(string playerName, string ipAddress, int port) { }
         public virtual void StartClientLobby(string playerName) { }

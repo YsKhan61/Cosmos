@@ -57,6 +57,7 @@ namespace Cosmos.Utilities
         {
             _availableProfiles.Add(profile);
             SaveProfiles();
+            Profile = profile;
         }
 
         public void DeleteProfile(string profile)

@@ -129,6 +129,15 @@ namespace Cosmos.Gameplay.UI
             _ipConnectionWindow.CancelConnectionWindow();
         }
 
+        public void Show()
+        {
+            _canvasGroup.alpha = 1;
+            _canvasGroup.interactable = true;
+            _canvasGroup.blocksRaycasts = true;
+
+            DisableSignInSpinner();
+        }
+
         public void Hide()
         {
             _canvasGroup.alpha = 0;

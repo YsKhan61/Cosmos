@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2120e99cef8a0484893baf07a6bab623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controlTransformerO: {fileID: 0}
+  _pivotTransform: {fileID: 0}
   _controlMovement: {fileID: 4330010369853147401}
 --- !u!1 &600638100572950348
 GameObject:
@@ -6881,7 +6881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2120e99cef8a0484893baf07a6bab623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controlTransformerO: {fileID: 0}
+  _pivotTransform: {fileID: 3800804642542323661}
   _controlMovement: {fileID: 4330010369853147401}
 --- !u!1 &5689014958412775820
 GameObject:
@@ -7961,7 +7961,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9220478754352655975}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.10451705, y: -0.69933987, z: 0.10451705, w: 0.69933987}
+  m_LocalRotation: {x: -0.14780942, y: -0, z: -0, w: 0.9890159}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 0

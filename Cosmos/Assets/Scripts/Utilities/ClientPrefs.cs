@@ -38,6 +38,11 @@ namespace Cosmos.Utilities
             PlayerPrefs.SetFloat(MUSIC_VOLUME_KEY, volume);
         }
 
+        /// <summary>
+        /// Either loads a GUID string from Unity preferences, or creates one and checkpoints it,
+        /// then returns it.
+        /// </summary>
+        /// <returns>The GUID that uniquely identifies this client install, in string form.</returns>
         public static string GetGUID()
         {
             if (PlayerPrefs.HasKey(CLIENT_GUID_KEY))

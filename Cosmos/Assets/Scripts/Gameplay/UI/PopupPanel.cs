@@ -50,13 +50,13 @@ namespace Cosmos.Gameplay.UI
             _isDisplaying = false;
         }
 
-        public void SetupPopupPanel(string titleText, string mainText, bool closableByUser = true)
+        public void SetupPopupPanel(string titleText, string mainText, bool closeableByUser = true)
         {
             _titleText.text = titleText;
             _mainText.text = mainText;
-            _closableByUser = closableByUser;
-            _confirmButton.gameObject.SetActive(closableByUser);
-            _loadingSpinner.SetActive(!closableByUser);
+            _closableByUser = closeableByUser;
+            _confirmButton.gameObject.SetActive(closeableByUser);
+            _loadingSpinner.SetActive(!closeableByUser);
             Show();
         }
 

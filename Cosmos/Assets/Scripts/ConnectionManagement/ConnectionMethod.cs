@@ -58,6 +58,10 @@ namespace Cosmos.ConnectionManagement
                 playerName = playerName,
                 isDebug = Debug.isDebugBuild
             });
+
+            byte[] payloadBytes = System.Text.Encoding.UTF8.GetBytes(payload);
+
+            _connectionManager.NetworkManager.NetworkConfig.ConnectionData = payloadBytes;
         }
 
         /// Using authentication, this makes sure your session is assosiated with your account and not your device.

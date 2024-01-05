@@ -176,6 +176,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2923800742281578956, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
+      propertyPath: _pivotTransform
+      value: 
+      objectReference: {fileID: 7708537790384765734}
+    - target: {fileID: 2923800742281578956, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
       propertyPath: _controlTransformer
       value: 
       objectReference: {fileID: 0}

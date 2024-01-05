@@ -12,7 +12,7 @@ namespace Cosmos.VR
     /// </summary>
     public class XZAxesRotateTransformerVR : MonoBehaviour, ITransformer, IControlHandle
     {
-        private enum Axis
+        private enum Axis : int      // In a Vector3 (x, y, z) the axes are (0, 1, 2)
         {
             Right = 0,
             Up = 1,

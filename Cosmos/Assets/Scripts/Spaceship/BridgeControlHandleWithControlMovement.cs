@@ -16,6 +16,8 @@ namespace Cosmos.Spaceship
         [SerializeField]
         private ControlMovement _controlMovement = null;
 
+        private Vector3 _projectedVectorInWorldSpace;
+
         /*[SerializeField, Tooltip("1 or -1 : to invert the control visual angle value")]
         private int _invertMultiplier = 1;*/
 
@@ -26,15 +28,16 @@ namespace Cosmos.Spaceship
 
         private void Update()
         {
-            Vector3 v = _pivotTransform.InverseTransformDirection(transform.up);
-
-            _controlMovement.TorqueDirection =
-                new Vector3(
-                    v.x, 
-                    0f, 
-                    v.z).normalized;
-
+            _projectedVectorInWorldSpace = Vector3.ProjectOnPlane(transform.up, _pivotTransform.up).normalized;
+            _projectedVectorInWorldSpace = Quaternion.AngleAxis(90f, _pivotTransform.up) * _projectedVectorInWorldSpace;    // This direction will be the axis of the torque
+            _controlMovement.TorqueDirection = _projectedVectorInWorldSpace;
             _controlMovement.TorqueMultiplier = 1f;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(_pivotTransform.position, _projectedVectorInWorldSpace);
         }
     }
 

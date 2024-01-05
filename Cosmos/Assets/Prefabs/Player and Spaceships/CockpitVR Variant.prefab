@@ -80,6 +80,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4330010369853147401, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
+      propertyPath: _damping
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4330010369853147401, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
+      propertyPath: _maxTorqueToInput
+      value: 10000
+      objectReference: {fileID: 0}
     - target: {fileID: 5341095089439726547, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -96,9 +104,17 @@ PrefabInstance:
       propertyPath: _throttleHandleO
       value: 
       objectReference: {fileID: 4977082185402049354}
+    - target: {fileID: 7327610187140348830, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
+      propertyPath: _boundaryDistance
+      value: 10000
+      objectReference: {fileID: 0}
     - target: {fileID: 7365317072159943165, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7987208988483158782, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
+      propertyPath: m_Mass
+      value: 1000
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6712747242063208923, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}

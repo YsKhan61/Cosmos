@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Cosmos.Spaceship
 {
     /// <summary>
-    /// The movement caused by the control handle
+    /// Takes a Vector3 as input axis, for providing the torque to the rigidbody
     /// </summary>
     public class ControlMovement : MonoBehaviour
     {
@@ -36,7 +36,7 @@ namespace Cosmos.Spaceship
         private void FixedUpdate()
         {
             // Rotate the rigidbody along the orientation with a torque proportional to the throttle value
-            _rigidbody.AddTorque(transform.TransformDirection(_torqueDirection) * _torqueMultiplier * _maxTorqueToInput * Time.fixedDeltaTime);
+            _rigidbody.AddTorque(_torqueDirection * _torqueMultiplier * _maxTorqueToInput * Time.fixedDeltaTime);
 
             if(_torqueDirection == Vector3.zero)
                 _rigidbody.angularVelocity = Vector3.Slerp(_rigidbody.angularVelocity, Vector3.zero, _damping * Time.fixedDeltaTime);

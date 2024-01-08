@@ -33,7 +33,7 @@ namespace Cosmos.ApplicationLifecycle
         private LocalLobby _localLobby;
         private LobbyServiceFacade _lobbyServiceFacade;
 
-        private IDisposable _subscriptions;
+        private IDisposable _subscriptionsDisposable;
 
         private void Start()
         {
@@ -43,9 +43,9 @@ namespace Cosmos.ApplicationLifecycle
             ISubscriber<QuitApplicationMessage> quitApplicationMessageSubscriber =
                 Container.Resolve<ISubscriber<QuitApplicationMessage>>();
 
-            DisposableGroup subscribersDisposableGroup = new DisposableGroup();
+            DisposableGroup subscribersDisposableGroup = new();
             subscribersDisposableGroup.Add(quitApplicationMessageSubscriber.Subscribe(QuitGame));
-            _subscriptions = subscribersDisposableGroup;
+            _subscriptionsDisposable = subscribersDisposableGroup;
 
             Application.targetFrameRate = 72;
             Application.wantsToQuit += OnApplicationWantsToQuit;
@@ -60,9 +60,9 @@ namespace Cosmos.ApplicationLifecycle
 
         protected override void OnDestroy()
         {
-            if (_subscriptions != null)
+            if (_subscriptionsDisposable != null)
             {
-                _subscriptions.Dispose();
+                _subscriptionsDisposable.Dispose();
             }
 
             if(_lobbyServiceFacade != null)
@@ -76,6 +76,7 @@ namespace Cosmos.ApplicationLifecycle
         protected override void Configure(IContainerBuilder builder)
         {
             base.Configure(builder);
+
             builder.RegisterComponent(_updateRunner);
             builder.RegisterComponent(_connectionManager);
             builder.RegisterComponent(_networkManager);

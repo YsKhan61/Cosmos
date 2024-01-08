@@ -1,0 +1,19 @@
+{
+    "name": "Cosmos.Test",
+    "rootNamespace": "",
+    "references": [
+        "GUID:272db2a180dbefe45bea8023722c0e9a",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "GUID:785872fffe145415dab38c4e07086c55",
+        "GUID:cdfd058b393524bddbb7e850e0d53c8e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

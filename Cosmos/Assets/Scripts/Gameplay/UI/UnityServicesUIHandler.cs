@@ -9,18 +9,27 @@ namespace Cosmos.Gameplay.UI
 {
     public class UnityServicesUIHandler : MonoBehaviour
     {
-        private ISubscriber<UnityServiceErrorMessage> m_ServiceErrorSubscription;
+        private ISubscriber<UnityServiceErrorMessage> _serviceErrorSubscriber;
 
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
         }
 
-        [Inject]
-        private void Initialize(ISubscriber<UnityServiceErrorMessage> serviceError)
+        private void OnDestroy()
         {
-            m_ServiceErrorSubscription = serviceError;
-            m_ServiceErrorSubscription.Subscribe(ServiceErrorHandler);
+            if (_serviceErrorSubscriber != null)
+            {
+                _serviceErrorSubscriber.Unsubscribe(ServiceErrorHandler);
+            }
+        }
+
+        [Inject]
+        private void InjectDependencyAndInitialize(
+            ISubscriber<UnityServiceErrorMessage> serviceErrorSubscriber)
+        {
+            _serviceErrorSubscriber = serviceErrorSubscriber;
+            _serviceErrorSubscriber.Subscribe(ServiceErrorHandler);
         }
 
         private void ServiceErrorHandler(UnityServiceErrorMessage error)
@@ -81,14 +90,6 @@ namespace Cosmos.Gameplay.UI
                         PopupManager.ShowPopupPanel("Lobby error", "Received HTTP error 408 Request timed out from Lobby Service.");
                         break;
                 }
-            }
-        }
-
-        void OnDestroy()
-        {
-            if (m_ServiceErrorSubscription != null)
-            {
-                m_ServiceErrorSubscription.Unsubscribe(ServiceErrorHandler);
             }
         }
     }

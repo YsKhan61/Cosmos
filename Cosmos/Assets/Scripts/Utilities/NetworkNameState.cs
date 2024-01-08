@@ -32,7 +32,7 @@ namespace Cosmos.Utilities
     public class NetworkNameState : NetworkBehaviour
     {
         [HideInInspector]
-        public NetworkVariable<FixedPlayerName> Name = new NetworkVariable<FixedPlayerName>();
+        public NetworkVariable<FixedPlayerName> Name = new();
     }
 }
 

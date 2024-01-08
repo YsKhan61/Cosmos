@@ -1,7 +1,6 @@
-using Codice.Client.Common.GameUI;
 using Cosmos.ConnectionManagement;
 using Cosmos.Infrastructure;
-using TMPro;
+using System;
 using UnityEngine;
 using VContainer;
 
@@ -12,16 +11,21 @@ namespace Cosmos.Gameplay.UI
     /// </summary>
     public class ConnectionStatusMessageUIManager : MonoBehaviour
     {
-        private DisposableGroup _subscriptions;
+        private DisposableGroup _disposableGroup;
 
-        private PopupPanel _currentReconnectPopup;
+        private PopupPanel _currentReconnectPopupPanel;
 
         [Inject]
-        private void InjectDependencies(ISubscriber<ConnectStatus> connectStatusSubscriber, ISubscriber<ReconnectMessage> reconnectMessageSubscriber)
+        private void InjectDependencyAndInitialize(
+            ISubscriber<ConnectStatus> connectStatusSubscriber, 
+            ISubscriber<ReconnectMessage> reconnectMessageSubscriber)
         {
-            _subscriptions = new DisposableGroup();
-            _subscriptions.Add(connectStatusSubscriber.Subscribe(OnConnectStatus));
-            _subscriptions.Add(reconnectMessageSubscriber.Subscribe(OnReconnectMessage));
+            IDisposable connectStatusSubscriberDisposable = connectStatusSubscriber.Subscribe(OnConnectStatus);
+            IDisposable reconnectMessageSubscriberDisposable = reconnectMessageSubscriber.Subscribe(OnReconnectMessage);
+
+            _disposableGroup = new();
+            _disposableGroup.Add(connectStatusSubscriberDisposable);
+            _disposableGroup.Add(reconnectMessageSubscriberDisposable);
         }
 
         private void Awake()
@@ -31,9 +35,9 @@ namespace Cosmos.Gameplay.UI
 
         private void OnDestroy()
         {
-            if (_subscriptions != null)
+            if (_disposableGroup != null)
             {
-                _subscriptions.Dispose();
+                _disposableGroup.Dispose();
             }
         }
 
@@ -81,22 +85,22 @@ namespace Cosmos.Gameplay.UI
             {
                 CloseReconnectPopup();
             }
-            else if (_currentReconnectPopup != null)
+            else if (_currentReconnectPopupPanel != null)
             {
-                _currentReconnectPopup.SetupPopupPanel("Connection lost", $"Attempting to reconnect...\nAttempt {message.CurrentAttempt + 1}/{message.MaxAttempts}", closeableByUser: false);
+                _currentReconnectPopupPanel.SetupPopupPanel("Connection lost", $"Attempting to reconnect...\nAttempt {message.CurrentAttempt + 1}/{message.MaxAttempts}", closeableByUser: false);
             }
             else
             {
-                _currentReconnectPopup = PopupManager.ShowPopupPanel("Connection lost", $"Attempting to reconnect...\nAttempt {message.CurrentAttempt + 1}/{message.MaxAttempts}", closeableByUser: false);
+                _currentReconnectPopupPanel = PopupManager.ShowPopupPanel("Connection lost", $"Attempting to reconnect...\nAttempt {message.CurrentAttempt + 1}/{message.MaxAttempts}", closeableByUser: false);
             }
         }
 
         private void CloseReconnectPopup()
         {
-            if (_currentReconnectPopup != null)
+            if (_currentReconnectPopupPanel != null)
             {
-                _currentReconnectPopup.Hide();
-                _currentReconnectPopup = null;
+                _currentReconnectPopupPanel.Hide();
+                _currentReconnectPopupPanel = null;
             }
         }
     }

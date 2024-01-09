@@ -67,12 +67,12 @@ namespace Cosmos.ConnectionManagement
         int _reconnectAttempts = 2;
         public int ReconnectAttempts => _reconnectAttempts;
 
-        internal readonly OfflineState _offlineState = new OfflineState();
-        internal readonly ClientConnectingState _clientConnectingState = new ClientConnectingState();
-        internal readonly ClientConnectedState _clientConnectedState = new ClientConnectedState();
-        internal readonly ClientReconnectingState _clientReconnectingState = new ClientReconnectingState();
-        internal readonly StartingHostState _startingHostState = new StartingHostState();
-        internal readonly HostingState _hostingState = new HostingState();
+        internal readonly OfflineState _offlineState = new();
+        internal readonly ClientConnectingState _clientConnectingState = new();
+        internal readonly ClientConnectedState _clientConnectedState = new();
+        internal readonly ClientReconnectingState _clientReconnectingState = new();
+        internal readonly StartingHostState _startingHostState = new();
+        internal readonly HostingState _hostingState = new();
 
         private ConnectionState _currentState;
 
@@ -85,7 +85,7 @@ namespace Cosmos.ConnectionManagement
 
         private void Start()
         {
-            List<ConnectionState> connectionStates = new() { _offlineState, _clientConnectedState, _clientReconnectingState, _startingHostState, _hostingState };
+            List<ConnectionState> connectionStates = new() { _offlineState, _clientConnectingState, _clientConnectedState, _clientReconnectingState, _startingHostState, _hostingState };
             foreach (ConnectionState connectionState in connectionStates)
             {
                 _objectResolver.Inject(connectionState);

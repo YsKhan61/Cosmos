@@ -1,4 +1,3 @@
-using Cosmos.UnityServices.Auth;
 using Cosmos.UnityServices.Lobbies;
 using Cosmos.Utilities;
 using System.Threading.Tasks;

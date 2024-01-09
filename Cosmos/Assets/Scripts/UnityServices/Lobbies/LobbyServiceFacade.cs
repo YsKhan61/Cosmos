@@ -505,17 +505,47 @@ namespace Cosmos.UnityServices.Lobbies
 
         private void OnLobbyChanges(ILobbyChanges changes)
         {
-            throw new NotImplementedException();
+            if (changes.LobbyDeleted)
+            {
+                Debug.Log("Lobby deleted");
+                ResetLobby();
+                EndTracking();
+            }
+            else
+            {
+                Debug.Log("Lobby updated");
+                changes.ApplyToLobby(CurrentUnityLobby);
+                _localLobby.ApplyRemoteData(CurrentUnityLobby);
+
+                // as client, check if host is still in lobby
+                if (!_localLobbyUser.IsHost)
+                {
+                    foreach (KeyValuePair<string, LocalLobbyUser> pair in _localLobby.LocalLobbyUsers)
+                    {
+                        if (pair.Value.IsHost)
+                        {
+                            return;
+                        }
+                    }
+
+                    _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Host left the lobby", "Disconnecting.", UnityServiceErrorMessage.Service.Lobby));
+                    EndTracking();
+                    // no need to disconnect Netcode, it should already be handled by Netcode's Callback to disconnect
+                }
+            }
         }
 
         private void OnKickedFromLobby()
         {
-            throw new NotImplementedException();
+            Debug.Log("Kicked from lobby");
+            ResetLobby();
+            EndTracking();
         }
 
         private void OnLobbyEventConnectionStateChanged(LobbyEventConnectionState state)
         {
-            throw new NotImplementedException();
+            _lobbyEventConnectionState = state;
+            Debug.Log($"LobbyEventConnectionState changed to {state}");
         }
 
         

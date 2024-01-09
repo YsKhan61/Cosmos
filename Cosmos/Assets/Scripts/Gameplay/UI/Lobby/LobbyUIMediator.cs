@@ -91,9 +91,7 @@ namespace Cosmos.Gameplay.UI
                 _localLobbyUser.IsHost = true;
                 _lobbyServiceFacade.SetRemoteLobby(lobbyCreationAttempt.Lobby);
 
-#if UNITY_EDITOR
                 Debug.Log($"Created lobby with ID: {_localLobby.LobbyID} and code {_localLobby.LobbyCode}");
-#endif
                 _connectionManager.StartHostLobby(_localLobbyUser.DisplayName);
             }
             else

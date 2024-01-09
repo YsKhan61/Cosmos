@@ -269,7 +269,7 @@ namespace Cosmos.UnityServices.Lobbies
         /// <returns></returns>
         public async Task UpdateLobbyDataAndUnlockAsync()
         {
-            if (_rateLimitQuery.CanCall)
+            if (!_rateLimitQuery.CanCall)
             {
                 return;
             }

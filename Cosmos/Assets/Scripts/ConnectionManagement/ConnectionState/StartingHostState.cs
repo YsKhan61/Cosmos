@@ -1,4 +1,5 @@
 using Cosmos.Infrastructure;
+using Cosmos.UnityServices.Lobbies;
 using System;
 using Unity.Multiplayer.Samples.BossRoom;
 using Unity.Netcode;

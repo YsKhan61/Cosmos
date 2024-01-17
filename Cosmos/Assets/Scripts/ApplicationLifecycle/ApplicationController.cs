@@ -30,6 +30,9 @@ namespace Cosmos.ApplicationLifecycle
         [SerializeField]
         private NetworkManager _networkManager;
 
+        [SerializeField, Tooltip("Next scene to load")]
+        private string _nextScene;
+
         private LocalLobby _localLobby;
         private LobbyServiceFacade _lobbyServiceFacade;
 
@@ -53,7 +56,7 @@ namespace Cosmos.ApplicationLifecycle
             DontDestroyOnLoad(gameObject);
             DontDestroyOnLoad(_updateRunner.gameObject);
 
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene(_nextScene);
         }
 
         

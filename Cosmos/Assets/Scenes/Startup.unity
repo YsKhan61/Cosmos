@@ -754,6 +754,7 @@ MonoBehaviour:
   _updateRunner: {fileID: 1953328561}
   _connectionManager: {fileID: 575339073}
   _networkManager: {fileID: 2031516870}
+  _nextScene: MainMenuVR
 --- !u!4 &2040023287
 Transform:
   m_ObjectHideFlags: 0

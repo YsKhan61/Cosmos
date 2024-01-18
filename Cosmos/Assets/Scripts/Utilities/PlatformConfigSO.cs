@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace Cosmos.Infrastructure
+namespace Cosmos.Utilities
 {
-    public enum Platform
+    public enum PlatformType
     {
         FlatScreen,
         VR
@@ -11,7 +11,7 @@ namespace Cosmos.Infrastructure
     [CreateAssetMenu(fileName = "PlatformConfig", menuName = "ScriptableObjects/PlatformConfigSO")]
     public class PlatformConfigSO : ScriptableObject
     {
-        [SerializeField] private Platform _platform;
-        public Platform Platform => _platform;
+        [SerializeField] private PlatformType _platform;
+        public PlatformType Platform => _platform;
     }
 }

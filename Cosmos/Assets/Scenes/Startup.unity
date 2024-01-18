@@ -271,6 +271,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2969749706200313925, guid: 368f5261366532e4d91eb3de07befe3b, type: 3}
   m_PrefabInstance: {fileID: 95448476}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &95448478 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 247263583224894619, guid: 368f5261366532e4d91eb3de07befe3b, type: 3}
+  m_PrefabInstance: {fileID: 95448476}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 95448477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 831202463f434661b4f61a409b08867f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &127137216
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1354,7 +1365,7 @@ PrefabInstance:
     - target: {fileID: 337724143486464350, guid: 05b044a914a6a884192eb7a2a7b1e483, type: 3}
       propertyPath: m_LoadingProgressManager
       value: 
-      objectReference: {fileID: 618826238}
+      objectReference: {fileID: 95448478}
     - target: {fileID: 4025696277834524835, guid: 05b044a914a6a884192eb7a2a7b1e483, type: 3}
       propertyPath: m_Name
       value: LoadingScreen VR

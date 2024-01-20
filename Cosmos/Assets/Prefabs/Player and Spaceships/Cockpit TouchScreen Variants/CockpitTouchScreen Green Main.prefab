@@ -192,7 +192,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 40290539605118393, guid: ec1775cb934498842b5a337d99404552, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -33.62517
       objectReference: {fileID: 0}
     - target: {fileID: 40290539605118393, guid: ec1775cb934498842b5a337d99404552, type: 3}
       propertyPath: m_LocalPosition.y
@@ -200,7 +200,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 40290539605118393, guid: ec1775cb934498842b5a337d99404552, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.4903679
       objectReference: {fileID: 0}
     - target: {fileID: 40290539605118393, guid: ec1775cb934498842b5a337d99404552, type: 3}
       propertyPath: m_LocalRotation.w
@@ -240,7 +240,11 @@ PrefabInstance:
       objectReference: {fileID: 5094833367858489899}
     - target: {fileID: 3955087906813937180, guid: ec1775cb934498842b5a337d99404552, type: 3}
       propertyPath: m_Name
-      value: CockpitTouchScreen Variant
+      value: CockpitTouchScreen Green Main
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256656371547863667, guid: ec1775cb934498842b5a337d99404552, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7424193219006604293, guid: ec1775cb934498842b5a337d99404552, type: 3}
       propertyPath: _throttleHandleO

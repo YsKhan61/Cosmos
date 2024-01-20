@@ -123,51 +123,121 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &2067493360
-GameObject:
+--- !u!1001 &713269273
+PrefabInstance:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2067493362}
-  - component: {fileID: 2067493361}
-  m_Layer: 0
-  m_Name: InjectionManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2067493361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2067493360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf528ec680660d145a3ab391ee838dd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &2067493362
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2067493360}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &654802642532948728
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5612034120038846917, guid: f96ed927b968eff4691cb5a5702e9a50, type: 3}
+      propertyPath: m_Name
+      value: CockpitTouchScreen Yellow (Green Variant)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: f96ed927b968eff4691cb5a5702e9a50, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: f96ed927b968eff4691cb5a5702e9a50, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: f96ed927b968eff4691cb5a5702e9a50, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: f96ed927b968eff4691cb5a5702e9a50, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: f96ed927b968eff4691cb5a5702e9a50, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: f96ed927b968eff4691cb5a5702e9a50, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: f96ed927b968eff4691cb5a5702e9a50, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: f96ed927b968eff4691cb5a5702e9a50, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: f96ed927b968eff4691cb5a5702e9a50, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: f96ed927b968eff4691cb5a5702e9a50, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f96ed927b968eff4691cb5a5702e9a50, type: 3}
+--- !u!1001 &1021286470
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5612034120038846917, guid: ab043523b869da449baebebdcb863e95, type: 3}
+      propertyPath: m_Name
+      value: CockpitTouchScreen Blue (Green Variant)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: ab043523b869da449baebebdcb863e95, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: ab043523b869da449baebebdcb863e95, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: ab043523b869da449baebebdcb863e95, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: ab043523b869da449baebebdcb863e95, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: ab043523b869da449baebebdcb863e95, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: ab043523b869da449baebebdcb863e95, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: ab043523b869da449baebebdcb863e95, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: ab043523b869da449baebebdcb863e95, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: ab043523b869da449baebebdcb863e95, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: ab043523b869da449baebebdcb863e95, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ab043523b869da449baebebdcb863e95, type: 3}
+--- !u!1001 &4974914966332612724
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -177,7 +247,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1257378482820023791, guid: 755f781946c73f540a32bee19c98e290, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 1257378482820023791, guid: 755f781946c73f540a32bee19c98e290, type: 3}
       propertyPath: m_LocalPosition.y
@@ -217,16 +287,75 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2819099874020773450, guid: 755f781946c73f540a32bee19c98e290, type: 3}
       propertyPath: m_Name
-      value: CockpitTouchScreen Variant
+      value: CockpitTouchScreen Green Main
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 755f781946c73f540a32bee19c98e290, type: 3}
+--- !u!1001 &5260006630008530832
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5612034120038846917, guid: dc2c95a9fce4b61458aa2b0b5e64da7b, type: 3}
+      propertyPath: m_Name
+      value: CockpitTouchScreen Red (Green Variant)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: dc2c95a9fce4b61458aa2b0b5e64da7b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: dc2c95a9fce4b61458aa2b0b5e64da7b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: dc2c95a9fce4b61458aa2b0b5e64da7b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: dc2c95a9fce4b61458aa2b0b5e64da7b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: dc2c95a9fce4b61458aa2b0b5e64da7b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: dc2c95a9fce4b61458aa2b0b5e64da7b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: dc2c95a9fce4b61458aa2b0b5e64da7b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: dc2c95a9fce4b61458aa2b0b5e64da7b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: dc2c95a9fce4b61458aa2b0b5e64da7b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902943816297208416, guid: dc2c95a9fce4b61458aa2b0b5e64da7b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dc2c95a9fce4b61458aa2b0b5e64da7b, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 2067493362}
-  - {fileID: 654802642532948728}
+  - {fileID: 4974914966332612724}
+  - {fileID: 5260006630008530832}
+  - {fileID: 1021286470}
+  - {fileID: 713269273}

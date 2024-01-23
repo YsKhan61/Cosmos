@@ -23,7 +23,7 @@ namespace Cosmos.Gameplay.UI
             m_LocalLobby.OnChanged += UpdateUI;
         }
 
-        void Awake()
+        void Start()
         {
             UpdateUI(m_LocalLobby);
         }

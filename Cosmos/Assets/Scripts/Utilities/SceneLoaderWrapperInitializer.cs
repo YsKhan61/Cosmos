@@ -7,7 +7,7 @@ namespace Cosmos.Utilities
     /// <summary>
     /// Add the reference of ClientCosmosLoadingScreen to SceneLoaderWrapper matching the platform type
     /// </summary>
-    public class SceneLoaderWrapperInitializer : NetworkBehaviour
+    public class SceneLoaderWrapperInitializer : MonoBehaviour
     {
         [SerializeField] private ClientLoadingScreen _clientLoadingScreenFS;
         [SerializeField] private ClientLoadingScreen _clientLoadingScreenVR;
@@ -29,6 +29,8 @@ namespace Cosmos.Utilities
                 default:
                     break;
             }
+
+            _sceneLoaderWrapper.Initialize();
         }
     }
 }

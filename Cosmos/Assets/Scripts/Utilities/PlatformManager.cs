@@ -10,15 +10,22 @@ namespace Cosmos.Utilities
     /// </summary>
     public class PlatformManager : MonoBehaviour
     {
+        public UnityEvent OnStart;
+
         [SerializeField] private PlatformConfigSO _platformConfigData;
 
         [SerializeField] private List<GameObject> _gameObjectsForFlatscreen;
         [SerializeField] private List<GameObject> _gameObjectsForVR;
 
-        public UnityEvent onAwake;
+        
 
-        private void Awake()
+        /// <summary>
+        /// Setup at start, coz we need the NetworkManager and some other stuff to be initialized first.
+        /// </summary>
+        private void Start()
         {
+            OnStart?.Invoke();              // In the Startup scene, first initialize the SceneLoaderWrapper, then activate the ClientLoadingScreen gameobject. We want ClientLoading Screen gameobject's start() to run after SceneLoaderWrapper's Initialize() is done.
+
             switch (_platformConfigData.Platform)
             {
                 case PlatformType.FlatScreen:
@@ -43,8 +50,6 @@ namespace Cosmos.Utilities
                     }
                     break;
             }
-
-            onAwake?.Invoke();
         }
     }
 }

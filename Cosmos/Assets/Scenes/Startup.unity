@@ -288,6 +288,7 @@ GameObject:
   m_Component:
   - component: {fileID: 626479001}
   - component: {fileID: 626479002}
+  - component: {fileID: 626479003}
   m_Layer: 0
   m_Name: PlatformManager
   m_TagString: Untagged
@@ -322,6 +323,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 280e48f70420f6c41b790b03dcb01fd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6302891427063987736}
+        m_TargetAssemblyTypeName: Unity.Multiplayer.Samples.Utilities.SceneLoaderWrapper,
+          Unity.Multiplayer.Samples.Utilities
+        m_MethodName: Initialize
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _platformConfigData: {fileID: 11400000, guid: 75507e91102f26d45b5ea486d59a37b3, type: 2}
   _gameObjectsForFlatscreen:
   - {fileID: 1194420060}
@@ -335,22 +352,22 @@ MonoBehaviour:
   - {fileID: 3905722185424658420}
   - {fileID: 4371380593862229975}
   - {fileID: 1078446245}
-  onAwake:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6302891427063987735}
-        m_TargetAssemblyTypeName: Cosmos.Utilities.SceneLoaderWrapperInitializer,
-          Cosmos.Utilities
-        m_MethodName: Assign
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+--- !u!114 &626479003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 626479000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5018f867affcbc74bb3f9ebc06e2b0d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clientLoadingScreenFS: {fileID: 1875628477}
+  _clientLoadingScreenVR: {fileID: 4371380593862229974}
+  _sceneLoaderWrapper: {fileID: 6302891427063987736}
+  _platformConfigData: {fileID: 11400000, guid: 75507e91102f26d45b5ea486d59a37b3, type: 2}
 --- !u!1001 &743483162
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1502,6 +1519,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3324792792608244880, guid: 368f5261366532e4d91eb3de07befe3b, type: 3}
+      propertyPath: clientLoadingScreen
+      value: 
+      objectReference: {fileID: 1875628477}
+    - target: {fileID: 3324792792608244880, guid: 368f5261366532e4d91eb3de07befe3b, type: 3}
       propertyPath: m_ClientLoadingScreen
       value: 
       objectReference: {fileID: 0}
@@ -1516,49 +1537,25 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2969749706200313925, guid: 368f5261366532e4d91eb3de07befe3b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6302891427063987735}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 368f5261366532e4d91eb3de07befe3b, type: 3}
---- !u!1 &6302891427063987733 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2969749706200313925, guid: 368f5261366532e4d91eb3de07befe3b, type: 3}
-  m_PrefabInstance: {fileID: 6302891427063987732}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6302891427063987734 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 247263583224894619, guid: 368f5261366532e4d91eb3de07befe3b, type: 3}
   m_PrefabInstance: {fileID: 6302891427063987732}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6302891427063987733}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 831202463f434661b4f61a409b08867f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6302891427063987735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6302891427063987733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5018f867affcbc74bb3f9ebc06e2b0d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _clientLoadingScreenFS: {fileID: 1875628477}
-  _clientLoadingScreenVR: {fileID: 4371380593862229974}
-  _sceneLoaderWrapper: {fileID: 6302891427063987736}
-  _platformConfigData: {fileID: 11400000, guid: 75507e91102f26d45b5ea486d59a37b3, type: 2}
 --- !u!114 &6302891427063987736 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3324792792608244880, guid: 368f5261366532e4d91eb3de07befe3b, type: 3}
   m_PrefabInstance: {fileID: 6302891427063987732}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6302891427063987733}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d202c9ed4a2c4a6fa83f21f1c21394ea, type: 3}
@@ -1568,13 +1565,13 @@ MonoBehaviour:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 626479001}
   - {fileID: 2040023287}
   - {fileID: 1953328560}
   - {fileID: 2716762864722976454}
   - {fileID: 2820658681664359619}
   - {fileID: 1238085212}
   - {fileID: 6302891427063987732}
-  - {fileID: 626479001}
   - {fileID: 1194420061}
   - {fileID: 1750876831}
   - {fileID: 1404811701}

@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3973276766
+  GlobalObjectIdHash: 599786603
   AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
+  SynchronizeTransform: 0
   ActiveSceneSynchronization: 0
   SceneMigrationSynchronization: 1
   SpawnWithObservers: 1
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d202c9ed4a2c4a6fa83f21f1c21394ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ClientLoadingScreen: {fileID: 0}
+  clientLoadingScreen: {fileID: 0}
   m_LoadingProgressManager: {fileID: 247263583224894619}
 --- !u!114 &247263583224894619
 MonoBehaviour:

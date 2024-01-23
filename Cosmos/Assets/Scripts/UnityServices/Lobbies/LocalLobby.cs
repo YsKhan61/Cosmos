@@ -17,7 +17,7 @@ namespace Cosmos.UnityServices.Lobbies
             public string LobbyCode { get; set; }
             public string RelayJoinCode { get; set; }
             public string LobbyName { get; set; }
-            public bool Private { get; set; }
+            public bool IsPrivate { get; set; }
             public int MaxPlayerCount { get; set; }
 
             public LobbyDataStruct(LobbyDataStruct existing)
@@ -26,7 +26,7 @@ namespace Cosmos.UnityServices.Lobbies
                 LobbyCode = existing.LobbyCode;
                 RelayJoinCode = existing.RelayJoinCode;
                 LobbyName = existing.LobbyName;
-                Private = existing.Private;
+                IsPrivate = existing.IsPrivate;
                 MaxPlayerCount = existing.MaxPlayerCount;
             }
 
@@ -36,7 +36,7 @@ namespace Cosmos.UnityServices.Lobbies
                 LobbyCode = lobbyCode;
                 RelayJoinCode = null;
                 LobbyName = null;
-                Private = false;
+                IsPrivate = false;
                 MaxPlayerCount = -1;
             }
         }
@@ -91,10 +91,10 @@ namespace Cosmos.UnityServices.Lobbies
 
         public bool Private
         {
-            get => _lobbyData.Private;
+            get => _lobbyData.IsPrivate;
             set
             {
-                _lobbyData.Private = value;
+                _lobbyData.IsPrivate = value;
                 OnChanged?.Invoke(this);
             }
         }
@@ -153,7 +153,7 @@ namespace Cosmos.UnityServices.Lobbies
             LobbyDataStruct lobbyData = new LobbyDataStruct();  // Technically, this is largely redundant after the first assignment, but it won't do any harm to assign it again.
             lobbyData.LobbyID = lobby.Id;
             lobbyData.LobbyCode = lobby.LobbyCode;
-            lobbyData.Private = lobby.IsPrivate;
+            lobbyData.IsPrivate = lobby.IsPrivate;
             lobbyData.LobbyName = lobby.Name;
             lobbyData.MaxPlayerCount = lobby.MaxPlayers;
 

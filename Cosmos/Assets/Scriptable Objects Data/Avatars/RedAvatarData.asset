@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b3c6532931679e4a8385272b2dae45e, type: 3}
+  m_Name: RedAvatarData
+  m_EditorClassIdentifier: 
+  m_Guid: df002671c64e3b419a681327f9b5acaa
+  CharacterClass: {fileID: 11400000, guid: 99554580ef6791a40aa1db360b217177, type: 2}
+  Graphics: {fileID: 5612034120038846917, guid: dc2c95a9fce4b61458aa2b0b5e64da7b, type: 3}
+  GraphicsCharacterSelect: {fileID: 0}
+  Portrait: {fileID: 0}

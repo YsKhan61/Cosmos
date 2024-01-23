@@ -1,3 +1,4 @@
+using Cosmos.Gameplay.GameplayObjects.Character;
 using Cosmos.Gameplay.GameState;
 using TMPro;
 using Unity.Netcode;
@@ -25,6 +26,9 @@ namespace Cosmos.Gameplay.UI
         private Image m_Checkbox;
         [SerializeField]
         private Button m_SeatButton;
+
+        [SerializeField]
+        private CharacterTypeEnum m_CharacterClass;
 
         // just a way to designate which seat we are -- the leftmost seat on the lobby UI is index 0, the next one is index 1, etc.
         private int m_SeatIndex;

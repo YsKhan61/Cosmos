@@ -7,6 +7,7 @@ using Unity.Multiplayer.Samples.Utilities;
 using Unity.Netcode;
 using UnityEngine;
 using VContainer;
+using Cosmos.Infrastructure;
 
 namespace Cosmos.Gameplay.GameState
 {
@@ -218,11 +219,8 @@ namespace Cosmos.Gameplay.GameState
                 {
                     // pass avatar GUID to PersistentPlayer
                     // it'd be great to simplify this with something like a NetworkScriptableObjects :(
-
-                    /*
-                    persistentPlayer.NetworkAvatarGuidState.AvatarGuid.Value =
-                        networkCharSelection.AvatarConfiguration[playerInfo.SeatIdx].Guid.ToNetworkGuid();
-                    */
+                    persistentPlayer.NetworkAvatarGuidState.n_AvatarNetworkGuid.Value =
+                        networkCharSelection.AvatarConfigurations[playerInfo.SeatIdx].Guid.ToNetworkGuid();
                 }
             }
         }

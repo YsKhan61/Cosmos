@@ -1,6 +1,8 @@
+using Cosmos.Gameplay.Configuration;
 using Cosmos.Utilities;
 using System;
 using Unity.Netcode;
+using UnityEngine;
 
 namespace Cosmos.Gameplay.GameState
 {
@@ -68,6 +70,8 @@ namespace Cosmos.Gameplay.GameState
         }
 
         private NetworkList<LobbyPlayerState> _lobbyPlayers;
+
+        public AvatarSO[] AvatarConfigurations;
 
         private void Awake()
         {

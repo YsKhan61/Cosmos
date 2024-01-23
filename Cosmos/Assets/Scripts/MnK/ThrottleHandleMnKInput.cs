@@ -1,8 +1,7 @@
-using Cosmos.SpaceShip;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Cosmos.MnK
+namespace Cosmos.Gameplay.GameplayObjects.Character
 {
     public class ThrottleHandleMnKInput : MonoBehaviour
     {

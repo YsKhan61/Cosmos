@@ -1,4 +1,7 @@
+using Cosmos.ConnectionManagement;
+using Cosmos.Gameplay.GameplayObjects.Character;
 using Cosmos.Utilities;
+using Unity.Multiplayer.Samples.BossRoom;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -23,7 +26,13 @@ namespace Cosmos.Gameplay.GameplayObjects
 
         [SerializeField]
         private NetworkNameState _networkNameState;
+
+        [SerializeField]
+        NetworkAvatarGuidState m_NetworkAvatarGuidState;
+
         public NetworkNameState NetworkNameState => _networkNameState;
+
+        public NetworkAvatarGuidState NetworkAvatarGuidState => m_NetworkAvatarGuidState;
 
         public override void OnNetworkSpawn()
         {
@@ -33,6 +42,26 @@ namespace Cosmos.Gameplay.GameplayObjects
             // when this element is added to the runtime collection. If this was done in OnEnable() there is a chance
             // that OwnerClientID could be its default value (0).
             _persistentPlayerRuntimeCollection.Add(this);
+
+            if (IsServer)
+            {
+                var sessionPlayerData = SessionManager<SessionPlayerData>.Instance.GetPlayerData(OwnerClientId);
+                if (sessionPlayerData.HasValue)
+                {
+                    var playerData = sessionPlayerData.Value;
+                    _networkNameState.Name.Value = playerData.PlayerName;
+                    if (playerData.HasCharacterSpawned)
+                    {
+                        m_NetworkAvatarGuidState.n_AvatarNetworkGuid.Value = playerData.AvatarNetworkGuid;
+                    }
+                    else
+                    {
+                        m_NetworkAvatarGuidState.SetRandomAvatar();
+                        playerData.AvatarNetworkGuid = m_NetworkAvatarGuidState.n_AvatarNetworkGuid.Value;
+                        SessionManager<SessionPlayerData>.Instance.SetPlayerData(OwnerClientId, playerData);
+                    }
+                }
+            }
         }
 
         public override void OnDestroy()
@@ -49,6 +78,17 @@ namespace Cosmos.Gameplay.GameplayObjects
         private void RemovePersistentPlayer()
         {
             _persistentPlayerRuntimeCollection.Remove(this);
+            if (IsServer)
+            {
+                var sessionPlayerData = SessionManager<SessionPlayerData>.Instance.GetPlayerData(OwnerClientId);
+                if (sessionPlayerData.HasValue)
+                {
+                    var playerData = sessionPlayerData.Value;
+                    playerData.PlayerName = _networkNameState.Name.Value;
+                    playerData.AvatarNetworkGuid = m_NetworkAvatarGuidState.n_AvatarNetworkGuid.Value;
+                    SessionManager<SessionPlayerData>.Instance.SetPlayerData(OwnerClientId, playerData);
+                }
+            }
         }
     }
 }

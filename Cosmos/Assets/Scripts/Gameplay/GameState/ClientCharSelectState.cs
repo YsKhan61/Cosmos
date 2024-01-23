@@ -1,4 +1,5 @@
 using Cosmos.ConnectionManagement;
+using Cosmos.Gameplay.Configuration;
 using Cosmos.Gameplay.GameplayObjects;
 using Cosmos.Gameplay.UI;
 using System;
@@ -272,15 +273,15 @@ namespace Cosmos.Gameplay.GameState
                     // change character preview when selecting a new seat
                     if (isNewSeat)
                     {
-                        // var selectedCharacterGraphics = GetCharacterGraphics(m_NetworkCharSelection.AvatarConfiguration[seatIdx]);
+                        var selectedCharacterGraphics = GetCharacterGraphics(m_NetworkCharSelection.AvatarConfigurations[seatIdx]);
 
                         if (m_CurrentCharacterGraphics)
                         {
                             m_CurrentCharacterGraphics.SetActive(false);
                         }
 
-                        // selectedCharacterGraphics.SetActive(true);
-                        // m_CurrentCharacterGraphics = selectedCharacterGraphics;
+                        selectedCharacterGraphics.SetActive(true);
+                        m_CurrentCharacterGraphics = selectedCharacterGraphics;
                     }
                 }
                 if (state == NetworkCharSelection.SeatState.LockedIn && !m_HasLocalPlayerLockedIn)
@@ -400,6 +401,17 @@ namespace Cosmos.Gameplay.GameState
             int count = m_NetworkCharSelection.LobbyPlayers.Count;
             var pstr = (count > 1) ? "players" : "player";
             m_NumPlayersText.text = "<b>" + count + "</b> " + pstr + " connected";
+        }
+
+        GameObject GetCharacterGraphics(AvatarSO avatar)
+        {
+            if (!m_SpawnedCharacterGraphics.TryGetValue(avatar.Guid, out GameObject characterGraphics))
+            {
+                characterGraphics = Instantiate(avatar.GraphicsCharacterSelect, m_CharacterGraphicsParent);
+                m_SpawnedCharacterGraphics.Add(avatar.Guid, characterGraphics);
+            }
+
+            return characterGraphics;
         }
     }
 }

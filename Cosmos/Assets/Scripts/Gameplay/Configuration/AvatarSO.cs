@@ -15,9 +15,9 @@ namespace Cosmos.Gameplay.Configuration
     {
         public CharacterClassSO CharacterClass;
 
-        public GameObject Graphics;
+        // public GameObject Graphics;
 
-        // public GameObject GraphicsCharacterSelect;
+        public GameObject GraphicsCharacterSelect;
 
         // public Sprite Portrait;
     }

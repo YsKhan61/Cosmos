@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Fighter_Mat 1
+  m_Name: Fighter_red_Mat
   m_Shader: {fileID: -6465566751694194690, guid: f3377f3ddc4c2456799b163adce969b3, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0

@@ -25,7 +25,7 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
         public override void OnNetworkSpawn()
         {
             // Temporary for testing
-            if (IsLocalPlayer)
+            if (IsOwner)
             {
                 m_camera.gameObject.SetActive(true);
             }

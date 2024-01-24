@@ -1021,6 +1021,22 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Cosmos.Gameplay.GameState.ClientCharSelectState, Cosmos.Gameplay
       objectReference: {fileID: 0}
+    - target: {fileID: 3085761468014264773, guid: 4221241c9e29ca4499f8ff6f7f80be20, type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 3085761468014264773, guid: 4221241c9e29ca4499f8ff6f7f80be20, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 3085761468014264773, guid: 4221241c9e29ca4499f8ff6f7f80be20, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3482693805490425803, guid: 4221241c9e29ca4499f8ff6f7f80be20, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7259966390601763106, guid: 4221241c9e29ca4499f8ff6f7f80be20, type: 3}
       propertyPath: m_Pivot.x
       value: 0

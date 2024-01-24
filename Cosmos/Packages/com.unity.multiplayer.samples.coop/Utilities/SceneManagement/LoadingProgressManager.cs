@@ -71,7 +71,7 @@ namespace Unity.Multiplayer.Samples.Utilities
             {
                 NetworkManager.OnClientConnectedCallback += AddTracker;
                 NetworkManager.OnClientDisconnectCallback += RemoveTracker;
-                AddTracker(NetworkManager.LocalClientId);
+                // AddTracker(NetworkManager.LocalClientId);                    - LoadingTracker was spawning twice
             }
         }
         public override void OnNetworkDespawn()

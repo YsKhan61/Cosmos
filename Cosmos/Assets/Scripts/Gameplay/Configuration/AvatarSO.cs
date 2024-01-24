@@ -15,7 +15,7 @@ namespace Cosmos.Gameplay.Configuration
     {
         public CharacterClassSO CharacterClass;
 
-        // public GameObject Graphics;
+        public GameObject Graphics;
 
         public GameObject GraphicsCharacterSelect;
 

@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Guid: 9462aa555d8a7d44876f6abc3414dc6f
   CharacterClass: {fileID: 11400000, guid: fabc194ed1573bd48bf2d07ed9baeacb, type: 2}
+  Graphics: {fileID: 2819099874020773450, guid: 755f781946c73f540a32bee19c98e290, type: 3}
   GraphicsCharacterSelect: {fileID: 2819099874020773450, guid: 61bf18cd0cfb4244ba72b5907e4a6145, type: 3}

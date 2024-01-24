@@ -37,7 +37,7 @@ namespace Unity.Multiplayer.Samples.Utilities
             DontDestroyOnLoad(this);
         }
 
-        public virtual void Initialize()
+        public virtual void Start()
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
             NetworkManager.OnServerStarted += OnNetworkingSessionStarted;

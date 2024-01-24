@@ -18,7 +18,7 @@ namespace Cosmos.Gameplay.GameState
     /// <summary>
     /// Client specialization of the Character Select game state. Mainly controls the UI during character-select.
     /// </summary>
-    [RequireComponent(typeof(NetcodeHooks))]
+    // [RequireComponent(typeof(NetcodeHooks))] // NOTE: ServerCharSelectState game object and ClientCharSelectState game object in CharSelect Scene are separated, in order to keep the ServerCharSelectState game object activated at the start of the scene. This is needed in order to toggle between FS and VR mode.
     public class ClientCharSelectState : GameStateBehaviour
     {
         /// <summary>

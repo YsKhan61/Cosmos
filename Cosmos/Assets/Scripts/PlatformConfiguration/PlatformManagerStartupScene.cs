@@ -1,32 +1,33 @@
+
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace Cosmos.Utilities
+namespace Cosmos.PlatformConfiguration
 {
     /// <summary>
     /// Initializes the game objects for the current platform.
     /// This script is used to hide or show game objects depending on the platform. - FlatScreen or VR.
     /// </summary>
-    public class PlatformManager : MonoBehaviour
+    [ExecuteInEditMode]
+    public class PlatformManagerStartupScene : PlatformManager
     {
-        public UnityEvent OnStart;
-
         [SerializeField] private PlatformConfigSO _platformConfigData;
 
         [SerializeField] private List<GameObject> _gameObjectsForFlatscreen;
         [SerializeField] private List<GameObject> _gameObjectsForVR;
 
-        
+        private void OnEnable()
+        {
+            _platformConfigData.OnPlatformChanged -= ChangePlatform;
+            _platformConfigData.OnPlatformChanged += ChangePlatform;
+        }
 
         /// <summary>
-        /// Setup at start, coz we need the NetworkManager and some other stuff to be initialized first.
+        /// Setup at editor time, when the platform is changed in the PlatformConfigSO.
         /// </summary>
-        private void Start()
+        protected override void ChangePlatform(PlatformType platformType)
         {
-            OnStart?.Invoke();              // In the Startup scene, first initialize the SceneLoaderWrapper, then activate the ClientLoadingScreen gameobject. We want ClientLoading Screen gameobject's start() to run after SceneLoaderWrapper's Initialize() is done.
-
-            switch (_platformConfigData.Platform)
+            switch (platformType)
             {
                 case PlatformType.FlatScreen:
                     foreach (GameObject gameObject in _gameObjectsForFlatscreen)

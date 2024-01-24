@@ -1,12 +1,12 @@
 using Unity.Multiplayer.Samples.Utilities;
-using Unity.Netcode;
 using UnityEngine;
 
-namespace Cosmos.Utilities
+namespace Cosmos.PlatformConfiguration
 {
     /// <summary>
     /// Add the reference of ClientCosmosLoadingScreen to SceneLoaderWrapper matching the platform type
     /// </summary>
+    [ExecuteInEditMode]
     public class SceneLoaderWrapperInitializer : MonoBehaviour
     {
         [SerializeField] private ClientLoadingScreen _clientLoadingScreenFS;
@@ -16,9 +16,15 @@ namespace Cosmos.Utilities
 
         [SerializeField] private PlatformConfigSO _platformConfigData;
 
-        public void Assign()
+        private void OnValidate()
         {
-            switch (_platformConfigData.Platform)
+            _platformConfigData.OnPlatformChanged -= Assign;
+            _platformConfigData.OnPlatformChanged += Assign;
+        }
+
+        public void Assign(PlatformType platformType)
+        {
+            switch (platformType)
             {
                 case PlatformType.FlatScreen:
                     _sceneLoaderWrapper.clientLoadingScreen = _clientLoadingScreenFS;
@@ -29,8 +35,6 @@ namespace Cosmos.Utilities
                 default:
                     break;
             }
-
-            _sceneLoaderWrapper.Initialize();
         }
     }
 }

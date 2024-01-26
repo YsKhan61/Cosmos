@@ -18,15 +18,15 @@ namespace Cosmos.PlatformConfiguration
         [SerializeField] private PlatformType _platform;
         public PlatformType Platform => _platform;
 
-        public event Action<PlatformType> OnPlatformChanged;
+        // public event Action<PlatformType> OnPlatformChanged;
 
-        public void ChangePlatform()
+        /*public void ChangePlatform()
         {
             OnPlatformChanged?.Invoke(_platform);
-        }
+        }*/
     }
 
-    // Create an editor button to call ChangePlatform() in the inspector
+    /*// Create an editor button to call ChangePlatform() in the inspector
     [CustomEditor(typeof(PlatformConfigSO))]
     public class PlatformConfigSOEditor : Editor
     {
@@ -40,6 +40,6 @@ namespace Cosmos.PlatformConfiguration
                 platformConfigSO.ChangePlatform();
             }
         }
-    }
+    }*/
 
 }

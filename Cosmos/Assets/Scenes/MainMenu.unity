@@ -351,7 +351,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8161958596061567946, guid: ee3c153da4593a042b074541a5c76296, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8467928813654827246, guid: ee3c153da4593a042b074541a5c76296, type: 3}
       propertyPath: m_LocalPosition.x
@@ -538,14 +538,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 593896085}
-  - component: {fileID: 593896087}
+  - component: {fileID: 593896086}
   m_Layer: 0
   m_Name: PlatformManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &593896085
 Transform:
   m_ObjectHideFlags: 0
@@ -561,7 +561,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &593896087
+--- !u!114 &593896086
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -570,24 +570,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 593896084}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 512e49807d90fbe479683f4e8443e92a, type: 3}
+  m_Script: {fileID: 11500000, guid: 280e48f70420f6c41b790b03dcb01fd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _platformConfigData: {fileID: 11400000, guid: 75507e91102f26d45b5ea486d59a37b3, type: 2}
-  _gameObjectsForFlatscreen:
+  m_platformData: {fileID: 11400000, guid: 75507e91102f26d45b5ea486d59a37b3, type: 2}
+  m_flatScreenObjects:
   - {fileID: 1092231221}
   - {fileID: 1036302576}
   - {fileID: 1722987741}
   - {fileID: 1761029327}
   - {fileID: 452758462}
   - {fileID: 1050660438}
-  _gameObjectsForVR:
+  m_vrObjects:
   - {fileID: 1547741384}
   - {fileID: 137395603}
   - {fileID: 2031290884}
   - {fileID: 1684816008}
-  - {fileID: 2844263357520737180}
   - {fileID: 2141786833}
+  - {fileID: 2844263357520737180}
 --- !u!224 &708934138 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8519329030984004224, guid: 736057bf374247248ab518fba8208ae1, type: 3}
@@ -936,7 +936,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1547741385
 Transform:
   m_ObjectHideFlags: 0
@@ -1129,7 +1129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9094828055060049360, guid: 31b05591c90844542906ebf412deb0c0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1532,7 +1532,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2141786834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3049,7 +3049,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5520045067455108622, guid: 215fea652f41aa74fbbb691e5aa01764, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5664450236560997208, guid: 215fea652f41aa74fbbb691e5aa01764, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -6114,7 +6114,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3829599493980151986, guid: 6edb08af61239d245afff917949b7cdb, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3958877000693125556, guid: 6edb08af61239d245afff917949b7cdb, type: 3}
       propertyPath: handLeft

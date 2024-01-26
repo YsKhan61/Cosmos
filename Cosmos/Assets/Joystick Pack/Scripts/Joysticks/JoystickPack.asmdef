@@ -1,12 +1,8 @@
 {
-    "name": "Unity.Multiplayer.Samples.Utilities",
+    "name": "NewAssembly",
     "rootNamespace": "",
     "references": [
-        "Unity.Netcode.Components",
-        "Unity.Netcode.Runtime",
-        "Unity.Services.Relay",
-        "Unity.TextMeshPro",
-        "Cosmos.PlatformConfiguration"
+        ""
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

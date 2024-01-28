@@ -6,23 +6,18 @@ using UnityEngine.SceneManagement;
 
 namespace Unity.Multiplayer.Samples.Utilities
 {
+
+    /// <summary>
+    /// Manages a loading screen by wrapping around scene management APIs. It loads scene using the SceneManager,
+    /// or, on listening servers for which scene management is enabled, using the NetworkSceneManager and handles
+    /// the starting and stopping of the loading screen.
+    /// </summary>
     public class SceneLoaderWrapper : NetworkBehaviour
     {
-        /// <summary>
-        /// Manages a loading screen by wrapping around scene management APIs. It loads scene using the SceneManager,
-        /// or, on listening servers for which scene management is enabled, using the NetworkSceneManager and handles
-        /// the starting and stopping of the loading screen.
-        /// </summary>
-
-        [SerializeField] ClientLoadingScreen m_clientLoadingScreenFS;
-        [SerializeField] ClientLoadingScreen m_clientLoadingScreenVR;
-
-        [SerializeField] PlatformConfigSO m_PlatformConfigData;
-
         [SerializeField]
         LoadingProgressManager m_LoadingProgressManager;
 
-        ClientLoadingScreen m_clientLoadingScreen;
+        [SerializeField] ClientLoadingScreen m_clientLoadingScreen;
 
         bool IsNetworkSceneManagementEnabled => NetworkManager != null && NetworkManager.SceneManager != null && NetworkManager.NetworkConfig.EnableSceneManagement;
 
@@ -39,8 +34,6 @@ namespace Unity.Multiplayer.Samples.Utilities
             else
             {
                 Instance = this;
-
-                ConfigureBasedOnPlatform();
             }
             DontDestroyOnLoad(this);
         }
@@ -52,19 +45,6 @@ namespace Unity.Multiplayer.Samples.Utilities
             NetworkManager.OnClientStarted += OnNetworkingSessionStarted;
             NetworkManager.OnServerStopped += OnNetworkingSessionEnded;
             NetworkManager.OnClientStopped += OnNetworkingSessionEnded;
-        }
-
-        void ConfigureBasedOnPlatform()
-        {
-            switch (m_PlatformConfigData.Platform)
-            {
-                case PlatformType.FlatScreen:
-                    m_clientLoadingScreen = m_clientLoadingScreenFS;
-                    break;
-                case PlatformType.VR:
-                    m_clientLoadingScreen = m_clientLoadingScreenVR;
-                    break;
-            }
         }
 
         void OnNetworkingSessionStarted()

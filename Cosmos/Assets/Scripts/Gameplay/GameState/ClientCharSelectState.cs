@@ -122,16 +122,6 @@ namespace Cosmos.Gameplay.GameState
             };
         }
 
-        protected override void OnDestroy()
-        {
-            if (Instance == this)
-            {
-                Instance = null;
-            }
-
-            base.OnDestroy();
-        }
-
         protected override void Start()
         {
             base.Start();
@@ -142,6 +132,16 @@ namespace Cosmos.Gameplay.GameState
 
             ConfigureUIForLobbyMode(LobbyMode.ChooseSeat);
             UpdateCharacterSelection(NetworkCharSelection.SeatState.Inactive);
+        }
+
+        protected override void OnDestroy()
+        {
+            if (Instance == this)
+            {
+                Instance = null;
+            }
+
+            base.OnDestroy();
         }
 
         /// <summary>

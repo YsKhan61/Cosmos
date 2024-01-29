@@ -8,9 +8,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 561060562994388211, guid: 7520b03c45a4a714aaa802161741c7ff, type: 3}
+      propertyPath: m_text
+      value: 'Color: Yellow'
+      objectReference: {fileID: 0}
     - target: {fileID: 4933198045323172962, guid: 7520b03c45a4a714aaa802161741c7ff, type: 3}
       propertyPath: m_Name
-      value: CockpitTouchScreen Yellow Model (Yellow Variant)
+      value: Spaceship Yellow Model (Yellow Variant)
       objectReference: {fileID: 0}
     - target: {fileID: 7216728716236869341, guid: 7520b03c45a4a714aaa802161741c7ff, type: 3}
       propertyPath: m_Materials.Array.data[0]

@@ -264,7 +264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3955087906813937180, guid: ec1775cb934498842b5a337d99404552, type: 3}
       propertyPath: m_Name
-      value: CockpitTouchScreen Green Model
+      value: Spaceship Green Model
       objectReference: {fileID: 0}
     - target: {fileID: 5904695489467486243, guid: ec1775cb934498842b5a337d99404552, type: 3}
       propertyPath: m_IsActive
@@ -289,6 +289,10 @@ PrefabInstance:
     - target: {fileID: 8281124737385657225, guid: ec1775cb934498842b5a337d99404552, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8456704153064294029, guid: ec1775cb934498842b5a337d99404552, type: 3}
+      propertyPath: m_text
+      value: 'Color: Green'
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7276246017210970990, guid: ec1775cb934498842b5a337d99404552, type: 3}

@@ -429,6 +429,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2872466450227935370, guid: 5c8d8c59ebf5f4149a30fc251f75f26e, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5802120268272999310, guid: 5c8d8c59ebf5f4149a30fc251f75f26e, type: 3}
       propertyPath: m_Name
       value: SettingsPanelCanvas
@@ -1222,6 +1226,10 @@ PrefabInstance:
     - target: {fileID: 6694587945901847459, guid: 4221241c9e29ca4499f8ff6f7f80be20, type: 3}
       propertyPath: m_Name
       value: Num Player Text (TMP)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6895919240083322382, guid: 4221241c9e29ca4499f8ff6f7f80be20, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7233818769815189545, guid: 4221241c9e29ca4499f8ff6f7f80be20, type: 3}
       propertyPath: m_Name

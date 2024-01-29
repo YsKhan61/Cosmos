@@ -94,6 +94,7 @@ namespace Cosmos.UnityServices.Auth
             }
             catch (Exception e)
             {
+                //all other exceptions should still bubble up as unhandled ones
                 string reason = e.InnerException == null ? e.Message : $"{e.Message} ({e.InnerException.Message})";
                 _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Authentication Error", reason, UnityServiceErrorMessage.Service.Authentication, e));
                 throw;

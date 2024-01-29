@@ -54,7 +54,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2819099874020773450, guid: 61bf18cd0cfb4244ba72b5907e4a6145, type: 3}
       propertyPath: m_Name
-      value: CockpitTouchScreen Blue Model (Green Variant)
+      value: Spaceship Blue Model (Green Variant)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7250795976023740123, guid: 61bf18cd0cfb4244ba72b5907e4a6145, type: 3}
+      propertyPath: m_text
+      value: 'Color: Blue'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

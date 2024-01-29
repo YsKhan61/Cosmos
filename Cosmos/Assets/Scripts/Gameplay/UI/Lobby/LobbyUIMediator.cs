@@ -268,11 +268,8 @@ namespace Cosmos.Gameplay.UI
         private void OnJoinedLobby(Lobby remoteLobby)
         {
             _lobbyServiceFacade.SetRemoteLobby(remoteLobby);
-
-#if UNITY_EDITOR
             Debug.Log($"Joined lobby with ID: {_localLobby.LobbyID} and Internal Relay join code {_localLobby.RelayJoinCode}");
             _connectionManager.StartClientLobby(_localLobbyUser.DisplayName);
-#endif
         }
     }
 }

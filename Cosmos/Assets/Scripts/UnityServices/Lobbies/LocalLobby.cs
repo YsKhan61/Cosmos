@@ -168,7 +168,7 @@ namespace Cosmos.UnityServices.Lobbies
                 lobbyData.RelayJoinCode = null;
             }
 
-            Dictionary<string, LocalLobbyUser> localLobbyUsers = new Dictionary<string, LocalLobbyUser>();
+            Dictionary<string, LocalLobbyUser> localLobbyUsers = new();
             foreach (Player player in lobby.Players)
             {
                 if (player.Data != null)
@@ -182,7 +182,7 @@ namespace Cosmos.UnityServices.Lobbies
 
                 // If the player isn't connected to Relay, get the most recent data that the lobby knows.
                 // (If we haven't seen this player yet, a new local representation of the player will have already been added by the LocalLobby.)
-                LocalLobbyUser localLobbyUser = new LocalLobbyUser
+                LocalLobbyUser localLobbyUser = new()
                 {
                     IsHost = lobby.HostId.Equals(player.Id),
                     DisplayName = player.Data != null && player.Data.ContainsKey("DisplayName") ? player.Data["DisplayName"].Value : default,
@@ -207,11 +207,11 @@ namespace Cosmos.UnityServices.Lobbies
 
             if (currentLocalLobbyUsers == null)
             {
-                currentLocalLobbyUsers = new Dictionary<string, LocalLobbyUser>();
+                _localLobbyUsers = new Dictionary<string, LocalLobbyUser>();
             }
             else
             {
-                List<LocalLobbyUser> localLobbyUserToRemove = new List<LocalLobbyUser>();
+                List<LocalLobbyUser> localLobbyUserToRemove = new();
                 foreach (KeyValuePair<string, LocalLobbyUser> oldLocalLobbyUser in _localLobbyUsers)
                 {
                     if (currentLocalLobbyUsers.ContainsKey(oldLocalLobbyUser.Key))

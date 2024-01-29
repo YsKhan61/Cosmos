@@ -1185,30 +1185,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2976663048665372014, guid: df03a9b3893ac0a4687a262c983c880e, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3054888297841868406, guid: df03a9b3893ac0a4687a262c983c880e, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3374877931201534281, guid: df03a9b3893ac0a4687a262c983c880e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3654246108253152065, guid: df03a9b3893ac0a4687a262c983c880e, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4534761766721899168, guid: df03a9b3893ac0a4687a262c983c880e, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4664117706983584235, guid: df03a9b3893ac0a4687a262c983c880e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6979739505379261026, guid: df03a9b3893ac0a4687a262c983c880e, type: 3}
       propertyPath: m_Name
       value: PopupPanelsCanvas VR

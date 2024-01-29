@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9145705360338344175}
   - component: {fileID: 6087881324202265900}
   m_Layer: 5
-  m_Name: Lobby Start Button
+  m_Name: UI Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

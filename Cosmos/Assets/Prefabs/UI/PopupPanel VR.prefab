@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 1267412985933289377}
   - component: {fileID: 269973041681737969}
   - component: {fileID: 4027729304119803764}
-  - component: {fileID: 3251627369094558760}
+  - component: {fileID: 6088940748210580643}
   m_Layer: 5
-  m_Name: PopupPanel
+  m_Name: PopupPanel VR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,7 +93,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &3251627369094558760
+--- !u!114 &6088940748210580643
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 630843544485715066}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cfe99c547e52c64fb4f090cb57743e4, type: 3}
+  m_Script: {fileID: 11500000, guid: 4cb4f3a116a98354ab402bf7c82191a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _titleText: {fileID: 556118573728293616}
@@ -481,7 +481,7 @@ PrefabInstance:
     - target: {fileID: 6087881324202265900, guid: 44eabcfff985f9b4caf8529d1d3845c7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 3251627369094558760}
+      objectReference: {fileID: 6088940748210580643}
     - target: {fileID: 6087881324202265900, guid: 44eabcfff985f9b4caf8529d1d3845c7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnConfirmClick

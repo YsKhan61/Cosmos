@@ -43,7 +43,7 @@ namespace Cosmos.Gameplay.UI
             }
         }
 
-        public void Hide()
+        public virtual void Hide()
         {
             _canvasGroup.alpha = 0f;
             _canvasGroup.blocksRaycasts = false;
@@ -60,7 +60,7 @@ namespace Cosmos.Gameplay.UI
             Show();
         }
 
-        private void Show()
+        protected virtual void Show()
         {
             _canvasGroup.alpha = 1f;
             _canvasGroup.blocksRaycasts = true;

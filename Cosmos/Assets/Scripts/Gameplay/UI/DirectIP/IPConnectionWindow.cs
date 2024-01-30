@@ -20,6 +20,13 @@ namespace Cosmos.Gameplay.UI
 
         ISubscriber<ConnectStatus> _connectStatusSubscriber;
 
+        [Inject]
+        private void InjectDependencies(ISubscriber<ConnectStatus> connectStatusSubscriber)
+        {
+            _connectStatusSubscriber = connectStatusSubscriber;
+            _connectStatusSubscriber.Subscribe(OnConnectStatusMessage);
+        }
+
         private void Awake()
         {
             Hide();
@@ -28,13 +35,6 @@ namespace Cosmos.Gameplay.UI
         private void OnDestroy()
         {
             _connectStatusSubscriber?.Unsubscribe(OnConnectStatusMessage);
-        }
-
-        [Inject]
-        private void InjectDependencies(ISubscriber<ConnectStatus> connectStatusSubscriber)
-        {
-            _connectStatusSubscriber = connectStatusSubscriber;
-            _connectStatusSubscriber.Subscribe(OnConnectStatusMessage);
         }
 
         public void ShowConnectingWindow()
@@ -49,6 +49,8 @@ namespace Cosmos.Gameplay.UI
             int maxConnectAttempts = utp.MaxConnectAttempts;
             int connectTimeoutMS = utp.ConnectTimeoutMS;
             StartCoroutine(DisplayUTPConnectionDuration(maxConnectAttempts, connectTimeoutMS, OnTimeElapsed));
+
+            Show();
         }
 
         public void CancelConnectionWindow()

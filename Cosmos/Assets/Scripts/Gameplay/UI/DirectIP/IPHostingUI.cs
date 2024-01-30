@@ -18,7 +18,7 @@ namespace Cosmos.Gameplay.UI
 
         private void Awake()
         {
-            _ipInputField.text = IPUIMediator.DEFAULT_IP;
+            _ipInputField.text = _ipUIMediator.PUBLIC_IP;   // IPUIMediator.DEFAULT_IP;
             _portInputField.text = IPUIMediator.DEFAULT_PORT.ToString();
         }
 

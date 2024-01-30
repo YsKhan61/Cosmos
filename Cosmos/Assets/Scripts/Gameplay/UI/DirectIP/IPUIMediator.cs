@@ -1,7 +1,7 @@
 using Cosmos.ConnectionManagement;
 using Cosmos.Gameplay.Configuration;
 using Cosmos.Infrastructure;
-using System;
+using Cosmos.Utilities;
 using System.Text.RegularExpressions;
 using TMPro;
 using Unity.Networking.Transport;
@@ -14,6 +14,8 @@ namespace Cosmos.Gameplay.UI
     {
         public const string DEFAULT_IP = "127.0.0.1";      // Editorial build -> 127.0.0.1 , Local Network -> 0.0.0.0
         public const int DEFAULT_PORT = 9998;
+
+        public string PUBLIC_IP => IPFinder.FindIP();
 
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private TextMeshProUGUI _playerNameText;

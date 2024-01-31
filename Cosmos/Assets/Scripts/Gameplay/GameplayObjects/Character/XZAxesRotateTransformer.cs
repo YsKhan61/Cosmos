@@ -1,4 +1,5 @@
 
+using Cosmos.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +10,9 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
     /// </summary>
     public class XZAxesRotateTransformer : MonoBehaviour, IControlHandle
     {
+        [SerializeField, Tooltip("The data based on which the visual will rotate")] 
+        private Vector2DataSO _rotateInput;
+
         [SerializeField, Tooltip("This will be the pivot relative to calculate orientations of handle")]
         private Transform _pivotTransform;
         public Transform PivotTransform => _pivotTransform;
@@ -28,9 +32,6 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
         private float _relativeAngleX;
         private float _relativeAngleZ;
 
-        private Vector2 _rotateInput;
-        public Vector2 RotateInput { set => _rotateInput = value; }
-
         private void Awake()
         {
             _initialVisualLocalRotation = Quaternion.Inverse(_pivotTransform.rotation) * _visualTransform.rotation;
@@ -41,7 +42,7 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
 
         private void Update()
         {
-            if (_rotateInput != Vector2.zero)
+            if (_rotateInput.value != Vector2.zero)
             {
                 ManualControl();
             }
@@ -53,8 +54,8 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
 
         private void ManualControl()
         {
-            _relativeAngleX -= _rotateInput.x;
-            _relativeAngleZ -= _rotateInput.y;
+            _relativeAngleX -= _rotateInput.value.x;
+            _relativeAngleZ -= _rotateInput.value.y;
 
             _relativeAngleX = Mathf.Clamp(_relativeAngleX, -_angleConstraint, _angleConstraint);
             _relativeAngleZ = Mathf.Clamp(_relativeAngleZ, -_angleConstraint, _angleConstraint);

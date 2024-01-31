@@ -14,10 +14,10 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
             _throttleInputActionReference.action.Enable();
         }
 
-        private void Update()
+        /*private void Update()
         {
             _oneAxisRotateTransformer.RotateInput = _throttleInputActionReference.action.ReadValue<float>();
-        }
+        }*/
 
         private void OnDisable()
         {

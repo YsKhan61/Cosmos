@@ -1,13 +1,14 @@
+using Cosmos.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Cosmos.Gameplay.GameplayObjects.Character
 {
-    public class ControlHandleMnKInput : MonoBehaviour
+    public class ControlHandleInputValueFromKeyboard : MonoBehaviour
     {
         [SerializeField] private InputActionReference _controlHandleInputActionReference;
 
-        [SerializeField] private XZAxesRotateTransformer _xzAxesRotateTransformer;
+        [SerializeField] private Vector2DataSO _controlHandleInputData;
 
         private void OnEnable()
         {
@@ -16,7 +17,7 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
 
         private void Update()
         {
-            _xzAxesRotateTransformer.RotateInput = _controlHandleInputActionReference.action.ReadValue<Vector2>();
+            _controlHandleInputData.value = _controlHandleInputActionReference.action.ReadValue<Vector2>();
         }
 
         private void OnDisable()

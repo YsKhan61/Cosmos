@@ -1,3 +1,4 @@
+using Cosmos.Utilities;
 using UnityEngine;
 
 namespace Cosmos.Gameplay.GameplayObjects.Character
@@ -7,6 +8,9 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
     /// </summary>
     public class OneAxisRotateTransformer : MonoBehaviour, IThrottleHandle
     {
+        [SerializeField, Tooltip("The data based on which the visual will rotate along the pivot")] 
+        private FloatDataSO _rotateInput;
+
         [SerializeField, Tooltip("This will be the pivot relative to calculate orientations of handle")]
         private Transform _pivotTransform;
 
@@ -23,9 +27,6 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
         [SerializeField, Tooltip(" Assign 1 or -1")]
         private int _invertThrottleValue = 1;
 
-        private float _rotateInput;
-        public float RotateInput { set => _rotateInput = value; }
-
         private float _relativeAngleZ;
         private Quaternion _initialVisualLocalRotation;
 
@@ -38,7 +39,7 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
 
         private void Update()
         {
-            if (_rotateInput != 0)
+            if (_rotateInput.value != 0)
             {
                 ManualThrottleControl();
             }
@@ -50,7 +51,7 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
 
         private void ManualThrottleControl()
         {
-            _relativeAngleZ += _sensitivity * _invertThrottleValue * _rotateInput * Time.deltaTime;
+            _relativeAngleZ += _sensitivity * _invertThrottleValue * _rotateInput.value * Time.deltaTime;
             _relativeAngleZ = Mathf.Clamp(_relativeAngleZ, -_angleConstraint, _angleConstraint);
 
             Debug.Log("Relative Angle Z: " + _relativeAngleZ);

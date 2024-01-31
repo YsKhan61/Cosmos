@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 4937835561876720031}
   - component: {fileID: 6958396191848184516}
   - component: {fileID: 6072952134393865772}
+  - component: {fileID: 5211776186433570711}
   m_Layer: 5
   m_Name: Variable Joystick ThrottleHandle
   m_TagString: Untagged
@@ -174,6 +175,20 @@ MonoBehaviour:
   handle: {fileID: 509483519761860218}
   moveThreshold: 1
   joystickType: 0
+--- !u!114 &5211776186433570711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948418125575063671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 640b08c3ca69b644da24f52899d8221a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _joystick: {fileID: 6072952134393865772}
+  _throttleHandleInputData: {fileID: 11400000, guid: cb1608aec125f284ab8d0976127f1091, type: 2}
 --- !u!1 &2199649308397887406
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,6 +668,7 @@ GameObject:
   - component: {fileID: 4216143905258716719}
   - component: {fileID: 1079842809786979592}
   - component: {fileID: 6788830403782714983}
+  - component: {fileID: 439967599471533234}
   m_Layer: 5
   m_Name: Variable Joystick ControlHandle
   m_TagString: Untagged
@@ -739,6 +755,20 @@ MonoBehaviour:
   handle: {fileID: 5969100708587145028}
   moveThreshold: 1
   joystickType: 0
+--- !u!114 &439967599471533234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5746914884536495320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9251f62e4ed31884e84e7cbbd51ad984, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _joystick: {fileID: 6788830403782714983}
+  _controlHandleInputData: {fileID: 11400000, guid: 4683d9f36cb251e449e7be05b0d0bcba, type: 2}
 --- !u!1 &7021104274277093492
 GameObject:
   m_ObjectHideFlags: 0
@@ -827,7 +857,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1060833817793314687}
   m_Layer: 0
-  m_Name: FlatScreen Player Camera
+  m_Name: FlatScreen Player Camera with TouchScreen Input
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Cosmos.MnK
+namespace Cosmos.Gameplay.GameplayObjects.Character
 {
     public class PlayerCameraControllerMnK : MonoBehaviour
     {

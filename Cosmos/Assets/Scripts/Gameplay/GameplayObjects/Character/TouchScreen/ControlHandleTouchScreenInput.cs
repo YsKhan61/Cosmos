@@ -9,10 +9,10 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
 
         [SerializeField] private XZAxesRotateTransformer _xzAxesRotateTransformer;
 
-        private void Update()
+        /*private void Update()
         {
             _xzAxesRotateTransformer.RotateInput = _joystick.Direction;
-        }
+        }*/
     }
 
 }

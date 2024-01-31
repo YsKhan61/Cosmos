@@ -18,22 +18,10 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
         [SerializeField]
         NetworkAvatarGuidState m_NetworkAvatarGuidState;
 
-        [SerializeField] private Camera m_camera;            // Temporary for testing
-
         public event Action<GameObject> AvatarGraphicsSpawned;
 
         public override void OnNetworkSpawn()
         {
-            // Temporary for testing
-            if (IsOwner)
-            {
-                m_camera.gameObject.SetActive(true);
-            }
-            else
-            {
-                m_camera.gameObject.SetActive(false);
-            }
-
             if (IsClient)
             {
                 InstantiateAvatar();

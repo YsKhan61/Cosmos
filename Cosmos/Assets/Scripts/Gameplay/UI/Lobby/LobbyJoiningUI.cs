@@ -10,7 +10,7 @@ using VContainer;
 namespace Cosmos.Gameplay.UI
 {
     /// <summary>
-    /// handles the list of LobbyListItemUIs and ensures it stays synchronized with the lobby list from the service.
+    /// Handles the list of LobbyListItemUIs and ensures it stays synchronized with the lobby list from the service.
     /// </summary>
     public class LobbyJoiningUI : MonoBehaviour
     {
@@ -18,6 +18,7 @@ namespace Cosmos.Gameplay.UI
         [SerializeField] private TMP_InputField _joinCodeInputField;
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private Graphic _emptyLobbyListLabel;
+        [SerializeField] private Button _joinLobbyButton;
 
         private IObjectResolver _objectResolver;
         private LobbyUIMediator _lobbyUIMediator;
@@ -67,7 +68,7 @@ namespace Cosmos.Gameplay.UI
         public void OnJoinCodeInputTextChanged()
         {
             _joinCodeInputField.text = SanitizeJoinCode(_joinCodeInputField.text);
-            _joinCodeInputField.interactable = _joinCodeInputField.text.Length > 0;
+             _joinLobbyButton.interactable = _joinCodeInputField.text.Length > 0;
         }
 
         public void OnJoinButtonClicked()

@@ -18,18 +18,21 @@ namespace Cosmos.Test
 
         public override void OnNetworkSpawn()
         {
-            if (IsOwner)
+            if (!IsOwner)
             {
-                if (m_platformConfig.Platform == PlatformType.FlatScreen)
-                {
-                    m_flatScreenCamera.SetActive(true);
-                    m_vrCamera.SetActive(false);
-                }
-                else if (m_platformConfig.Platform == PlatformType.VR)
-                {
-                    m_vrCamera.SetActive(true);
-                    m_flatScreenCamera.SetActive(false);
-                }
+                enabled = false;
+                return;
+            }
+
+            if (m_platformConfig.Platform == PlatformType.FlatScreen)
+            {
+                m_flatScreenCamera.SetActive(true);
+                m_vrCamera.SetActive(false);
+            }
+            else if (m_platformConfig.Platform == PlatformType.VR)
+            {
+                m_vrCamera.SetActive(true);
+                m_flatScreenCamera.SetActive(false);
             }
         }
     }

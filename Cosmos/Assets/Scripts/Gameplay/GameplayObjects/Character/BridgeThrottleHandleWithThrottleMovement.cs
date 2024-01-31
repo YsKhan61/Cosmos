@@ -45,9 +45,7 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
                 throttleVisualAngle = throttleVisualAngle - 360f;
             }
 
-            _throttleMovement.ThrottleValue = (throttleVisualAngle / (float)_throttleHandle.AngleConstraint) * _invertMultiplier;
-
-            // _throttleMovement.ThrottleValue = Mathf.Abs(throttleValue) > _deadZoneLimit ? throttleValue : 0f;
+            // _throttleMovement.ThrottleValue = (throttleVisualAngle / (float)_throttleHandle.AngleConstraint) * _invertMultiplier;
                 
         }
     }

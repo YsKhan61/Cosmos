@@ -1,3 +1,4 @@
+using Cosmos.Utilities;
 using Oculus.Interaction;
 using UnityEngine;
 
@@ -5,15 +6,14 @@ using UnityEngine;
 namespace Cosmos.Gameplay.GameplayObjects.Character
 {
     /// <summary>
-    /// Attach this component to a control handle visual transform
+    /// Calculates the control direction from the control handle visual's rotation respect to pivotTransform
     /// which is rotated by IControlHandle
     /// </summary>
-    public class BridgeControlHandleWithControlMovement : MonoBehaviour
+    public class CalculateControlMovementInputValue : MonoBehaviour
     {
         [SerializeField] private Transform _pivotTransform;
 
-        [SerializeField]
-        private ControlMovement _controlMovement = null;
+        [SerializeField] private Vector3DataSO _controlMovementInput;
 
         private Vector3 _projectedVectorInWorldSpace;
 
@@ -21,8 +21,7 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
         {
             _projectedVectorInWorldSpace = Vector3.ProjectOnPlane(transform.up, _pivotTransform.up).normalized;
             _projectedVectorInWorldSpace = Quaternion.AngleAxis(90f, _pivotTransform.up) * _projectedVectorInWorldSpace;    // This direction will be the axis of the torque
-            // _controlMovement.TorqueDirection = _projectedVectorInWorldSpace;
-            // _controlMovement.TorqueMultiplier = 1f;
+            _controlMovementInput.value = _projectedVectorInWorldSpace;
         }
 
         private void OnDrawGizmos()

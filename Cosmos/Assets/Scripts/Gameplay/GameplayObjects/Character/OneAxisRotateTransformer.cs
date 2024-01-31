@@ -21,8 +21,7 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
         private float _sensitivity = 1;
 
         [SerializeField, Tooltip("The max angle between visual transform's axis of orientation and pivot transform's Y axis")]
-        private float _angleConstraint = 10;
-        public float AngleConstraint => _angleConstraint;
+        private FloatDataSO _angleConstraint;
 
         [SerializeField, Tooltip(" Assign 1 or -1")]
         private int _invertThrottleValue = 1;
@@ -52,9 +51,9 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
         private void ManualThrottleControl()
         {
             _relativeAngleZ += _sensitivity * _invertThrottleValue * _rotateInput.value * Time.deltaTime;
-            _relativeAngleZ = Mathf.Clamp(_relativeAngleZ, -_angleConstraint, _angleConstraint);
+            _relativeAngleZ = Mathf.Clamp(_relativeAngleZ, -_angleConstraint.value, _angleConstraint.value);
 
-            Debug.Log("Relative Angle Z: " + _relativeAngleZ);
+            // Debug.Log("Relative Angle Z: " + _relativeAngleZ);
 
             Quaternion inputRotationInPivotSpace = Quaternion.Euler(0f, 0f, _relativeAngleZ);
             Quaternion inputRotationInWorldSpace = _pivotTransform.rotation * inputRotationInPivotSpace;

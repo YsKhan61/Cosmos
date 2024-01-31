@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8266572025106942857}
   - component: {fileID: 5636925140086399475}
   - component: {fileID: 3190372519478333157}
-  - component: {fileID: 7276246017210970990}
   m_Layer: 0
   m_Name: Player Camera
   m_TagString: MainCamera
@@ -138,23 +137,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!114 &7276246017210970990
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5904695489467486243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0ec16bb57f2e5243b645cc58f757b27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _horizontalLookInputActionReference: {fileID: 3589891834255563740, guid: 80e151a7254d663438074715ad6b9697, type: 3}
-  _verticalLookInputActionReference: {fileID: -2147683855251518630, guid: 80e151a7254d663438074715ad6b9697, type: 3}
-  _pivotTransform: {fileID: 40290539605118393}
-  _sensitivity: 5
-  _invertY: -1
 --- !u!1001 &4362903521446628994
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -165,7 +147,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 751941554305108126, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
       propertyPath: m_Name
-      value: Spaceship MnK Variant
+      value: Spaceship Model (old - MnK Variant)
       objectReference: {fileID: 0}
     - target: {fileID: 2420192660918756697, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
       propertyPath: m_IsActive
@@ -181,6 +163,10 @@ PrefabInstance:
       objectReference: {fileID: 7708537790384765734}
     - target: {fileID: 2923800742281578956, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
       propertyPath: _controlTransformer
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2938359322938058273, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
+      propertyPath: _rigidbody
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3792636002925228937, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
@@ -239,6 +225,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4330010369853147401, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
+      propertyPath: _rigidbody
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6594446086358706823, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
       propertyPath: _throttleHandleO
       value: 
@@ -258,6 +248,9 @@ PrefabInstance:
     - {fileID: 3486199663498377452, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
     - {fileID: 6510579382925734085, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
     - {fileID: 4499151625551791848, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
+    - {fileID: 7987208988483158782, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
+    - {fileID: 6594446086358706823, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
+    - {fileID: 2923800742281578956, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
     m_RemovedGameObjects:
     - {fileID: 2880497704656856302, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
     - {fileID: 4827117523700876969, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
@@ -274,9 +267,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2420192660918756697, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
       insertIndex: -1
       addedObject: {fileID: 889364922844553113}
+    - targetCorrespondingSourceObject: {fileID: 1797870230463155351, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3577401623255228098}
     - targetCorrespondingSourceObject: {fileID: 7365317072159943165, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6289352666020504189}
+    - targetCorrespondingSourceObject: {fileID: 256497040691354997, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3191754584153061}
   m_SourcePrefab: {fileID: 100100000, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
 --- !u!4 &40290539605118393 stripped
 Transform:
@@ -304,13 +303,52 @@ MonoBehaviour:
   _pivotTransform: {fileID: 3290792502992846726}
   _visualTransform: {fileID: 5906814493363928983}
   _sensitivity: 10
-  _angleConstraint: 10
+  _angleConstraint: {fileID: 11400000, guid: 4f4525bebc824fc4499f40fdf4c85c57, type: 2}
   _invertThrottleValue: -1
+--- !u!1 &2629949152399786517 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1797870230463155351, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
+  m_PrefabInstance: {fileID: 4362903521446628994}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3577401623255228098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2629949152399786517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04ffd7492c126bc418271b46fb09f21d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _throttleMovementInput: {fileID: 11400000, guid: 375c49fc275b0bc4d9c09863ac12a1f1, type: 2}
+  _throttleAngleConstraint: {fileID: 11400000, guid: 4f4525bebc824fc4499f40fdf4c85c57, type: 2}
+  _invertMultiplier: -1
 --- !u!4 &3290792502992846726 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1235987389789810948, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
   m_PrefabInstance: {fileID: 4362903521446628994}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4540586167962719223 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 256497040691354997, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
+  m_PrefabInstance: {fileID: 4362903521446628994}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3191754584153061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4540586167962719223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d1f6910af1585f4d9e5f6ff35352a40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pivotTransform: {fileID: 7708537790384765734}
+  _controlMovementInput: {fileID: 11400000, guid: 24e4e4720f493de4b963c83a943ff685, type: 2}
 --- !u!4 &5906814493363928983 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7887243168007418133, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}

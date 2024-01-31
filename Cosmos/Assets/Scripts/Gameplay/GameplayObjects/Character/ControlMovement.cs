@@ -1,3 +1,4 @@
+using Cosmos.Utilities;
 using UnityEngine;
 
 
@@ -9,12 +10,10 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
     public class ControlMovement : MonoBehaviour
     {
         [SerializeField, Tooltip("The orientation along which to apply torque")]
-        private Vector3 _torqueDirection;
-        public Vector3 TorqueDirection { set => _torqueDirection = value; }
+        private Vector3DataSO _controlMovementDirectionInput;
 
         [SerializeField, Tooltip("The factor by which the torque is multiplied")]
         private float _torqueMultiplier = 1f;
-        public float TorqueMultiplier { set => _torqueMultiplier = value; }
 
         [SerializeField, Tooltip("The max torque to input to the rigidbody")]
         private float _maxTorqueToInput = 1000f;
@@ -36,9 +35,9 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
         private void FixedUpdate()
         {
             // Rotate the rigidbody along the orientation with a torque proportional to the throttle value
-            _rigidbody.AddTorque(_torqueDirection * _torqueMultiplier * _maxTorqueToInput * Time.fixedDeltaTime);
+            _rigidbody.AddTorque(_controlMovementDirectionInput.value * _torqueMultiplier * _maxTorqueToInput * Time.fixedDeltaTime);
 
-            if(_torqueDirection == Vector3.zero)
+            if(_controlMovementDirectionInput.value == Vector3.zero)
                 _rigidbody.angularVelocity = Vector3.Slerp(_rigidbody.angularVelocity, Vector3.zero, _damping * Time.fixedDeltaTime);
         }
     }

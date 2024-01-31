@@ -8,7 +8,7 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
     {
         [SerializeField] private InputActionReference _controlHandleInputActionReference;
 
-        [SerializeField] private Vector2DataSO _controlHandleInputData;
+        [SerializeField] private Vector3DataSO _controlHandleInputData;
 
         private void OnEnable()
         {

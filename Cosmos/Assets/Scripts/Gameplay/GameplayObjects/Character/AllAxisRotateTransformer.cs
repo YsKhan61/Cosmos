@@ -67,13 +67,13 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
 
         private void ManualControl()
         {
-            Debug.Log($"_rotateInputValue: {_controlInput.value}");
+            // Debug.Log($"_rotateInputValue: {_controlInput.value}");
 
             _relativeAngleX = Mathf.Lerp(-_angleConstraint.value, _angleConstraint.value, Mathf.InverseLerp(1, -1, _controlInput.value.x));
             _relativeAngleY = Mathf.Lerp(-_angleConstraint.value, _angleConstraint.value, Mathf.InverseLerp(1, -1, _controlInput.value.y));
             _relativeAngleZ = Mathf.Lerp(-_angleConstraint.value, _angleConstraint.value, Mathf.InverseLerp(1, -1, _controlInput.value.z));
 
-            Debug.Log($"_relativeAngleX: {_relativeAngleX}, _relativeAngleY: {_relativeAngleY}, _relativeAngleZ: {_relativeAngleZ}");
+            // Debug.Log($"_relativeAngleX: {_relativeAngleX}, _relativeAngleY: {_relativeAngleY}, _relativeAngleZ: {_relativeAngleZ}");
 
             Quaternion inputRotationInPivotSpace = Quaternion.Euler(
                 _relativeAngleZ * (_invertZ ? -1 : 1),

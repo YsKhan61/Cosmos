@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 834756266620902809, guid: c539f74e7854ea6428eed66e7c96f4de, type: 3}
+      propertyPath: _maxForceToInput
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 834756266620902809, guid: c539f74e7854ea6428eed66e7c96f4de, type: 3}
+      propertyPath: _maxLinearVelocityAllowed
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1910532331296098937, guid: c539f74e7854ea6428eed66e7c96f4de, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -48,9 +56,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2582716205794302546, guid: c539f74e7854ea6428eed66e7c96f4de, type: 3}
+      propertyPath: _maxTorqueAllowed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2582716205794302546, guid: c539f74e7854ea6428eed66e7c96f4de, type: 3}
+      propertyPath: _maxTorqueToInput
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 3238084280083268060, guid: c539f74e7854ea6428eed66e7c96f4de, type: 3}
       propertyPath: m_Name
-      value: Spaceship Controllable (Green Model Variant) Variant
+      value: Spaceship MnK (Controllable Variant)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

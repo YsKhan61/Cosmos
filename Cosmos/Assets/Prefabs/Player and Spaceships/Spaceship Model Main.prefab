@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 751941554305108126, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
       propertyPath: m_Name
-      value: Spaceship Model (old - MnK Variant)
+      value: Spaceship Model Main
       objectReference: {fileID: 0}
     - target: {fileID: 2420192660918756697, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
       propertyPath: m_IsActive
@@ -132,7 +132,7 @@ PrefabInstance:
       addedObject: {fileID: 3577401623255228098}
     - targetCorrespondingSourceObject: {fileID: 7365317072159943165, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6289352666020504189}
+      addedObject: {fileID: 5450109923180299051}
     - targetCorrespondingSourceObject: {fileID: 256497040691354997, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3191754584153061}
@@ -219,7 +219,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7365317072159943165, guid: 2a26179b9d119dd4db031a15ba91ff78, type: 3}
   m_PrefabInstance: {fileID: 4362903521446628994}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6289352666020504189
+--- !u!114 &5450109923180299051
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -228,10 +228,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6537812110273292159}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c896e279076673742a0dffc2674c11d7, type: 3}
+  m_Script: {fileID: 11500000, guid: c12999533459cc447a6cedc9d5e1c914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotateInput: {fileID: 11400000, guid: 4683d9f36cb251e449e7be05b0d0bcba, type: 2}
+  _rotateInput: {fileID: 11400000, guid: 1770acdd42a7519479b02b73e18ced51, type: 2}
   _pivotTransform: {fileID: 7708537790384765734}
   _visualTransform: {fileID: 6200517852301734480}
   _sensitivity: 10

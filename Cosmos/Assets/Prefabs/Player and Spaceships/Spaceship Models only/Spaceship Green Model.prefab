@@ -439,9 +439,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1257378482820023791}
-  - component: {fileID: 28480099057717775}
-  - component: {fileID: 2893332608328603076}
-  - component: {fileID: 4608080699356131576}
   m_Layer: 0
   m_Name: Spaceship Green Model
   m_TagString: Untagged
@@ -466,56 +463,6 @@ Transform:
   - {fileID: 3149234897325031268}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &28480099057717775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2819099874020773450}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7972f5e6be05a64fb8331205bbf6864, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _throttleMovementInput: {fileID: 11400000, guid: cb1608aec125f284ab8d0976127f1091, type: 2}
-  _rigidbody: {fileID: 0}
-  _maxForceToInput: 1000
-  _maxLinearVelocityAllowed: 100
-  _damping: 5
---- !u!114 &2893332608328603076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2819099874020773450}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb44d76c2da6c5f4bb1c205041bf3783, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _controlMovementDirectionInput: {fileID: 11400000, guid: 1770acdd42a7519479b02b73e18ced51, type: 2}
-  _torqueMultiplier: 1
-  _maxTorqueToInput: 1000
-  _maxTorqueAllowed: 100
-  _rigidbody: {fileID: 0}
-  _damping: 5
---- !u!114 &4608080699356131576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2819099874020773450}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfe540264a9418a48b01024eb7280846, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _checkInterval: 1
-  _boundaryDistance: 5000
-  _huperSpaceTunnelGO: {fileID: 5127388630721409573}
 --- !u!1 &3386522241309449121
 GameObject:
   m_ObjectHideFlags: 0

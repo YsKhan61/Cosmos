@@ -195,8 +195,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _throttleMovementInput: {fileID: 11400000, guid: cb1608aec125f284ab8d0976127f1091, type: 2}
   _rigidbody: {fileID: 2465395481853903994}
-  _maxForceToInput: 50
-  _maxLinearVelocityAllowed: 20
+  _maxForceToInput: 1000
+  _maxLinearVelocityAllowed: 50
   _damping: 5
 --- !u!114 &1961735061483478154
 MonoBehaviour:
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _controlMovementDirectionInput: {fileID: 11400000, guid: 1770acdd42a7519479b02b73e18ced51, type: 2}
   _torqueMultiplier: 1
-  _maxTorqueToInput: 20
+  _maxTorqueToInput: 1000
   _maxTorqueAllowed: 50
   _rigidbody: {fileID: 2465395481853903994}
   _damping: 10
@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _checkInterval: 1
-  _boundaryDistance: 1000
+  _boundaryDistance: 5000
   _huperSpaceTunnelGO: {fileID: 6462185979043571762}
 --- !u!114 &6527531668347304539
 MonoBehaviour:
@@ -422,6 +422,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: VR Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6933323501909394278, guid: 1bab31ea6843a084badd0f81ebf8d9e5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -488,6 +492,10 @@ PrefabInstance:
     - target: {fileID: 7217547041887648259, guid: 6308023857c353849823b04c147886a1, type: 3}
       propertyPath: m_Name
       value: FlatScreen Player Camera with TouchScreen Input
+      objectReference: {fileID: 0}
+    - target: {fileID: 7217547041887648259, guid: 6308023857c353849823b04c147886a1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

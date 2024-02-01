@@ -50,8 +50,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2819099874020773450, guid: 61bf18cd0cfb4244ba72b5907e4a6145, type: 3}
       propertyPath: m_Name
-      value: Spaceship Touchscreen Player (Green Model Variant)
+      value: Spaceship Controllable (Green Model Variant)
       objectReference: {fileID: 0}
+    - target: {fileID: 6511801541915282301, guid: 61bf18cd0cfb4244ba72b5907e4a6145, type: 3}
+      propertyPath: _angleConstraint
+      value: 
+      objectReference: {fileID: 11400000, guid: 4f4525bebc824fc4499f40fdf4c85c57, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

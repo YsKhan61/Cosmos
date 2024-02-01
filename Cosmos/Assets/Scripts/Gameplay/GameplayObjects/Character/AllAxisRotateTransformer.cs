@@ -2,6 +2,7 @@
 using Cosmos.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace Cosmos.Gameplay.GameplayObjects.Character
 {
@@ -10,8 +11,9 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
     /// </summary>
     public class AllAxisRotateTransformer : MonoBehaviour, IControlHandle
     {
-        [SerializeField, Tooltip("The data based on which the visual will rotate")] 
-        private Vector3DataSO _rotateInput;
+        [SerializeField, Tooltip("The data based on which the visual will rotate")]
+        [FormerlySerializedAs("_rotateInput")]
+        private Vector3DataSO _controlInput;
 
         [SerializeField, Tooltip("This will be the pivot relative to calculate orientations of handle")]
         private Transform _pivotTransform;
@@ -24,7 +26,7 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
         private float _sensitivity = 1;
 
         [SerializeField, Tooltip("The max angle between visual transform's axis of orientation and pivot transform's Y axis")] 
-        private int _angleConstraint = 10;
+        private FloatDataSO _angleConstraint;
 
         [SerializeField]
         private bool _invertX = false;
@@ -53,7 +55,7 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
         /// </summary>
         private void LateUpdate()
         {
-            if (_rotateInput.value != Vector3.zero)
+            if (_controlInput.value != Vector3.zero)
             {
                 ManualControl();
             }
@@ -65,11 +67,11 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
 
         private void ManualControl()
         {
-            Debug.Log($"_rotateInputValue: {_rotateInput.value}");
+            Debug.Log($"_rotateInputValue: {_controlInput.value}");
 
-            _relativeAngleX = Mathf.Lerp(-_angleConstraint, _angleConstraint, Mathf.InverseLerp(1, -1, _rotateInput.value.x));
-            _relativeAngleY = Mathf.Lerp(-_angleConstraint, _angleConstraint, Mathf.InverseLerp(1, -1, _rotateInput.value.y));
-            _relativeAngleZ = Mathf.Lerp(-_angleConstraint, _angleConstraint, Mathf.InverseLerp(1, -1, _rotateInput.value.z));
+            _relativeAngleX = Mathf.Lerp(-_angleConstraint.value, _angleConstraint.value, Mathf.InverseLerp(1, -1, _controlInput.value.x));
+            _relativeAngleY = Mathf.Lerp(-_angleConstraint.value, _angleConstraint.value, Mathf.InverseLerp(1, -1, _controlInput.value.y));
+            _relativeAngleZ = Mathf.Lerp(-_angleConstraint.value, _angleConstraint.value, Mathf.InverseLerp(1, -1, _controlInput.value.z));
 
             Debug.Log($"_relativeAngleX: {_relativeAngleX}, _relativeAngleY: {_relativeAngleY}, _relativeAngleZ: {_relativeAngleZ}");
 

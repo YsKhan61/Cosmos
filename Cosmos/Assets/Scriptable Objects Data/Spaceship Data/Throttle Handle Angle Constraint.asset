@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb89f01233579b64ea9716f46a40a714, type: 3}
   m_Name: Throttle Handle Angle Constraint
   m_EditorClassIdentifier: 
-  value: 10
+  value: 15

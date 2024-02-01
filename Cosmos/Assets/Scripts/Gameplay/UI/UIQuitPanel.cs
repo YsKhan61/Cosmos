@@ -44,7 +44,7 @@ namespace Cosmos.Gameplay.UI
             switch (_quitMode)
             {
                 case QuitMode.ReturnToMenu:
-                    _connectionManager.RequestShutdown();
+                    _connectionManager?.RequestShutdown();
                     break;
                 case QuitMode.QuitApplication:
                     _quitApplicationMessagePublisher.Publish(new QuitApplicationMessage());

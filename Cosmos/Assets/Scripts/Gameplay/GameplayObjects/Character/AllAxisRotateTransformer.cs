@@ -25,7 +25,13 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
 
         [SerializeField, Tooltip("The max angle between visual transform's axis of orientation and pivot transform's Y axis")] 
         private int _angleConstraint = 10;
-        public int AngleConstraint => _angleConstraint;
+
+        [SerializeField]
+        private bool _invertX = false;
+        [SerializeField]
+        private bool _invertY = false;
+        [SerializeField]
+        private bool _invertZ = false;
 
         private Quaternion _initialVisualLocalRotation;
 
@@ -41,7 +47,11 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
             _relativeAngleZ = 0;
         }
 
-        private void Update()
+        /// <summary>
+        /// We are taking the input directly from the CalculateControlInputValue and using it in ControlMovemnt,
+        /// Hence, we can update the visual's orientation in LateUpdate
+        /// </summary>
+        private void LateUpdate()
         {
             if (_rotateInput.value != Vector3.zero)
             {
@@ -59,11 +69,15 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
 
             _relativeAngleX = Mathf.Lerp(-_angleConstraint, _angleConstraint, Mathf.InverseLerp(1, -1, _rotateInput.value.x));
             _relativeAngleY = Mathf.Lerp(-_angleConstraint, _angleConstraint, Mathf.InverseLerp(1, -1, _rotateInput.value.y));
-            _relativeAngleZ = Mathf.Lerp(-_angleConstraint, _angleConstraint, Mathf.InverseLerp(1, -1, _rotateInput.value.y));
+            _relativeAngleZ = Mathf.Lerp(-_angleConstraint, _angleConstraint, Mathf.InverseLerp(1, -1, _rotateInput.value.z));
 
-            Debug.Log($"_relativeAngleX: {_relativeAngleX}, _relativeAngleZ: {_relativeAngleZ}");
+            Debug.Log($"_relativeAngleX: {_relativeAngleX}, _relativeAngleY: {_relativeAngleY}, _relativeAngleZ: {_relativeAngleZ}");
 
-            Quaternion inputRotationInPivotSpace = Quaternion.Euler(_relativeAngleX, _relativeAngleY, _relativeAngleZ);
+            Quaternion inputRotationInPivotSpace = Quaternion.Euler(
+                _relativeAngleZ * (_invertZ ? -1 : 1),
+                _relativeAngleY * (_invertY ? -1 : 1),
+                _relativeAngleX * (_invertX ? -1 : 1) 
+            );
 
             _visualTransform.localRotation = Quaternion.Slerp(
                                _visualTransform.localRotation,

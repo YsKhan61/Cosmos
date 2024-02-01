@@ -16,9 +16,19 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
 
         [SerializeField] private Vector3DataSO _controlHandleInputData;
 
+        [SerializeField]
+        private bool _invertPitch = false;
+        [SerializeField]
+        private bool _invertYaw = false;
+        [SerializeField]
+        private bool _invertRoll = false;
+
         private void Update()
         {
-            _controlHandleInputData.value = new Vector3(_pitchStick.Horizontal, _yawStick.Horizontal, _rollStick.Horizontal);
+            _controlHandleInputData.value = new Vector3(
+                _pitchStick.Vertical * (_invertPitch ? -1 : 1), 
+                _yawStick.Horizontal * (_invertYaw ? -1 : 1), 
+                _rollStick.Horizontal * (_invertRoll ? -1 : 1));
         }
     }
 }

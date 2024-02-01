@@ -28,7 +28,7 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
             ""id"": ""bd426e1b-4202-4750-aafa-58451e184342"",
             ""actions"": [
                 {
-                    ""name"": ""ThrottleHandleAction"",
+                    ""name"": ""ThrottleAction"",
                     ""type"": ""Value"",
                     ""id"": ""8d4ba86c-a9bd-4ac1-90a4-755f6a2aeaec"",
                     ""expectedControlType"": """",
@@ -37,10 +37,28 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""ControlHandleAction"",
+                    ""name"": ""Pitch Action"",
                     ""type"": ""Value"",
-                    ""id"": ""7af1ba11-ec51-49a2-a2e6-02a5bde3b841"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""id"": ""e81530dc-9282-4bac-8865-ce87655d88b3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Yaw Action"",
+                    ""type"": ""Value"",
+                    ""id"": ""f190062e-1b67-4ad3-b334-248036286288"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Roll Action"",
+                    ""type"": ""Value"",
+                    ""id"": ""20b93a0c-da6e-4f85-a40e-209ffab11904"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -54,84 +72,128 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ThrottleHandleAction"",
+                    ""action"": ""ThrottleAction"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": ""negative"",
                     ""id"": ""40e590c7-46f7-4f9c-b094-b8b7fec70b6e"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""MnK Control Schema"",
-                    ""action"": ""ThrottleHandleAction"",
+                    ""action"": ""ThrottleAction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""positive"",
                     ""id"": ""a433925f-34ce-46aa-b2b2-59a4ff085f1f"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""MnK Control Schema"",
-                    ""action"": ""ThrottleHandleAction"",
+                    ""action"": ""ThrottleAction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""2D Vector MnK"",
-                    ""id"": ""133eb049-7e63-489f-a201-101b49a168a6"",
-                    ""path"": ""2DVector"",
+                    ""name"": ""1D Axis"",
+                    ""id"": ""62cb7877-dbcc-4995-b149-515c6ac185ba"",
+                    ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ControlHandleAction"",
+                    ""action"": ""Pitch Action"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""up"",
-                    ""id"": ""5f5c488e-2c6a-4645-b84c-54bfbee877cf"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ControlHandleAction"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""64d25ec9-6db7-4229-a62c-5fa46abc1ebd"",
+                    ""name"": ""negative"",
+                    ""id"": ""11bd1b55-2075-44bc-ab19-91548ba80703"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ControlHandleAction"",
+                    ""groups"": ""MnK Control Schema"",
+                    ""action"": ""Pitch Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""left"",
-                    ""id"": ""6c0959f5-db1d-43a0-a5aa-b30efc4324f1"",
+                    ""name"": ""positive"",
+                    ""id"": ""a39c019b-2ed5-4e5f-9907-421bd40f133e"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MnK Control Schema"",
+                    ""action"": ""Pitch Action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""c1bf2a0f-3316-465a-a3e9-5cb97b9713d6"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Yaw Action"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""dc56f91e-ca3d-40bc-b6f6-a0a68431521d"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ControlHandleAction"",
+                    ""groups"": ""MnK Control Schema"",
+                    ""action"": ""Yaw Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""right"",
-                    ""id"": ""0f950ef5-50c8-43a7-b083-f47b903f20b3"",
+                    ""name"": ""positive"",
+                    ""id"": ""0dd26281-ea85-40c6-b6bb-6c21a5bfe7e6"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
+                    ""groups"": ""MnK Control Schema"",
+                    ""action"": ""Yaw Action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""62cffdec-d248-4868-8c2c-e04438494f3b"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ControlHandleAction"",
+                    ""action"": ""Roll Action"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""5a687055-53cf-4dcc-bf22-36fde028b56a"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MnK Control Schema"",
+                    ""action"": ""Roll Action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""34597962-ed16-4ca2-9672-19b9d1df4ceb"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MnK Control Schema"",
+                    ""action"": ""Roll Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 }
@@ -227,8 +289,10 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
 }");
         // SpaceshipActionMap
         m_SpaceshipActionMap = asset.FindActionMap("SpaceshipActionMap", throwIfNotFound: true);
-        m_SpaceshipActionMap_ThrottleHandleAction = m_SpaceshipActionMap.FindAction("ThrottleHandleAction", throwIfNotFound: true);
-        m_SpaceshipActionMap_ControlHandleAction = m_SpaceshipActionMap.FindAction("ControlHandleAction", throwIfNotFound: true);
+        m_SpaceshipActionMap_ThrottleAction = m_SpaceshipActionMap.FindAction("ThrottleAction", throwIfNotFound: true);
+        m_SpaceshipActionMap_PitchAction = m_SpaceshipActionMap.FindAction("Pitch Action", throwIfNotFound: true);
+        m_SpaceshipActionMap_YawAction = m_SpaceshipActionMap.FindAction("Yaw Action", throwIfNotFound: true);
+        m_SpaceshipActionMap_RollAction = m_SpaceshipActionMap.FindAction("Roll Action", throwIfNotFound: true);
         // PlayerActionMap
         m_PlayerActionMap = asset.FindActionMap("PlayerActionMap", throwIfNotFound: true);
         m_PlayerActionMap_HorizontalLookAction = m_PlayerActionMap.FindAction("HorizontalLookAction", throwIfNotFound: true);
@@ -295,14 +359,18 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
     // SpaceshipActionMap
     private readonly InputActionMap m_SpaceshipActionMap;
     private List<ISpaceshipActionMapActions> m_SpaceshipActionMapActionsCallbackInterfaces = new List<ISpaceshipActionMapActions>();
-    private readonly InputAction m_SpaceshipActionMap_ThrottleHandleAction;
-    private readonly InputAction m_SpaceshipActionMap_ControlHandleAction;
+    private readonly InputAction m_SpaceshipActionMap_ThrottleAction;
+    private readonly InputAction m_SpaceshipActionMap_PitchAction;
+    private readonly InputAction m_SpaceshipActionMap_YawAction;
+    private readonly InputAction m_SpaceshipActionMap_RollAction;
     public struct SpaceshipActionMapActions
     {
         private @GalacticKittenInputControls m_Wrapper;
         public SpaceshipActionMapActions(@GalacticKittenInputControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @ThrottleHandleAction => m_Wrapper.m_SpaceshipActionMap_ThrottleHandleAction;
-        public InputAction @ControlHandleAction => m_Wrapper.m_SpaceshipActionMap_ControlHandleAction;
+        public InputAction @ThrottleAction => m_Wrapper.m_SpaceshipActionMap_ThrottleAction;
+        public InputAction @PitchAction => m_Wrapper.m_SpaceshipActionMap_PitchAction;
+        public InputAction @YawAction => m_Wrapper.m_SpaceshipActionMap_YawAction;
+        public InputAction @RollAction => m_Wrapper.m_SpaceshipActionMap_RollAction;
         public InputActionMap Get() { return m_Wrapper.m_SpaceshipActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -312,22 +380,34 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
         {
             if (instance == null || m_Wrapper.m_SpaceshipActionMapActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_SpaceshipActionMapActionsCallbackInterfaces.Add(instance);
-            @ThrottleHandleAction.started += instance.OnThrottleHandleAction;
-            @ThrottleHandleAction.performed += instance.OnThrottleHandleAction;
-            @ThrottleHandleAction.canceled += instance.OnThrottleHandleAction;
-            @ControlHandleAction.started += instance.OnControlHandleAction;
-            @ControlHandleAction.performed += instance.OnControlHandleAction;
-            @ControlHandleAction.canceled += instance.OnControlHandleAction;
+            @ThrottleAction.started += instance.OnThrottleAction;
+            @ThrottleAction.performed += instance.OnThrottleAction;
+            @ThrottleAction.canceled += instance.OnThrottleAction;
+            @PitchAction.started += instance.OnPitchAction;
+            @PitchAction.performed += instance.OnPitchAction;
+            @PitchAction.canceled += instance.OnPitchAction;
+            @YawAction.started += instance.OnYawAction;
+            @YawAction.performed += instance.OnYawAction;
+            @YawAction.canceled += instance.OnYawAction;
+            @RollAction.started += instance.OnRollAction;
+            @RollAction.performed += instance.OnRollAction;
+            @RollAction.canceled += instance.OnRollAction;
         }
 
         private void UnregisterCallbacks(ISpaceshipActionMapActions instance)
         {
-            @ThrottleHandleAction.started -= instance.OnThrottleHandleAction;
-            @ThrottleHandleAction.performed -= instance.OnThrottleHandleAction;
-            @ThrottleHandleAction.canceled -= instance.OnThrottleHandleAction;
-            @ControlHandleAction.started -= instance.OnControlHandleAction;
-            @ControlHandleAction.performed -= instance.OnControlHandleAction;
-            @ControlHandleAction.canceled -= instance.OnControlHandleAction;
+            @ThrottleAction.started -= instance.OnThrottleAction;
+            @ThrottleAction.performed -= instance.OnThrottleAction;
+            @ThrottleAction.canceled -= instance.OnThrottleAction;
+            @PitchAction.started -= instance.OnPitchAction;
+            @PitchAction.performed -= instance.OnPitchAction;
+            @PitchAction.canceled -= instance.OnPitchAction;
+            @YawAction.started -= instance.OnYawAction;
+            @YawAction.performed -= instance.OnYawAction;
+            @YawAction.canceled -= instance.OnYawAction;
+            @RollAction.started -= instance.OnRollAction;
+            @RollAction.performed -= instance.OnRollAction;
+            @RollAction.canceled -= instance.OnRollAction;
         }
 
         public void RemoveCallbacks(ISpaceshipActionMapActions instance)
@@ -418,8 +498,10 @@ public partial class @GalacticKittenInputControls: IInputActionCollection2, IDis
     }
     public interface ISpaceshipActionMapActions
     {
-        void OnThrottleHandleAction(InputAction.CallbackContext context);
-        void OnControlHandleAction(InputAction.CallbackContext context);
+        void OnThrottleAction(InputAction.CallbackContext context);
+        void OnPitchAction(InputAction.CallbackContext context);
+        void OnYawAction(InputAction.CallbackContext context);
+        void OnRollAction(InputAction.CallbackContext context);
     }
     public interface IPlayerActionMapActions
     {

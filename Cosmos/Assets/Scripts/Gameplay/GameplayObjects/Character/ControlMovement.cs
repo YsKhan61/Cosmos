@@ -35,7 +35,7 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
         private void FixedUpdate()
         {
             // Rotate the rigidbody along the orientation with a torque proportional to the throttle value
-            _rigidbody.AddTorque(_controlMovementDirectionInput.value * _torqueMultiplier * _maxTorqueToInput * Time.fixedDeltaTime);
+            _rigidbody.AddRelativeTorque(_controlMovementDirectionInput.value * _torqueMultiplier * _maxTorqueToInput * Time.fixedDeltaTime);
 
             if(_controlMovementDirectionInput.value == Vector3.zero)
                 _rigidbody.angularVelocity = Vector3.Slerp(_rigidbody.angularVelocity, Vector3.zero, _damping * Time.fixedDeltaTime);

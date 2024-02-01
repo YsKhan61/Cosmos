@@ -43,6 +43,9 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
 
         private void Update()
         {
+            if (Application.isFocused == false)
+                return;
+
             UpdateCameraRotation();
         }
 

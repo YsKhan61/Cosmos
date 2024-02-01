@@ -186,7 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _horizontalLookInputActionReference: {fileID: 3589891834255563740, guid: 80e151a7254d663438074715ad6b9697, type: 3}
   _verticalLookInputActionReference: {fileID: -2147683855251518630, guid: 80e151a7254d663438074715ad6b9697, type: 3}
-  _pivotTransform: {fileID: 0}
+  _pivotTransform: {fileID: 1477306642743730142}
   _sensitivity: 5
   _invertY: -1
 --- !u!1 &4248230907709590011
@@ -279,5 +279,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17ba8cd1513e02444a5c7e777add1057, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controlHandleInputActionReference: {fileID: 4619255261657703476, guid: 80e151a7254d663438074715ad6b9697, type: 3}
-  _controlHandleInputData: {fileID: 11400000, guid: 4683d9f36cb251e449e7be05b0d0bcba, type: 2}
+  _pitchActionReference: {fileID: 8029050442244578530, guid: 80e151a7254d663438074715ad6b9697, type: 3}
+  _yawActionReference: {fileID: 7873333561416728463, guid: 80e151a7254d663438074715ad6b9697, type: 3}
+  _rollActionReference: {fileID: 7135575881410100628, guid: 80e151a7254d663438074715ad6b9697, type: 3}
+  _controlHandleInputData: {fileID: 11400000, guid: 1770acdd42a7519479b02b73e18ced51, type: 2}
+  _invertPitch: 0
+  _invertYaw: 0
+  _invertRoll: 1

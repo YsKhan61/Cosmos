@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb89f01233579b64ea9716f46a40a714, type: 3}
-  m_Name: Throttle Handle Input Value
+  m_Name: Throttle Input Value
   m_EditorClassIdentifier: 
   value: 0

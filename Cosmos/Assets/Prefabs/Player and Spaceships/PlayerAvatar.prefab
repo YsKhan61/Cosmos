@@ -195,7 +195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _throttleMovementInput: {fileID: 11400000, guid: cb1608aec125f284ab8d0976127f1091, type: 2}
   _rigidbody: {fileID: 2465395481853903994}
-  _maxForceToInput: 1000
+  _maxForceToInput: 500
   _maxLinearVelocityAllowed: 50
   _damping: 5
 --- !u!114 &1961735061483478154
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _controlMovementDirectionInput: {fileID: 11400000, guid: 1770acdd42a7519479b02b73e18ced51, type: 2}
   _torqueMultiplier: 1
-  _maxTorqueToInput: 1000
+  _maxTorqueToInput: 500
   _maxTorqueAllowed: 50
   _rigidbody: {fileID: 2465395481853903994}
   _damping: 10

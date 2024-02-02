@@ -20,7 +20,7 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
 
         [SerializeField, Tooltip("The max force to allow to the rigidbody")]
         [FormerlySerializedAs("_maxForceAllowed")]
-        private float _maxLinearVelocityAllowed = 1000f;
+        private float _maxLinearVelocityAllowed = 50f;
 
         [SerializeField, Tooltip("Damping factor at 0 force")]
         private float _damping = 5f;

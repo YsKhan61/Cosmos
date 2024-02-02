@@ -123,6 +123,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &140758352
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 140758354}
+  - component: {fileID: 140758353}
+  m_Layer: 0
+  m_Name: UIQuitVR
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &140758353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140758352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68fb680246ab6dc4aba43e8c12d8ff8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onReturnToMenuEventRaised: {fileID: 11400000, guid: b3e90faa94bb49e4c8f2421360274cef, type: 2}
+  _onQuitApplicationEventRaised: {fileID: 11400000, guid: c4a8b43314803594e841d6844ed9e8ea, type: 2}
+--- !u!4 &140758354
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140758352}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &635875689
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -257,7 +303,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &880358169
 Transform:
   m_ObjectHideFlags: 0
@@ -284,6 +330,10 @@ PrefabInstance:
     - target: {fileID: 5802120268272999310, guid: 5c8d8c59ebf5f4149a30fc251f75f26e, type: 3}
       propertyPath: m_Name
       value: SettingsPanelCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5802120268272999310, guid: 5c8d8c59ebf5f4149a30fc251f75f26e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8636669311808112853, guid: 5c8d8c59ebf5f4149a30fc251f75f26e, type: 3}
       propertyPath: m_Pivot.x
@@ -370,11 +420,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c8d8c59ebf5f4149a30fc251f75f26e, type: 3}
---- !u!1 &1191472697 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5802120268272999310, guid: 5c8d8c59ebf5f4149a30fc251f75f26e, type: 3}
-  m_PrefabInstance: {fileID: 1191472695}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1201237840
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,7 +568,7 @@ MonoBehaviour:
     TypeName: Cosmos.ApplicationLifecycle.ApplicationController
   autoRun: 1
   autoInjectGameObjects:
-  - {fileID: 1191472697}
+  - {fileID: 140758352}
   m_NetcodeHooks: {fileID: 2073040912}
   m_PlayerPrefab: {fileID: 2439393517966736930, guid: 3801a2b2697696748b20021298b7b8c2, type: 3}
   m_PlayerSpawnPoints:
@@ -571,3 +616,4 @@ SceneRoots:
   - {fileID: 880358169}
   - {fileID: 1191472695}
   - {fileID: 2010205326}
+  - {fileID: 140758354}

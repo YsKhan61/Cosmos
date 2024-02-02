@@ -31,6 +31,15 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
         private IGrabbable _grabbable;
         private Coroutine _resetOrientationRoutine;
 
+        [SerializeField]
+        private bool _invertX = false;
+        [SerializeField]
+        private bool _invertY = false;
+        [SerializeField]
+        private bool _invertZ = false;
+
+        private Vector3 _forwardDirectionAtBeginGrabbable;      // Store the grabber's forward direction at the moment of grabbing
+
         public void Initialize(IGrabbable grabbable)
         {
             _grabbable = grabbable;
@@ -45,6 +54,8 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
                 StopCoroutine(_resetOrientationRoutine);
                 _resetOrientationRoutine = null;
             }
+
+            _forwardDirectionAtBeginGrabbable = _grabbable.GrabPoints[0].forward;
         }
 
         public void UpdateTransform()
@@ -53,14 +64,20 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
             Vector3 vectorFromPivotToGrabberInWorldSpace =
                 _grabbable.GrabPoints[0].position - _pivotTransform.position;
 
-            Quaternion deltaRotationXZ = Quaternion.FromToRotation(_pivotTransform.up, vectorFromPivotToGrabberInWorldSpace);
-            Quaternion deltaRotationY = Quaternion.FromToRotation(_pivotTransform.forward, _grabbable.GrabPoints[0].forward);
+            Vector3 projectedX =
+                Vector3.ProjectOnPlane(vectorFromPivotToGrabberInWorldSpace, _pivotTransform.right);
 
-            _controlInput.value = deltaRotationXZ.eulerAngles;
-            _controlInput.value.y = deltaRotationY.eulerAngles.y;
+            _controlInput.value.x = Vector3.SignedAngle(_pivotTransform.up, projectedX, _pivotTransform.right) * (_invertX ? -1 : 1);
 
-            
-            if (_controlInput.value.x > 180)
+            _controlInput.value.y = Vector3.SignedAngle(_forwardDirectionAtBeginGrabbable, _grabbable.GrabPoints[0].forward, _pivotTransform.up) * (_invertY ? -1 : 1);
+
+            Vector3 projectedZ =
+                Vector3.ProjectOnPlane(vectorFromPivotToGrabberInWorldSpace, _pivotTransform.forward);
+
+            _controlInput.value.z = Vector3.SignedAngle(_pivotTransform.up, projectedZ, _pivotTransform.forward) * (_invertZ ? -1 : 1);
+
+
+            /*if (_controlInput.value.x > 180)
             {
                 _controlInput.value.x -= 360;
             }
@@ -71,7 +88,7 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
             if (_controlInput.value.z > 180)
             {
                 _controlInput.value.z -= 360;
-            }
+            }*/
 
             _controlInput.value.x = Mathf.Clamp(_controlInput.value.x, -_angleConstraint.value  , _angleConstraint.value);
             _controlInput.value.y = Mathf.Clamp(_controlInput.value.y, -_angleConstraint.value, _angleConstraint.value);

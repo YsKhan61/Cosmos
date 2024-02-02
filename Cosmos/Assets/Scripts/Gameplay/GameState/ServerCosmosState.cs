@@ -10,6 +10,8 @@ using Cosmos.Gameplay.GameplayObjects.Character;
 using Cosmos.Utilities;
 using UnityEngine.Assertions;
 using Random = UnityEngine.Random;
+using Cosmos.ApplicationLifecycle.Messages;
+using Cosmos.Infrastructure;
 
 namespace Cosmos.Gameplay.GameState
 {
@@ -38,8 +40,6 @@ namespace Cosmos.Gameplay.GameState
         /// Has the ServerBossRoomState already hit its initial spawn? (i.e. spawned players following load from character select).
         /// </summary>
         public bool InitialSpawnDone { get; private set; }
-
-        [Inject] ConnectionManager m_ConnectionManager;
 
         protected override void Awake()
         {

@@ -19,13 +19,13 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
         private float _maxTorqueToInput = 1000f;
 
         [SerializeField, Tooltip("The max torque to allow to the rigidbody")]
-        private float _maxTorqueAllowed = 1000f;
+        private float _maxTorqueAllowed = 50f;
 
         [SerializeField, Tooltip("The rigidbody to move")]
         private Rigidbody _rigidbody = null;
 
         [SerializeField, Tooltip("Damping factor at 0 torque")]
-        private float _damping = 100f;
+        private float _damping = 5f;
 
         private void Start()
         {
@@ -34,11 +34,15 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
 
         private void FixedUpdate()
         {
-            // Rotate the rigidbody along the orientation with a torque proportional to the throttle value
-            _rigidbody.AddRelativeTorque(_controlMovementDirectionInput.value * _torqueMultiplier * _maxTorqueToInput * Time.fixedDeltaTime);
-
             if(_controlMovementDirectionInput.value == Vector3.zero)
+            {
                 _rigidbody.angularVelocity = Vector3.Slerp(_rigidbody.angularVelocity, Vector3.zero, _damping * Time.fixedDeltaTime);
+            }    
+            else
+            {
+                // Rotate the rigidbody along the orientation with a torque proportional to the throttle value
+                _rigidbody.AddRelativeTorque((_controlMovementDirectionInput.value) * _torqueMultiplier * _maxTorqueToInput * Time.fixedDeltaTime);
+            }
         }
     }
 

@@ -35,7 +35,7 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
 
         private IGrabbable _grabbable;
         private Vector3 _axisOfRotationOfVisualTransformInLocalSpace;
-        private Coroutine _resetOrientationRoutine;
+        private Coroutine _resetOrientationRoutine;      
 
         public void Initialize(IGrabbable grabbable)
         {

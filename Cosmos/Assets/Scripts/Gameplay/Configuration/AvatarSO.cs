@@ -19,6 +19,8 @@ namespace Cosmos.Gameplay.Configuration
 
         public GameObject GraphicsCharacterSelect;
 
+        public Color raderVisualColor;
+
         // public Sprite Portrait;
     }
 }

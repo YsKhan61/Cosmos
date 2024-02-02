@@ -11,7 +11,7 @@ namespace Cosmos.Gameplay.UI
     /// This is attached to Cosmos - scene game object, and it's referenced to LifeTimeScope of ServerCosmosState's AutoInjectGameObject.
     /// This will listen to the event raised by UIQuitPanelVR and will perform the same action as UIQuitPanel.
     /// </summary>
-    public class UIQuitVR : MonoBehaviour
+    public class SettingsVR : MonoBehaviour
     {
         [SerializeField] private VoidEventChannelSO _onReturnToMenuEventRaised;
         [SerializeField] private VoidEventChannelSO _onQuitApplicationEventRaised;

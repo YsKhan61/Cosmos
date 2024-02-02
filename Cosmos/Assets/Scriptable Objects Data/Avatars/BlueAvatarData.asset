@@ -16,3 +16,4 @@ MonoBehaviour:
   CharacterClass: {fileID: 11400000, guid: 05afa526ff1472046a3e393be9685072, type: 2}
   Graphics: {fileID: 713044981463298666, guid: 474103f6f246ccd45b781fdc0cf03ef8, type: 3}
   GraphicsCharacterSelect: {fileID: 713044981463298666, guid: 474103f6f246ccd45b781fdc0cf03ef8, type: 3}
+  raderVisualColor: {r: 0, g: 0, b: 1, a: 1}

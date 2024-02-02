@@ -12,6 +12,7 @@ using UnityEngine.Assertions;
 using Random = UnityEngine.Random;
 using Cosmos.ApplicationLifecycle.Messages;
 using Cosmos.Infrastructure;
+using Cosmos.Gameplay.UI;
 
 namespace Cosmos.Gameplay.GameState
 {
@@ -137,6 +138,11 @@ namespace Cosmos.Gameplay.GameState
             if (newPlayer.TryGetComponent(out NetworkNameState networkNameState))                                   // NetworkNameState
             {
                 networkNameState.Name.Value = persistentPlayer.NetworkNameState.Name.Value;
+            }
+
+            if (newPlayer.TryGetComponent(out OwnerRadarSystem radarSystem))
+            {
+                radarSystem.Initialize(NetworkManager.Singleton.ConnectedClients);
             }
 
             // spawn players characters with destroyWithScene = true

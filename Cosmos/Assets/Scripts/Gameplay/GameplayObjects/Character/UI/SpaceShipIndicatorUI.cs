@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Cosmos.Gameplay.GameplayObjects.Character.UI
 {
+    /// <summary>
+    /// Script to control the space ship indicator inside cockpit screen of spaceship model
+    /// </summary>
     [ExecuteAlways]
     public class SpaceShipIndicatorUI : MonoBehaviour
     {

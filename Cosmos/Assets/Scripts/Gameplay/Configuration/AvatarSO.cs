@@ -1,6 +1,7 @@
 using Cosmos.Infrastructure;
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 namespace Cosmos.Gameplay.Configuration
@@ -19,7 +20,8 @@ namespace Cosmos.Gameplay.Configuration
 
         public GameObject GraphicsCharacterSelect;
 
-        public Color raderVisualColor;
+        [FormerlySerializedAs("raderVisualColor")]
+        public Color radarVisualColor;
 
         // public Sprite Portrait;
     }

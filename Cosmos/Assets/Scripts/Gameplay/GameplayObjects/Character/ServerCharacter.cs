@@ -7,15 +7,13 @@ using UnityEngine;
 namespace Cosmos.Gameplay.GameplayObjects.Character
 {
     /// <summary>
-    /// Contains all NetworkVariables, RPCs and server-side logic of a character.
-    /// This class was separated in two to keep client and server context self contained. 
-    /// This way you don't have to continuously ask yourself if code is running client or server side.
+    /// Server related things of a character.
     /// </summary>
     [RequireComponent(typeof(NetworkAvatarGuidState))]
     public class ServerCharacter : NetworkBehaviour
     {
         [SerializeField]
-        CharacterClassSO m_CharacterClass;
+        CharacterClassSO m_CharacterClass;          // dont know use of it
 
         public CharacterClassSO CharacterClass
         {
@@ -23,7 +21,7 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
             {
                 if (m_CharacterClass == null)
                 {
-                    m_CharacterClass = m_State.RegisteredAvatar.CharacterClass;
+                    m_CharacterClass = m_networkAvatarGuidState.RegisteredAvatar.CharacterClass;
                 }
 
                 return m_CharacterClass;
@@ -32,7 +30,26 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
             set => m_CharacterClass = value;
         }
 
-        NetworkAvatarGuidState m_State;
-    }
+        NetworkAvatarGuidState m_networkAvatarGuidState;
+        public NetworkAvatarGuidState NetworkAvatarGuidState => m_networkAvatarGuidState;
 
+
+        /*OwnerRadarSystem m_ownerRadarSystem;
+        public OwnerRadarSystem OwnerRadarSystem => m_ownerRadarSystem;*/
+
+        void Awake()
+        {
+            m_networkAvatarGuidState = GetComponent<NetworkAvatarGuidState>();
+            // m_ownerRadarSystem = GetComponent<OwnerRadarSystem>();
+        }
+
+        public override void OnNetworkSpawn()
+        {
+            if (!IsServer)
+            {
+                enabled = false;
+                return;
+            }
+        }
+    }
 }

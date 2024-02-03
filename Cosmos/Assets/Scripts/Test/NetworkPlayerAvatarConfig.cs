@@ -11,7 +11,7 @@ namespace Cosmos.Test
     /// according to the platform they are playing on and if they are the owner of the avatar.
     /// Also activates or deactivates the spaceship control scripts based on if it is a owner or not. (Network Object)
     /// </summary>
-    public class NetworkPlayerConfig : NetworkBehaviour
+    public class NetworkPlayerAvatarConfig : NetworkBehaviour
     {
         [SerializeField] private GameObject m_flatScreenCamera;
         [SerializeField] private GameObject m_vrCamera;
@@ -19,7 +19,6 @@ namespace Cosmos.Test
         [SerializeField] private Rigidbody m_rigidbody;
         [SerializeField] private ThrottleMovement m_throttleMovement;
         [SerializeField] private ControlMovement m_controlMovement;
-        // [SerializeField] private OwnerRadarSystem m_ownerRadarSystem;
 
         [SerializeField] private PlatformConfigSO m_platformConfig;
 
@@ -31,7 +30,6 @@ namespace Cosmos.Test
                 m_rigidbody.isKinematic = true;
                 m_throttleMovement.enabled = false;
                 m_controlMovement.enabled = false;
-                // m_ownerRadarSystem.enabled = false;
                 return;
             }
 
@@ -47,17 +45,7 @@ namespace Cosmos.Test
                 m_vrCamera.SetActive(true);
                 m_flatScreenCamera.SetActive(false);
             }
-
-            // m_ownerRadarSystem.Initialize();
         }
-
-        /*private void Start()
-        {
-            if (IsOwner)
-            {
-                m_rigidbody .isKinematic = false;
-            }
-        }*/
     }
 
 }

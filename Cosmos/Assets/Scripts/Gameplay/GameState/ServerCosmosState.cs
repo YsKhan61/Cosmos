@@ -3,21 +3,18 @@ using Cosmos.Gameplay.GameplayObjects;
 using Unity.Multiplayer.Samples.Utilities;
 using Unity.Netcode;
 using UnityEngine;
-using VContainer;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using Cosmos.Gameplay.GameplayObjects.Character;
 using Cosmos.Utilities;
 using UnityEngine.Assertions;
 using Random = UnityEngine.Random;
-using Cosmos.ApplicationLifecycle.Messages;
-using Cosmos.Infrastructure;
-using Cosmos.Gameplay.UI;
-using System.Linq;
+using Unity.Multiplayer.Samples.BossRoom;
 
 namespace Cosmos.Gameplay.GameState
 {
     /// <summary>
+    /// Only runs on the SERVER.
     /// Server specialization of core Cosmos game logic.
     /// </summary>
     [RequireComponent(typeof(NetcodeHooks))]
@@ -37,6 +34,7 @@ namespace Cosmos.Gameplay.GameState
         private List<Transform> m_PlayerSpawnPointsList = null;
 
         public override GameState ActiveState { get { return GameState.Cosmos; } }
+
 
         /// <summary>
         /// Has the ServerBossRoomState already hit its initial spawn? (i.e. spawned players following load from character select).
@@ -58,18 +56,18 @@ namespace Cosmos.Gameplay.GameState
                 return;
             }
 
-            // NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnect;
+            NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnect;
             NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += OnLoadEventCompleted;
-            // NetworkManager.Singleton.SceneManager.OnSynchronizeComplete += OnSynchronizeComplete;
+            NetworkManager.Singleton.SceneManager.OnSynchronizeComplete += OnSynchronizeComplete;
 
-            // <SessionPlayerData>.Instance.OnSessionStarted();
+            SessionManager<SessionPlayerData>.Instance.OnSessionStarted();
         }
 
         void OnNetworkDespawn()
         {
-            // NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnect;
+            NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnect;
             NetworkManager.Singleton.SceneManager.OnLoadEventCompleted -= OnLoadEventCompleted;
-            // NetworkManager.Singleton.SceneManager.OnSynchronizeComplete -= OnSynchronizeComplete;
+            NetworkManager.Singleton.SceneManager.OnSynchronizeComplete -= OnSynchronizeComplete;
         }
 
         protected override void OnDestroy()
@@ -83,6 +81,18 @@ namespace Cosmos.Gameplay.GameState
             base.OnDestroy();
         }
 
+        void OnSynchronizeComplete(ulong clientId)
+        {
+            if (InitialSpawnDone && !ServerCharactersCachedInServerMachine.GetServerCharacter(clientId))
+            {
+                //somebody joined after the initial spawn. This is a Late Join scenario. This player may have issues
+                //(either because multiple people are late-joining at once, or because some dynamic entities are
+                //getting spawned while joining. But that's not something we can fully address by changes in
+                //ServerBossRoomState.
+                SpawnPlayer(clientId, true);
+            }
+        }
+
         void OnLoadEventCompleted(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
         {
             if (!InitialSpawnDone && loadSceneMode == LoadSceneMode.Single)
@@ -92,6 +102,15 @@ namespace Cosmos.Gameplay.GameState
                 {
                     SpawnPlayer(kvp.Key, false);
                 }
+            }
+        }
+
+        void OnClientDisconnect(ulong clientId)
+        {
+            if (clientId == NetworkManager.Singleton.LocalClientId)
+            {
+                // This client (which is a server) disconnects. We should go back to the character select screen.
+                SceneLoaderWrapper.Instance.LoadScene("CharSelect", useNetworkSceneManager: true);
             }
         }
 
@@ -129,7 +148,11 @@ namespace Cosmos.Gameplay.GameState
             // if reconnecting, set the player's position and rotation to its previous state
             if (lateJoin)
             {
-                // Do stuffs for late join
+                SessionPlayerData? sessionPlayerData = SessionManager<SessionPlayerData>.Instance.GetPlayerData(clientId);
+                if (sessionPlayerData is { HasCharacterSpawned: true })
+                {
+                    newPlayer.transform.SetPositionAndRotation(sessionPlayerData.Value.PlayerPosition, sessionPlayerData.Value.PlayerRotation);
+                }
             }
 
             networkAvatarGuidState.n_AvatarNetworkGuid.Value =
@@ -140,12 +163,6 @@ namespace Cosmos.Gameplay.GameState
             {
                 networkNameState.Name.Value = persistentPlayer.NetworkNameState.Name.Value;
             }
-
-            /*if (newPlayer.TryGetComponent(out OwnerRadarSystem radarSystem))
-            {
-                radarSystem.Initialize(NetworkManager.Singleton.ConnectedClientsIds.ToArray());
-            }*/
-
 
             // spawn players characters with destroyWithScene = true
             newPlayer.SpawnWithOwnership(clientId, true);

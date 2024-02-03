@@ -129,7 +129,7 @@ namespace Cosmos.ConnectionManagement
             if (gameReturnStatus == ConnectStatus.Success)
             {
                 SessionManager<SessionPlayerData>.Instance.SetupConnectingPlayerSessionData(clientId, connectionPayload.playerId,
-                    new SessionPlayerData(clientId, connectionPayload.playerName, new NetworkGuid(), 0, true));
+                    new SessionPlayerData(clientId, connectionPayload.playerName, new NetworkGuid(), true));
 
                 // connection approval will create a player object for you
                 response.Approved = true;

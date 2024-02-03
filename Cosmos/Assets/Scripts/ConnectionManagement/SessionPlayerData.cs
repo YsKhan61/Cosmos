@@ -14,10 +14,9 @@ namespace Cosmos.ConnectionManagement
         // Instead of using a NetworkGuid (two ulongs), we could just use an int or even a byte-sized index into an array of possible avatars
         // defined in our game data source.
         public NetworkGuid AvatarNetworkGuid;
-        public int CurrentHitPoints;
         public bool HasCharacterSpawned;
 
-        public SessionPlayerData(ulong clientID, string name, NetworkGuid avatarNetworkGuid, int currentHitPoints = 0, bool isConnected = false, bool hasCharacterSpawned = false)
+        public SessionPlayerData(ulong clientID, string name, NetworkGuid avatarNetworkGuid, bool isConnected = false, bool hasCharacterSpawned = false)
         {
             ClientID = clientID;
             PlayerName = name;
@@ -25,7 +24,6 @@ namespace Cosmos.ConnectionManagement
             PlayerPosition = Vector3.zero;
             PlayerRotation = Quaternion.identity;
             AvatarNetworkGuid = avatarNetworkGuid;
-            CurrentHitPoints = currentHitPoints;
             IsConnected = isConnected;
             HasCharacterSpawned = hasCharacterSpawned;
         }

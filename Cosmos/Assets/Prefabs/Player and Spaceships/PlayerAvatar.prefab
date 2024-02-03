@@ -290,6 +290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a017c325ec1bb4b4c8cad8ebf894fb91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_OwnerRadarSystem: {fileID: 6140504846927187186}
 --- !u!114 &6140504846927187186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,17 +307,14 @@ MonoBehaviour:
   - image: {fileID: 4224205744002029637}
     clientId: 0
     avatarPosition: {x: 0, y: 0, z: 0}
-    imageColor: {r: 0, g: 0, b: 0, a: 0}
     isInitialized: 0
   - image: {fileID: 824641772646264031}
     clientId: 0
     avatarPosition: {x: 0, y: 0, z: 0}
-    imageColor: {r: 0, g: 0, b: 0, a: 0}
     isInitialized: 0
   - image: {fileID: 7301939389154868628}
     clientId: 0
     avatarPosition: {x: 0, y: 0, z: 0}
-    imageColor: {r: 0, g: 0, b: 0, a: 0}
     isInitialized: 0
   _radarCanvasTransform: {fileID: 9063063721870864800}
   _ourTransform: {fileID: 3628939380239166893}
@@ -500,9 +498,69 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2054667165897351180}
     m_Modifications:
+    - target: {fileID: 2056377358994571567, guid: 210557d0fee7082429c61db6eaf35d33, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2056377358994571567, guid: 210557d0fee7082429c61db6eaf35d33, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2056377358994571567, guid: 210557d0fee7082429c61db6eaf35d33, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2056377358994571567, guid: 210557d0fee7082429c61db6eaf35d33, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2056377358994571567, guid: 210557d0fee7082429c61db6eaf35d33, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3058681359348405505, guid: 210557d0fee7082429c61db6eaf35d33, type: 3}
       propertyPath: m_Name
       value: RadarCanvas World
+      objectReference: {fileID: 0}
+    - target: {fileID: 3291572979052826562, guid: 210557d0fee7082429c61db6eaf35d33, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3291572979052826562, guid: 210557d0fee7082429c61db6eaf35d33, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3291572979052826562, guid: 210557d0fee7082429c61db6eaf35d33, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3291572979052826562, guid: 210557d0fee7082429c61db6eaf35d33, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3291572979052826562, guid: 210557d0fee7082429c61db6eaf35d33, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530021425431624692, guid: 210557d0fee7082429c61db6eaf35d33, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530021425431624692, guid: 210557d0fee7082429c61db6eaf35d33, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530021425431624692, guid: 210557d0fee7082429c61db6eaf35d33, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530021425431624692, guid: 210557d0fee7082429c61db6eaf35d33, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530021425431624692, guid: 210557d0fee7082429c61db6eaf35d33, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7089592631212854314, guid: 210557d0fee7082429c61db6eaf35d33, type: 3}
       propertyPath: m_Pivot.x

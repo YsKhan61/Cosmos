@@ -15,35 +15,59 @@ namespace Cosmos.Gameplay
 {
 
     /// <summary>
-    /// This script takes the position of the other ship and the position of this ship 
-    /// and calculates the position of the other ship on the radar.
+    /// Only runs on the SERVER.
+    /// This script takes data from ConnectedClients of NetworkManager and updates the RadarNetworkData List
     /// </summary>
     public class ServerRadarSystem : NetworkBehaviour// MonoBehaviour
     {
+        [Serializable]
+        public struct RadarNetworkData : INetworkSerializable, IEquatable<RadarNetworkData>
+        {
+            public ulong ClientId;                  // ClientId of the player over the network.
+            public Vector3 AvatarPosition;          // Position of avatar in world space that will be used to calculate the position on the radar.
+            public Color ImageColor;                // Color of the avatar on the radar.
+
+            public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
+            {
+                serializer.SerializeValue(ref ClientId);
+                serializer.SerializeValue(ref AvatarPosition);
+                serializer.SerializeValue(ref ImageColor);
+            }
+
+            public bool Equals(RadarNetworkData other)
+            {
+                return ClientId == other.ClientId;
+            }
+        }
+
+        [SerializeField]
+        OwnerRadarSystem m_OwnerRadarSystem;
+
         public NetworkList<RadarNetworkData> n_RadarNetworkDatas {get; private set;}
+
+        /// <summary>
+        /// Cache the NetworkAvatarGuidState of all the connected clients.
+        /// </summary>
+        Dictionary<ulong, NetworkAvatarGuidState> avatars;
 
         /*[SerializeField]
         ServerRadarDataSO m_ServerRadarData;*/
-
-        /*[SerializeField]
-        NetcodeHooks m_NetcodeHooks;*/
 
         /*[Inject]
         UpdateRunner m_updateRunner;*/
 
         private void Awake()
         {
-            /*m_NetcodeHooks.OnNetworkSpawnHook += OnNetworkSpawn;
-            m_NetcodeHooks.OnNetworkDespawnHook += OnNetworkDespawn;*/
-
             n_RadarNetworkDatas = new NetworkList<RadarNetworkData>(
                 values: default,
                 readPerm: NetworkVariableReadPermission.Owner,
                 writePerm: NetworkVariableWritePermission.Server
             );
+
+            avatars = new Dictionary<ulong, NetworkAvatarGuidState>();
         }
 
-        public override void OnNetworkSpawn() // void OnNetworkSpawn()
+        public override void OnNetworkSpawn()
         {
             if (!NetworkManager.Singleton.IsServer)
             {
@@ -53,14 +77,41 @@ namespace Cosmos.Gameplay
 
             InitializeDatasRelatedToRadars();
 
+            NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
             NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnect;
-            // NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += OnLoadEventCompleted;
         }
 
-        public override void OnNetworkDespawn() // void OnNetworkDespawn()
+        public override void OnNetworkDespawn()
         {
+            NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnected;
             NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnect;
-            // NetworkManager.Singleton.SceneManager.OnLoadEventCompleted -= OnLoadEventCompleted;
+        }
+
+        private void LateUpdate()
+        {
+            UpdateAvatarPositionInRadarData();
+        }
+
+        private void UpdateAvatarPositionInRadarData()
+        {
+            if (n_RadarNetworkDatas == null)
+            {
+                Debug.Log("ServerRadarSystem: UpdateAvatarPositionInRadarData: n_RadarNetworkDatas is null");
+                return;
+            }
+
+            if (avatars == null)
+            {
+                Debug.Log("ServerRadarSystem: UpdateAvatarPositionInRadarData: avatars is null");
+                return;
+            }
+
+            for (int i = 0, length = n_RadarNetworkDatas.Count; i < length; i++)
+            {
+                RadarNetworkData data = n_RadarNetworkDatas[i];
+                data.AvatarPosition = avatars[data.ClientId].transform.position;
+                n_RadarNetworkDatas[i] = data;
+            }
         }
 
         /*private void OnDestroy()
@@ -82,9 +133,18 @@ namespace Cosmos.Gameplay
             }
         }*/
 
+        private void OnClientConnected(ulong clientId)
+        {
+            AddClientToRadarDataList(clientId);
+
+            m_OwnerRadarSystem.ReInitialize_ClientRpc();
+        }
+
         private void OnClientDisconnect(ulong clientId)
         {
             RemoveClientFromRadarDataList(clientId);
+
+            m_OwnerRadarSystem.ReInitialize_ClientRpc();
         }
 
         private void InitializeDatasRelatedToRadars()
@@ -97,17 +157,26 @@ namespace Cosmos.Gameplay
 
             foreach (var kvp in NetworkManager.Singleton.ConnectedClients)
             {
-                NetworkObject playerObject = kvp.Value.PlayerObject;
+                AddClientToRadarDataList(kvp.Key);
+            }
 
-                if (playerObject.gameObject.TryGetComponent(out NetworkAvatarGuidState avatar))
+            m_OwnerRadarSystem.ReInitialize_ClientRpc();
+        }
+
+        private void AddClientToRadarDataList(ulong clientId)
+        {
+            NetworkObject playerObject = NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject;
+
+            if (playerObject.gameObject.TryGetComponent(out NetworkAvatarGuidState avatar))
+            {
+                avatars.Add(clientId, avatar);
+
+                n_RadarNetworkDatas.Add(new RadarNetworkData
                 {
-                    n_RadarNetworkDatas.Add(new RadarNetworkData
-                    {
-                        ClientId = kvp.Key,
-                        AvatarPosition = Vector3.zero,
-                        ImageColor = avatar.RegisteredAvatar.raderVisualColor
-                    });
-                }
+                    ClientId = clientId,
+                    AvatarPosition = Vector3.zero,
+                    ImageColor = avatar.RegisteredAvatar.raderVisualColor
+                });
             }
         }
 
@@ -118,6 +187,7 @@ namespace Cosmos.Gameplay
                 if (n_RadarNetworkDatas[i].ClientId == clientId)
                 {
                     n_RadarNetworkDatas.RemoveAt(i);
+                    avatars.Remove(clientId);
                     break;
                 }
             }

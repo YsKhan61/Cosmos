@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb89f01233579b64ea9716f46a40a714, type: 3}
-  m_Name: Throttle Input Value
+  m_Script: {fileID: 11500000, guid: 36e27d79b632f97488d9cf4d20d50308, type: 3}
+  m_Name: Control Input Value - Runtime
   m_EditorClassIdentifier: 
-  value: 0
+  value: {x: 0, y: 0, z: 0}

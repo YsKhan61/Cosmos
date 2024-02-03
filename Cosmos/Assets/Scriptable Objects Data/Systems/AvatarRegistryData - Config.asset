@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d63197b241b340945942b7ce8fc61fc5, type: 3}
-  m_Name: AvatarRegistryData
+  m_Name: AvatarRegistryData - Config
   m_EditorClassIdentifier: 
   m_Avatars:
   - {fileID: 11400000, guid: 6c83af470fa909143a42a0c40b6c8437, type: 2}

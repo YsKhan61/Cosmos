@@ -13,6 +13,7 @@ using Random = UnityEngine.Random;
 using Cosmos.ApplicationLifecycle.Messages;
 using Cosmos.Infrastructure;
 using Cosmos.Gameplay.UI;
+using System.Linq;
 
 namespace Cosmos.Gameplay.GameState
 {
@@ -140,10 +141,11 @@ namespace Cosmos.Gameplay.GameState
                 networkNameState.Name.Value = persistentPlayer.NetworkNameState.Name.Value;
             }
 
-            if (newPlayer.TryGetComponent(out OwnerRadarSystem radarSystem))
+            /*if (newPlayer.TryGetComponent(out OwnerRadarSystem radarSystem))
             {
-                radarSystem.Initialize(NetworkManager.Singleton.ConnectedClients);
-            }
+                radarSystem.Initialize(NetworkManager.Singleton.ConnectedClientsIds.ToArray());
+            }*/
+
 
             // spawn players characters with destroyWithScene = true
             newPlayer.SpawnWithOwnership(clientId, true);

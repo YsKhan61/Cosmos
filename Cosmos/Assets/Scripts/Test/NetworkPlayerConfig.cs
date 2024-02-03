@@ -19,6 +19,7 @@ namespace Cosmos.Test
         [SerializeField] private Rigidbody m_rigidbody;
         [SerializeField] private ThrottleMovement m_throttleMovement;
         [SerializeField] private ControlMovement m_controlMovement;
+        // [SerializeField] private OwnerRadarSystem m_ownerRadarSystem;
 
         [SerializeField] private PlatformConfigSO m_platformConfig;
 
@@ -30,6 +31,7 @@ namespace Cosmos.Test
                 m_rigidbody.isKinematic = true;
                 m_throttleMovement.enabled = false;
                 m_controlMovement.enabled = false;
+                // m_ownerRadarSystem.enabled = false;
                 return;
             }
 
@@ -45,15 +47,17 @@ namespace Cosmos.Test
                 m_vrCamera.SetActive(true);
                 m_flatScreenCamera.SetActive(false);
             }
+
+            // m_ownerRadarSystem.Initialize();
         }
 
-        private void Start()
+        /*private void Start()
         {
             if (IsOwner)
             {
                 m_rigidbody .isKinematic = false;
             }
-        }
+        }*/
     }
 
 }

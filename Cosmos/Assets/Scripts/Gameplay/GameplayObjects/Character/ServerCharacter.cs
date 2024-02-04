@@ -33,14 +33,9 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
         NetworkAvatarGuidState m_networkAvatarGuidState;
         public NetworkAvatarGuidState NetworkAvatarGuidState => m_networkAvatarGuidState;
 
-
-        /*OwnerRadarSystem m_ownerRadarSystem;
-        public OwnerRadarSystem OwnerRadarSystem => m_ownerRadarSystem;*/
-
         void Awake()
         {
             m_networkAvatarGuidState = GetComponent<NetworkAvatarGuidState>();
-            // m_ownerRadarSystem = GetComponent<OwnerRadarSystem>();
         }
 
         public override void OnNetworkSpawn()

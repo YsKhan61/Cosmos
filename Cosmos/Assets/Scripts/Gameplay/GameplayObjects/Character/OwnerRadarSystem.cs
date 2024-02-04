@@ -90,11 +90,17 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
             {
                 var data = characterList[i];
 
+                if (data == null)
+                {
+                    ResetRadarUI(i);
+                    continue;
+                }
+
                 if (data.OwnerClientId == OwnerClientId)
                     continue;
 
                 _radarVisual[i].clientId = data.OwnerClientId;
-                _radarVisual[i].avatarPosition = data.transform.position;
+                _radarVisual[i].avatarPosition = data.GraphicsTransform.position;
                 _radarVisual[i].imageColor = data.NetworkAvatarGuidState.RegisteredAvatar.radarVisualColor;
                 _radarVisual[i].image.color = _radarVisual[i].imageColor;
                 _radarVisual[i].isInitialized = true;
@@ -103,11 +109,6 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
             }
         }
 
-        /// <summary>
-        /// Letting each owner call this method to update the radar UI.
-        /// Server could call this but that would be bad for performance.
-        /// Every frame, server had to call this method for every owner.
-        /// </summary>
         private void UpdateRadarUI()
         {
             for (int i = 0, length = _radarVisual.Length; i < length; i++)
@@ -115,7 +116,14 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
                 if (!_radarVisual[i].isInitialized)
                     continue;
 
-                Vector3 vectorFromThisShipToOtherShip = GetAvatarPosition(_radarVisual[i].clientId) - _graphicsTransform.position;
+                if (!TryGetAvatarPosition(i, out Vector3 avatarPosition))
+                {
+                    // Sometimes when a client disconnects, I could not yet figure out why the client character is not removed from the characterlist.
+                    ResetRadarUI(i);
+                    continue;
+                }
+
+                Vector3 vectorFromThisShipToOtherShip = avatarPosition - _graphicsTransform.position;
                 vectorFromThisShipToOtherShip = _radarCanvasTransform.InverseTransformDirection(vectorFromThisShipToOtherShip);
                 // Debug.DrawLine(_radarCanvasTransform.position, vectorFromThisShipToOtherShip, Color.white);
                 Vector3 projectedVector = Vector3.ProjectOnPlane(vectorFromThisShipToOtherShip, _radarCanvasTransform.forward);
@@ -130,29 +138,36 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
             }
         }
 
-        private Vector3 GetAvatarPosition(ulong clientId)
+        private bool TryGetAvatarPosition(int i, out Vector3 avatarPosition)
         {
-            ClientCharacter character = ClientCharactersCachedInClientMachine.GetClientCharacter(clientId);
+            ClientCharacter character = ClientCharactersCachedInClientMachine.GetClientCharacter(_radarVisual[i].clientId);
 
             if (character != null)
             {
-                return character.GraphicsTransform.position;
+                avatarPosition = character.GraphicsTransform.position;
+                return true;
             }
 
             Debug.LogError("OwnerRadarSystem: GetAvatarPosition: ClientId not found in the list.");
-            return Vector3.zero;
+            avatarPosition = Vector3.zero;
+            return false;
         }
 
         private void Reset()
         {
             for (int i = 0, length = _radarVisual.Length; i < length; i++)
             {
-                _radarVisual[i].clientId = ulong.MaxValue;
-                _radarVisual[i].avatarPosition = Vector3.zero;
-                _radarVisual[i].imageColor = Color.black;
-                _radarVisual[i].isInitialized = false;
-                _radarVisual[i].image.gameObject.SetActive(false);
+                ResetRadarUI(i);
             }
+        }
+
+        private void ResetRadarUI(int i)
+        {
+            _radarVisual[i].clientId = ulong.MaxValue;
+            _radarVisual[i].avatarPosition = Vector3.zero;
+            _radarVisual[i].imageColor = Color.black;
+            _radarVisual[i].isInitialized = false;
+            _radarVisual[i].image.gameObject.SetActive(false);
         }
     }
 }

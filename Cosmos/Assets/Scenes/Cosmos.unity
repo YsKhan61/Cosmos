@@ -605,7 +605,6 @@ MonoBehaviour:
     TypeName: Cosmos.ApplicationLifecycle.ApplicationController
   autoRun: 1
   autoInjectGameObjects:
-  - {fileID: 0}
   - {fileID: 1191472696}
   m_NetcodeHooks: {fileID: 2073040912}
   m_PlayerPrefab: {fileID: 2439393517966736930, guid: 3801a2b2697696748b20021298b7b8c2, type: 3}

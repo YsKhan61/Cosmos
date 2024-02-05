@@ -52,10 +52,10 @@ namespace Cosmos.Gameplay.UI
 
         public void OnCreateNewProfileButtonPressed()
         {
-            string profile = _newProfileInputField.text;
-            if (!string.IsNullOrEmpty(profile) && !_profileManager.AvailableProfiles.Contains(profile))
+            string name = _newProfileInputField.text;
+            if (!string.IsNullOrEmpty(name) && !_profileManager.AvailableProfiles.Contains(name))
             {
-                _profileManager.CreateProfile(profile);
+                _profileManager.CreateProfile(name);
                 // _profileManager.Profile = profile; // - added to CreateProfile Method of ProfileManager
             }
             else

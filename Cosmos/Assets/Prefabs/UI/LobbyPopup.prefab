@@ -4272,6 +4272,7 @@ MonoBehaviour:
   _joinCodeInputField: {fileID: 1459278119590775958}
   _canvasGroup: {fileID: 7055465919019464134}
   _emptyLobbyListLabel: {fileID: 1994881783879789134}
+  _joinLobbyButton: {fileID: 0}
 --- !u!1 &7943049257450272923
 GameObject:
   m_ObjectHideFlags: 0

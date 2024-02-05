@@ -27,7 +27,7 @@ namespace Cosmos.Utilities
             {
                 if (string.IsNullOrEmpty(_profileName))
                 {
-                    _profileName = GetProfile();
+                    _profileName = GetAutoCreatedProfileName();
                 }
 
                 return _profileName;
@@ -66,7 +66,7 @@ namespace Cosmos.Utilities
             SaveProfiles();
         }
 
-        private static string GetProfile()
+        private static string GetAutoCreatedProfileName()
         {
             string[] arguments = Environment.GetCommandLineArgs();
             for (int  i = 0, length = arguments.Length;  i < length;  i++)

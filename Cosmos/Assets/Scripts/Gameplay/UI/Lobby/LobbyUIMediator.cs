@@ -3,6 +3,7 @@ using Cosmos.Gameplay.Configuration;
 using Cosmos.Infrastructure;
 using Cosmos.UnityServices.Auth;
 using Cosmos.UnityServices.Lobbies;
+using Cosmos.Utilities;
 using TMPro;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
@@ -29,6 +30,7 @@ namespace Cosmos.Gameplay.UI
         private LocalLobbyUser _localLobbyUser;
         private LocalLobby _localLobby;
         private NameGenerationDataSO _nameGenerationData;
+        private ProfileManager _profileManager;
         private ConnectionManager _connectionManager;
         ISubscriber<ConnectStatus> _connectStatusSubscriber;
 
@@ -37,6 +39,11 @@ namespace Cosmos.Gameplay.UI
             if (_connectStatusSubscriber != null)
             {
                 _connectStatusSubscriber.Unsubscribe(OnConnectStatusChanged);
+            }
+
+            if (_profileManager != null)
+            {
+                _profileManager.OnProfileChanged -= GenerateName;
             }
         }
 
@@ -47,6 +54,7 @@ namespace Cosmos.Gameplay.UI
             LocalLobbyUser localLobbyUser,
             LocalLobby localLobby,
             NameGenerationDataSO nameGenerationData,
+            ProfileManager profileManager,
             ISubscriber<ConnectStatus> connectStatusSubscriber,
             ConnectionManager connectionManager)
         {
@@ -55,10 +63,12 @@ namespace Cosmos.Gameplay.UI
             _localLobbyUser = localLobbyUser;
             _localLobby = localLobby;
             _nameGenerationData = nameGenerationData;
+            _profileManager = profileManager;
+            _profileManager.OnProfileChanged += GenerateName;
             _connectStatusSubscriber = connectStatusSubscriber;
             _connectionManager = connectionManager;
 
-            RegenerateName();
+            GenerateName();
 
             _connectStatusSubscriber.Subscribe(OnConnectStatusChanged);
         }
@@ -237,6 +247,14 @@ namespace Cosmos.Gameplay.UI
         public void RegenerateName()
         {
             _localLobbyUser.DisplayName = _nameGenerationData.GenerateName();
+            _playerNameLabel.text = _localLobbyUser.DisplayName;
+        }
+
+        private void GenerateName()
+        {
+            // get only first 10 chars from profile name
+            string profileName = _profileManager.ProfileName;
+            _localLobbyUser.DisplayName = profileName.Substring(0, Mathf.Min(10, profileName.Length));
             _playerNameLabel.text = _localLobbyUser.DisplayName;
         }
 

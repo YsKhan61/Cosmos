@@ -1,6 +1,7 @@
 using Cosmos.ConnectionManagement;
 using Cosmos.Gameplay.Configuration;
 using Cosmos.Infrastructure;
+using Cosmos.UnityServices.Lobbies;
 using Cosmos.Utilities;
 using System.Text.RegularExpressions;
 using TMPro;
@@ -32,6 +33,7 @@ namespace Cosmos.Gameplay.UI
         [SerializeField] private GameObject _signInSpinner;
 
         [Inject] NameGenerationDataSO _nameGenerationData;
+        [Inject] ProfileManager _profileManager;
         [Inject] ConnectionManager _connectionManager;
 
         public IPHostingUI IPHostingUI => _ipHostingUI;
@@ -52,13 +54,16 @@ namespace Cosmos.Gameplay.UI
 
         private void Start()
         {
+            _profileManager.OnProfileChanged += GenerateName;
+
             ToggleCreateIPUI();
-            RegenerateName();
+            GenerateName();
         }
 
         private void OnDestroy()
         {
             _connectStatusSubscriber?.Unsubscribe(OnConnectStatusMessage);
+            _profileManager.OnProfileChanged -= GenerateName;
         }
 
         /// <summary>
@@ -188,6 +193,12 @@ namespace Cosmos.Gameplay.UI
         }
 
         #endregion
+
+        private void GenerateName()
+        {
+            string profileName = _profileManager.ProfileName;
+            _playerNameText.text = profileName.Substring(0, Mathf.Min(10, profileName.Length));
+        }
 
         private void OnConnectStatusMessage(ConnectStatus status)
         {

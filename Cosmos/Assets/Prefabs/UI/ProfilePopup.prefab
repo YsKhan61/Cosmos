@@ -1640,7 +1640,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4384915319449515049}
         m_TargetAssemblyTypeName: Cosmos.Gameplay.UI.UIProfileSelector, Cosmos.Gameplay
-        m_MethodName: OnNewProfileButtonPressed
+        m_MethodName: OnCreateNewProfileButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

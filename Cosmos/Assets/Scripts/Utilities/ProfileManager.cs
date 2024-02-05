@@ -19,22 +19,22 @@ namespace Cosmos.Utilities
 
         public event Action OnProfileChanged;
 
-        private string _profile;
+        private string _profileName;
 
-        public string Profile
+        public string ProfileName
         { 
             get
             {
-                if (string.IsNullOrEmpty(_profile))
+                if (string.IsNullOrEmpty(_profileName))
                 {
-                    _profile = GetProfile();
+                    _profileName = GetProfile();
                 }
 
-                return _profile;
+                return _profileName;
             }
             set
             {
-                _profile = value;
+                _profileName = value;
                 OnProfileChanged?.Invoke();
             }
         }
@@ -53,11 +53,11 @@ namespace Cosmos.Utilities
             }
         }
 
-        public void CreateProfile(string profile)
+        public void CreateProfile(string profileName)
         {
-            _availableProfiles.Add(profile);
+            _availableProfiles.Add(profileName);
             SaveProfiles();
-            Profile = profile;
+            ProfileName = profileName;
         }
 
         public void DeleteProfile(string profile)

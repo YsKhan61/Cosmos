@@ -77,11 +77,11 @@ namespace Cosmos.ConnectionManagement
         {
             if (Unity.Services.Core.UnityServices.State != ServicesInitializationState.Initialized)
             {
-                return ClientPrefs.GetGUID() + _profileManager.Profile;
+                return ClientPrefs.GetGUID() + _profileManager.ProfileName;
             }
 
             return AuthenticationService.Instance.IsSignedIn ? AuthenticationService.Instance.PlayerId
-                : ClientPrefs.GetGUID() + _profileManager.Profile;
+                : ClientPrefs.GetGUID() + _profileManager.ProfileName;
         }
     }
 

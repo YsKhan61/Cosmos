@@ -50,7 +50,7 @@ namespace Cosmos.Gameplay.UI
             _createProfileButton.interactable = !string.IsNullOrEmpty(_newProfileInputField.text) && !_profileManager.AvailableProfiles.Contains(_newProfileInputField.text);
         }
 
-        public void OnNewProfileButtonPressed()
+        public void OnCreateNewProfileButtonPressed()
         {
             string profile = _newProfileInputField.text;
             if (!string.IsNullOrEmpty(profile) && !_profileManager.AvailableProfiles.Contains(profile))

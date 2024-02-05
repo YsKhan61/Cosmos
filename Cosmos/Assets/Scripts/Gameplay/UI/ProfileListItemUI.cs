@@ -21,7 +21,7 @@ namespace Cosmos.Gameplay.UI
 
         public void OnSelectClick()
         {
-            _profileManager.Profile = _profileNameText.text;
+            _profileManager.ProfileName = _profileNameText.text;
         }
 
         public void OnDeleteClick()

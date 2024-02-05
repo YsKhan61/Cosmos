@@ -12,12 +12,15 @@ namespace Cosmos.ConnectionManagement
     {
         public override void OnUserRequestedShutdown()
         {
-            
+            // This behaviour will be the same for every online state
+            _connectStatusPublisher.Publish(ConnectStatus.UserRequestedDisconnect);
+            _connectionManager.ChangeState(_connectionManager._offlineState);
         }
 
         public override void OnTransportFailure()
         {
-            
+            // This behaviour will be the same for every online state
+            _connectionManager.ChangeState(_connectionManager._offlineState);
         }
     }
 }

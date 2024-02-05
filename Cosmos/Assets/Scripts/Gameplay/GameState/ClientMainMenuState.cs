@@ -110,7 +110,7 @@ namespace Cosmos.Gameplay.GameState
             try
             {
                 InitializationOptions unityAuthenticationInitOptions =
-                    _authServiceFacade.GenerateAuthenticationOptions(_profileManager.Profile);
+                    _authServiceFacade.GenerateAuthenticationOptions(_profileManager.ProfileName);
 
                 await _authServiceFacade.InitializeAndSignInAsync(unityAuthenticationInitOptions);
 
@@ -161,7 +161,7 @@ namespace Cosmos.Gameplay.GameState
         {
             _lobbyButton.interactable = false;
             _signInSpinner.SetActive(true);
-            await _authServiceFacade.SwitchProfileAndResignInAsync(_profileManager.Profile);
+            await _authServiceFacade.SwitchProfileAndResignInAsync(_profileManager.ProfileName);
 
             _lobbyButton.interactable = true;
             _signInSpinner.SetActive(false);

@@ -1,4 +1,5 @@
 using Cosmos.Infrastructure;
+using Cosmos.Utilities;
 using UnityEngine;
 
 
@@ -22,6 +23,24 @@ namespace Cosmos.Gameplay.GameplayObjects
             }
 
             persistentPlayer = null;
+            return false;
+        }
+
+        /// <summary>
+        /// Get the player name of the given client id.
+        /// </summary>
+        /// <param name="clientId"></param>
+        /// <param name="playerName"></param>
+        /// <returns></returns>
+        public bool TryGetPlayerName(ulong clientId, out FixedPlayerName playerName)
+        {
+            if (TryGetPlayer(clientId, out var persistentPlayer))
+            {
+                playerName = persistentPlayer.NetworkNameState.Name.Value;
+                return true;
+            }
+
+            playerName = null;
             return false;
         }
     }

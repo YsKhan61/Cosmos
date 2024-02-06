@@ -101,6 +101,9 @@ namespace Cosmos.ApplicationLifecycle
             // they are networked so that the clients can subscribe to those messages that are published by the server.
             builder.RegisterComponent(new NetworkedMessageChannel<ConnectionEventMessage>()).AsImplementedInterfaces();
 
+            // this one is for chatting amoung the clients in the lobby (team - members)
+            builder.RegisterComponent(new NetworkedMessageChannel<NetworkChatMessage>()).AsImplementedInterfaces();
+
             // this message channel is essential and persists for the lifetime of the lobby and relay services.
             builder.RegisterInstance(new MessageChannel<ReconnectMessage>()).AsImplementedInterfaces();
 

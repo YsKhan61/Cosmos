@@ -84,6 +84,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1965443710779264384, guid: 4221241c9e29ca4499f8ff6f7f80be20, type: 3}
+      propertyPath: m_VerticalScrollbar
+      value: 
+      objectReference: {fileID: 5914498828761719669}
     - target: {fileID: 2141102397051462689, guid: 4221241c9e29ca4499f8ff6f7f80be20, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnPlayerClickedReady
@@ -288,6 +292,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7514296396346208677, guid: 4221241c9e29ca4499f8ff6f7f80be20, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7514296396346208677, guid: 4221241c9e29ca4499f8ff6f7f80be20, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7514296396346208677, guid: 4221241c9e29ca4499f8ff6f7f80be20, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7514296396346208677, guid: 4221241c9e29ca4499f8ff6f7f80be20, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -346,6 +366,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5914498828761719669 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7984545874813599786, guid: 4221241c9e29ca4499f8ff6f7f80be20, type: 3}
+  m_PrefabInstance: {fileID: 4384900141838836575}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a4db7a114972834c8e4117be1d82ba3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &6562924213472534156 stripped

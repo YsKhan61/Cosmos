@@ -18,15 +18,14 @@ namespace Cosmos.Gameplay.UI
 
         private string GetPlayerName(ulong clientId)
         {
-            foreach (var player in _persistentPlayerRuntimeCollection.Items)
+            if (_persistentPlayerRuntimeCollection.TryGetPlayerName(clientId, out var playerName))
             {
-                if (player.OwnerClientId == clientId)
-                {
-                    return player.NetworkNameState.Name.Value;
-                }
+                return playerName;
             }
-
-            return "";
+            else
+            {
+                return "";
+            }
         }
     }
 

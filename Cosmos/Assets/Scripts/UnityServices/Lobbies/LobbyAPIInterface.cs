@@ -20,7 +20,7 @@ namespace Cosmos.UnityServices.Lobbies
             // Filter for open lobbies only
             _querryFilters = new List<QueryFilter>()
             {
-                new QueryFilter(field: QueryFilter.FieldOptions.AvailableSlots,
+                new(field: QueryFilter.FieldOptions.AvailableSlots,
                 op: QueryFilter.OpOptions.GT,
                 value: "0")
             };
@@ -28,7 +28,7 @@ namespace Cosmos.UnityServices.Lobbies
             // Order by newest lobbies first.
             _queryOrders = new List<QueryOrder>()
             {
-                new QueryOrder(
+                new(
                     asc: false,
                     field: QueryOrder.FieldOptions.Created)
             };
@@ -36,7 +36,7 @@ namespace Cosmos.UnityServices.Lobbies
 
         public async Task<Lobby> CreateLobby(string requesterUasId, string lobbyName, int maxPlayers, bool isPrivate, Dictionary<string, PlayerDataObject> hostUserData, Dictionary<string, DataObject> lobbyData)
         {
-            CreateLobbyOptions createLobbyOptions = new CreateLobbyOptions
+            CreateLobbyOptions createLobbyOptions = new()
             {
                 IsPrivate = isPrivate,
                 IsLocked = true,    // locking the lobby at creation to prevent other players from joining before it is ready
@@ -117,7 +117,7 @@ namespace Cosmos.UnityServices.Lobbies
 
         public async Task<Lobby> UpdatePlayer(string lobbyId, string playerId, Dictionary<string, PlayerDataObject> data, string allocationId, string connectionInfo)
         {
-            UpdatePlayerOptions updatePlayerOptions = new UpdatePlayerOptions
+            UpdatePlayerOptions updatePlayerOptions = new()
             {
                 Data = data,
                 AllocationId = allocationId,

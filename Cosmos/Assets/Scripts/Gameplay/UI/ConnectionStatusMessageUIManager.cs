@@ -47,7 +47,9 @@ namespace Cosmos.Gameplay.UI
             {
                 case ConnectStatus.Undefined:
                 case ConnectStatus.UserRequestedDisconnect:
+                    break;
                 case ConnectStatus.KickedByHost:                // To show a popup when the user is kicked by the host, we need to figure out different way to handle this.
+                    PopupManager.ShowPopupPanel("Kicked By Host", "You have been kicked by the host.");
                     break;
                 case ConnectStatus.ServerFull:
                     PopupManager.ShowPopupPanel("Connection Failed", "The Host is full and cannot accept any additional connections.");

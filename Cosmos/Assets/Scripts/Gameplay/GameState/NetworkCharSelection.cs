@@ -128,7 +128,7 @@ namespace Cosmos.Gameplay.GameState
         [ClientRpc]
         private void KickMemberFromLobbyClientRpc(ClientRpcParams clientRpcParams)
         {
-            ConnectionManager?.RequestShutdown();
+            ConnectionManager?.OnKickedByHost();
         }
     }
 }

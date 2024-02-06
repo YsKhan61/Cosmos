@@ -127,8 +127,6 @@ namespace Unity.Multiplayer.Samples.Utilities
             {
                 m_clientLoadingScreen.StopLoadingScreen();
             }
-
-            // Once loaded back to main menu, check if it was kicked by host, if yes -> give popup.
         }
 
         void OnSceneEvent(SceneEvent sceneEvent)

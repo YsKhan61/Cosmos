@@ -62,6 +62,7 @@ namespace Cosmos.ConnectionManagement
                     switch (connectStatus)
                     {
                         case ConnectStatus.UserRequestedDisconnect:
+                        case ConnectStatus.KickedByHost:
                         case ConnectStatus.HostEndedSession:
                         case ConnectStatus.ServerFull:
                         case ConnectStatus.IncompatibleBuildType:

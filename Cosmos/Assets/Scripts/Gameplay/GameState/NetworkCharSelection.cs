@@ -1,8 +1,10 @@
+using Cosmos.ConnectionManagement;
 using Cosmos.Gameplay.Configuration;
 using Cosmos.Utilities;
 using System;
 using Unity.Netcode;
 using UnityEngine;
+using VContainer;
 
 namespace Cosmos.Gameplay.GameState
 {
@@ -73,6 +75,8 @@ namespace Cosmos.Gameplay.GameState
 
         public AvatarSO[] AvatarConfigurations;
 
+        public ConnectionManager ConnectionManager;
+
         private void Awake()
         {
             _lobbyPlayers = new NetworkList<LobbyPlayerState>();
@@ -100,6 +104,31 @@ namespace Cosmos.Gameplay.GameState
         public void ChangeSeatServerRpc(ulong clientId, int seatIdx, bool lockedIn)
         {
             OnClientChangedSeat?.Invoke(clientId, seatIdx, lockedIn);
+        }
+
+        [ServerRpc]
+        public void KickMemberFromLobbyServerRpc(ulong clientId)
+        {
+            // Send a message to the client to kick that client from the lobby.
+            ClientRpcParams clientRpcParams = new ClientRpcParams
+            {
+                Send = new ClientRpcSendParams
+                {
+                    TargetClientIds = new[] { clientId }
+                }
+            };
+
+            KickMemberFromLobbyClientRpc(clientRpcParams);
+        }
+
+        /// <summary>
+        /// Server kicks a member from the lobby through this client RPC.
+        /// </summary>
+        /// <param name="clientRpcParams"></param>
+        [ClientRpc]
+        private void KickMemberFromLobbyClientRpc(ClientRpcParams clientRpcParams)
+        {
+            ConnectionManager?.RequestShutdown();
         }
     }
 }

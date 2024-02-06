@@ -292,7 +292,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8656915046297690147}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 198650418400714681}
+        m_TargetAssemblyTypeName: Cosmos.Gameplay.UI.LobbyInfoBoxUI, Cosmos.Gameplay
+        m_MethodName: KickPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1388250211760917214
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,9 +626,9 @@ RectTransform:
   - {fileID: 2445891395079527541}
   m_Father: {fileID: 5682721600917108459}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -275}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &415024682054879062
@@ -710,8 +722,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90be33fd44093d843874056a2ee28bf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MemberInfos: []
   m_NetcodeHooks: {fileID: 0}
   m_NetworkCharSelection: {fileID: 0}
+  m_LobbyInfoPanelGO: {fileID: 628809724935085287}
   m_NumPlayersText: {fileID: 4037653207236152506}
 --- !u!222 &1675994983757607061
 CanvasRenderer:
@@ -1625,9 +1639,9 @@ RectTransform:
   - {fileID: 9162530711802096080}
   m_Father: {fileID: 5682721600917108459}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -355}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1337136242532611118
@@ -2661,7 +2675,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7747376871017969317}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 198650418400714681}
+        m_TargetAssemblyTypeName: Cosmos.Gameplay.UI.LobbyInfoBoxUI, Cosmos.Gameplay
+        m_MethodName: KickPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7792993300961103628
 GameObject:
   m_ObjectHideFlags: 0
@@ -2830,9 +2856,9 @@ RectTransform:
   - {fileID: 111827591947006995}
   m_Father: {fileID: 5682721600917108459}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -195}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7325866619317550736
@@ -2907,9 +2933,9 @@ RectTransform:
   - {fileID: 4588032578151639624}
   m_Father: {fileID: 5682721600917108459}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -115}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3219598830131605799
@@ -2962,7 +2988,7 @@ GameObject:
   - component: {fileID: 7090885069835593779}
   - component: {fileID: 8774907024989666115}
   m_Layer: 5
-  m_Name: Title
+  m_Name: Title and Kick Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2984,9 +3010,9 @@ RectTransform:
   - {fileID: 7446404833052477417}
   m_Father: {fileID: 5682721600917108459}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -35}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7090885069835593779
@@ -3266,7 +3292,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8186807604680887702}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 198650418400714681}
+        m_TargetAssemblyTypeName: Cosmos.Gameplay.UI.LobbyInfoBoxUI, Cosmos.Gameplay
+        m_MethodName: KickPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8613542622958999368
 GameObject:
   m_ObjectHideFlags: 0
@@ -3386,7 +3424,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2941154774237879178}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 198650418400714681}
+        m_TargetAssemblyTypeName: Cosmos.Gameplay.UI.LobbyInfoBoxUI, Cosmos.Gameplay
+        m_MethodName: KickPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8615609680570363152
 GameObject:
   m_ObjectHideFlags: 0

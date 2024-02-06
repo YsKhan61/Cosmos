@@ -15,6 +15,7 @@ namespace Cosmos.ConnectionManagement
         ServerFull,                 // can't join, server is already at capacity.
         LoggedInAgain,              // logged in on a separate client, causing this one to be kicked out.
         UserRequestedDisconnect,    // user requested to disconnect from the server.
+        KickedByHost,               // host kicked the client from the server.
         GenericDisconnect,          // Server disconnected, but no specific reason was given.
         Reconnecting,               // client lost connection to the server, but is attempting to reconnect.
         IncompatibleBuildType,      // client and server are running different build types (debug vs release)
@@ -148,6 +149,11 @@ namespace Cosmos.ConnectionManagement
         public void RequestShutdown()
         {
             _currentState.OnUserRequestedShutdown();
+        }
+
+        public void OnKickedByHost()
+        {
+            _currentState.OnKickedByHost();
         }
 
         private void OnServerStarted()

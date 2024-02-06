@@ -42,6 +42,7 @@ namespace Cosmos.Gameplay.UI
                 case ConnectStatus.ServerFull:
                 case ConnectStatus.LoggedInAgain:
                 case ConnectStatus.UserRequestedDisconnect:
+                case ConnectStatus.KickedByHost:
                 case ConnectStatus.GenericDisconnect:
                 case ConnectStatus.IncompatibleBuildType:
                 case ConnectStatus.HostEndedSession:

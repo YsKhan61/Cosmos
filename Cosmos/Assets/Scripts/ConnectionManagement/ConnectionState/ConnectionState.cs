@@ -26,6 +26,7 @@ namespace Cosmos.ConnectionManagement
         public virtual void StartHostIP(string playerName, string ipAddress, int port) { }
         public virtual void StartHostLobby(string playerName) { }
         public virtual void OnUserRequestedShutdown() { }
+        public virtual void OnKickedByHost() { }
         public virtual void ApprovalCheck(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response) { }
         public virtual void OnTransportFailure() { }
         public virtual void OnServerStopped() { }

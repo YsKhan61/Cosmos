@@ -36,6 +36,7 @@ namespace Cosmos.Gameplay.GameState
         {
             base.Awake();
             networkCharSelection = GetComponent<NetworkCharSelection>();
+            networkCharSelection.ConnectionManager = m_ConnectionManager;
 
             m_NetcodeHooks.OnNetworkSpawnHook += OnNetworkSpawn;
             m_NetcodeHooks.OnNetworkDespawnHook += OnNetworkDespawn;

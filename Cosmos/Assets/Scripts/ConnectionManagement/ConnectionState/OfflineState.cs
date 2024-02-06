@@ -40,7 +40,7 @@ namespace Cosmos.ConnectionManagement
         public override void StartHostLobby(string playerName)
         {
             ConnectionMethodRelay connectionMethodRelay =
-                new ConnectionMethodRelay(_lobbyServiceFacade, _localLobby, _connectionManager, _profileManager, playerName);
+                new(_lobbyServiceFacade, _localLobby, _connectionManager, _profileManager, playerName);
 
             _connectionManager.ChangeState(_connectionManager._startingHostState.Configure(connectionMethodRelay));
         }

@@ -1,3 +1,4 @@
+using Codice.Client.Common;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,13 @@ namespace Cosmos.ConnectionManagement
         {
             // This behaviour will be the same for every online state
             _connectStatusPublisher.Publish(ConnectStatus.UserRequestedDisconnect);
+            _connectionManager.ChangeState(_connectionManager._offlineState);
+        }
+
+        public override void OnKickedByHost()
+        {
+            // Debug.Log("Kicked by host");
+            _connectStatusPublisher.Publish(ConnectStatus.KickedByHost);
             _connectionManager.ChangeState(_connectionManager._offlineState);
         }
 

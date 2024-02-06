@@ -58,7 +58,7 @@ namespace Cosmos.Gameplay.GameState
                 serializer.SerializeValue(ref LastChangeTime);
             }
 
-            public bool Equals(LobbyPlayerState other)
+            public readonly bool Equals(LobbyPlayerState other)
             {
                 return ClientId == other.ClientId &&
                        m_PlayerName.Equals(other.m_PlayerName) &&

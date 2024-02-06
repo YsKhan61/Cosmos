@@ -1,17 +1,12 @@
-using Cosmos.ConnectionManagement;
 using Cosmos.Gameplay.Configuration;
-using Cosmos.Gameplay.GameplayObjects;
 using Cosmos.Gameplay.UI;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.Multiplayer.Samples.BossRoom;
 using Unity.Multiplayer.Samples.Utilities;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
-using VContainer;
 
 namespace Cosmos.Gameplay.GameState
 {
@@ -46,10 +41,6 @@ namespace Cosmos.Gameplay.GameState
         }
         [Tooltip("Representational information for each player")]
         public ColorAndIndicator[] m_IdentifiersForEachPlayerNumber;
-
-        [SerializeField]
-        [Tooltip("Text element containing player count which updates as players connect")]
-        TextMeshProUGUI m_NumPlayersText;
 
         [SerializeField]
         [Tooltip("Text element for the Ready button")]
@@ -102,8 +93,8 @@ namespace Cosmos.Gameplay.GameState
 
         Dictionary<LobbyMode, List<GameObject>> m_LobbyUIElementsByMode;
 
-        [Inject]
-        ConnectionManager m_ConnectionManager;
+        /*[Inject]
+        ConnectionManager m_ConnectionManager;*/
 
         protected override void Awake()
         {
@@ -336,7 +327,6 @@ namespace Cosmos.Gameplay.GameState
         void OnLobbyPlayerStateChanged(NetworkListEvent<NetworkCharSelection.LobbyPlayerState> changeEvent)
         {
             UpdateSeats();
-            UpdatePlayerCount();
 
             // now let's find our local player in the list and update the character/info box appropriately
             int localPlayerIdx = -1;
@@ -394,13 +384,6 @@ namespace Cosmos.Gameplay.GameState
             {
                 m_PlayerSeats[i].SetState(curSeats[i].SeatState, curSeats[i].PlayerNumber, curSeats[i].PlayerName);
             }
-        }
-
-        void UpdatePlayerCount()
-        {
-            int count = m_NetworkCharSelection.LobbyPlayers.Count;
-            var pstr = (count > 1) ? "players" : "player";
-            m_NumPlayersText.text = "<b>" + count + "</b> " + pstr + " connected";
         }
 
         GameObject GetCharacterGraphics(AvatarSO avatar)

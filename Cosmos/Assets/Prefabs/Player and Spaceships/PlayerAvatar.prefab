@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3910647331
+  GlobalObjectIdHash: 3113120072
   InScenePlacedSourceGlobalObjectIdHash: 3791365500
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -471,8 +471,8 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2054667165897351180}
     m_Modifications:
-    - target: {fileID: 3821637516542234972, guid: 1bab31ea6843a084badd0f81ebf8d9e5, type: 3}
-      propertyPath: m_AnchorMax.y
+    - target: {fileID: 752478527587823525, guid: 1bab31ea6843a084badd0f81ebf8d9e5, type: 3}
+      propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6542878320804434807, guid: 1bab31ea6843a084badd0f81ebf8d9e5, type: 3}
@@ -515,25 +515,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6647778057396759768, guid: 1bab31ea6843a084badd0f81ebf8d9e5, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6933323501909394278, guid: 1bab31ea6843a084badd0f81ebf8d9e5, type: 3}
       propertyPath: m_Name
       value: VR Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 6933323501909394278, guid: 1bab31ea6843a084badd0f81ebf8d9e5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7889200761735842567, guid: 1bab31ea6843a084badd0f81ebf8d9e5, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8320430138363180540, guid: 1bab31ea6843a084badd0f81ebf8d9e5, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -15,6 +15,8 @@ namespace Cosmos.Gameplay.UI
     /// </summary>
     public class UIMessageFeedVR : MonoBehaviour
     {
+        const string IS_OPEN = "IsOpen";
+
         [Header ("Listens to")]
 
         [SerializeField]
@@ -35,10 +37,7 @@ namespace Cosmos.Gameplay.UI
         VerticalLayoutGroup m_VerticalLayoutGroup;
 
         [SerializeField]
-        ScrollRect m_ScrollRect;
-
-        [SerializeField]
-        Button m_MinimizeButton;
+        Button m_ChatButton;
 
         [SerializeField]
         TMP_InputField m_ChatInputField;
@@ -49,11 +48,15 @@ namespace Cosmos.Gameplay.UI
         [SerializeField]
         PersistentPlayersRuntimeCollectionSO m_PersistentPlayersRuntimeCollection;
 
+        [SerializeField]
+        Animator m_Animator;
+
         FixedPlayerName m_OwnerClientName;
 
         private void Start()
         {
             m_NetworkChatMessageEventChannelFromServer.OnEventRaised += OnChatMessageReceived;
+            HideMessageWindow();
         }
 
         private void OnDestroy()
@@ -84,16 +87,21 @@ namespace Cosmos.Gameplay.UI
             });
         }
 
-        public void ShowScrollRect()
+        /// <summary>
+        /// Show the message window including the close button.
+        /// </summary>
+        public void ShowMessageWindow()
         {
-            m_ScrollRect.gameObject.SetActive(true);
-            m_MinimizeButton.gameObject.SetActive(true);
+            if (!m_Animator.GetBool(IS_OPEN)) m_Animator.SetBool(IS_OPEN, true);
+
+            m_ChatButton.gameObject.SetActive(false);
         }
 
-        public void HideScrollRect()
+        public void HideMessageWindow()
         {
-            m_ScrollRect.gameObject.SetActive(false);
-            m_MinimizeButton.gameObject.SetActive(false);
+            if (m_Animator.GetBool(IS_OPEN)) m_Animator.SetBool(IS_OPEN, false);
+
+            m_ChatButton.gameObject.SetActive(true);
         }
 
         private void OnChatMessageReceived(NetworkChatMessage chat)
@@ -126,7 +134,7 @@ namespace Cosmos.Gameplay.UI
 
         void DisplayMessage(string text, bool isRightAlligned = false, bool autoClose = true)
         {
-            ShowScrollRect();
+            ShowMessageWindow();
             var messageSlot = GetAvailableSlot();
             messageSlot.Display(text, isRightAlligned);
 
@@ -137,7 +145,7 @@ namespace Cosmos.Gameplay.UI
         IEnumerator HideRoutine()
         {
             yield return new WaitForSeconds(3);
-            HideScrollRect();
+            HideMessageWindow();
         }
 
         UIMessageSlot GetAvailableSlot()

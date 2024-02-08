@@ -195,7 +195,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1066887379532158226, guid: 8da4e1871b21c8544b555ddb2ae099cd, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 142845.64
+      value: 146570.89
       objectReference: {fileID: 0}
     - target: {fileID: 2131602533337028125, guid: 8da4e1871b21c8544b555ddb2ae099cd, type: 3}
       propertyPath: m_ServerChatSystem
@@ -352,6 +352,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20c22aaa75e9d6d489b2a0a27561d965, type: 3}
+--- !u!1 &652324574 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5802120268272999310, guid: 5c8d8c59ebf5f4149a30fc251f75f26e, type: 3}
+  m_PrefabInstance: {fileID: 1191472695}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &760533109
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,11 +587,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c8d8c59ebf5f4149a30fc251f75f26e, type: 3}
---- !u!1 &1191472696 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5802120268272999310, guid: 5c8d8c59ebf5f4149a30fc251f75f26e, type: 3}
-  m_PrefabInstance: {fileID: 1191472695}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1201237840
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,7 +729,7 @@ GameObject:
   - component: {fileID: 2073040913}
   - component: {fileID: 2073040914}
   m_Layer: 0
-  m_Name: CosmosState
+  m_Name: CosmosState - Reference Needed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -805,7 +805,7 @@ MonoBehaviour:
   autoInjectGameObjects:
   - {fileID: 2073040909}
   - {fileID: 3431256126384443981}
-  - {fileID: 1191472696}
+  - {fileID: 652324574}
   m_NetcodeHooks: {fileID: 2073040912}
   m_PlayerPrefab: {fileID: 2439393517966736930, guid: 3801a2b2697696748b20021298b7b8c2, type: 3}
   m_PlayerSpawnPoints:

@@ -1,25 +1,29 @@
 using Cosmos.ConnectionManagement;
 using Cosmos.Gameplay.GameplayObjects;
-using Cosmos.Infrastructure;
 using Cosmos.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.Multiplayer.Samples.BossRoom;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
-using VContainer;
 
 namespace Cosmos.Gameplay.UI
 {
     /// <summary>
-    /// Handles the display of in-game messages in a message feed.
+    /// Handles the display of in-game messages in a message feed in VR Mode.
     /// </summary>
-    public class UIMessageFeed : MonoBehaviour
+    public class UIMessageFeedVR : MonoBehaviour
     {
-        const string IS_OPEN = "IsOpen";
+        [Header ("Listens to")]
+
+        [SerializeField]
+        NetworkChatMessageEventChannelSO m_NetworkChatMessageEventChannelFromServer;
+
+        [Header("Sends to")]
+
+        [SerializeField]
+        NetworkChatMessageEventChannelSO m_NetworkChatMessageEventChannelToServer;
 
         [SerializeField]
         List<UIMessageSlot> m_MessageSlots;
@@ -31,7 +35,10 @@ namespace Cosmos.Gameplay.UI
         VerticalLayoutGroup m_VerticalLayoutGroup;
 
         [SerializeField]
-        Button m_ChatButton;
+        ScrollRect m_ScrollRect;
+
+        [SerializeField]
+        Button m_MinimizeButton;
 
         [SerializeField]
         TMP_InputField m_ChatInputField;
@@ -39,38 +46,25 @@ namespace Cosmos.Gameplay.UI
         [SerializeField]
         Button m_SendButton;
 
-        [SerializeField, FormerlySerializedAs("m_NetworkChatting")]
-        ServerChatSystem m_ServerChatSystem;
-
         [SerializeField]
         PersistentPlayersRuntimeCollectionSO m_PersistentPlayersRuntimeCollection;
 
-        [SerializeField]
-        Animator m_Animator;
-
         FixedPlayerName m_OwnerClientName;
-
-        DisposableGroup m_Subscriptions;
 
         private void Start()
         {
-            HideMessageWindow();
+            m_NetworkChatMessageEventChannelFromServer.OnEventRaised += OnChatMessageReceived;
         }
 
-        [Inject]
-        void InjectDependencies(
-            ISubscriber<ConnectionEventMessage> connectionEventSubscriber,
-            ISubscriber<NetworkChatMessage> networkClientChatSubscriber
-        )
+        private void OnDestroy()
         {
-            m_Subscriptions = new DisposableGroup();
-            m_Subscriptions.Add(connectionEventSubscriber.Subscribe(OnConnectionEvent));
-            m_Subscriptions.Add(networkClientChatSubscriber.Subscribe(OnChatMessageReceived));
+            m_NetworkChatMessageEventChannelToServer.OnEventRaised -= OnChatMessageReceived;
         }
 
         /// <summary>
         /// Called from Send button to send a chat message.
         /// </summary>
+        [ContextMenu("SendMessage")]
         public void SendMessage()
         {
             if (string.IsNullOrEmpty(m_ChatInputField.text))
@@ -83,28 +77,23 @@ namespace Cosmos.Gameplay.UI
                 m_PersistentPlayersRuntimeCollection.TryGetPlayerName(NetworkManager.Singleton.LocalClientId, out m_OwnerClientName);
             }
 
-            m_ServerChatSystem.SendChatMessageServerRpc(new NetworkChatMessage
+            m_NetworkChatMessageEventChannelToServer.RaiseEvent(new NetworkChatMessage
             {
                 Name = m_OwnerClientName,
                 Message = m_ChatInputField.text
             });
         }
 
-        /// <summary>
-        /// Show the message window including the close button.
-        /// </summary>
-        public void ShowMessageWindow()
+        public void ShowScrollRect()
         {
-            if (!m_Animator.GetBool(IS_OPEN)) m_Animator.SetBool(IS_OPEN, true);
-
-            m_ChatButton.gameObject.SetActive(false);
+            m_ScrollRect.gameObject.SetActive(true);
+            m_MinimizeButton.gameObject.SetActive(true);
         }
 
-        public void HideMessageWindow()
+        public void HideScrollRect()
         {
-            if (m_Animator.GetBool(IS_OPEN)) m_Animator.SetBool(IS_OPEN, false);
-
-            m_ChatButton.gameObject.SetActive(true);
+            m_ScrollRect.gameObject.SetActive(false);
+            m_MinimizeButton.gameObject.SetActive(false);
         }
 
         private void OnChatMessageReceived(NetworkChatMessage chat)
@@ -114,7 +103,7 @@ namespace Cosmos.Gameplay.UI
                 false);
         }
 
-        void OnConnectionEvent(ConnectionEventMessage eventMessage)
+        public void OnConnectionEvent(ConnectionEventMessage eventMessage)
         {
             switch (eventMessage.ConnectStatus)
             {
@@ -135,9 +124,9 @@ namespace Cosmos.Gameplay.UI
             }
         }
 
-        void DisplayMessage(string text, bool isRightAlligned  = false, bool autoClose = true)
+        void DisplayMessage(string text, bool isRightAlligned = false, bool autoClose = true)
         {
-            ShowMessageWindow();
+            ShowScrollRect();
             var messageSlot = GetAvailableSlot();
             messageSlot.Display(text, isRightAlligned);
 
@@ -148,7 +137,7 @@ namespace Cosmos.Gameplay.UI
         IEnumerator HideRoutine()
         {
             yield return new WaitForSeconds(3);
-            HideMessageWindow();
+            HideScrollRect();
         }
 
         UIMessageSlot GetAvailableSlot()
@@ -157,11 +146,6 @@ namespace Cosmos.Gameplay.UI
             var messageSlot = go.GetComponentInChildren<UIMessageSlot>();
             m_MessageSlots.Add(messageSlot);
             return messageSlot;
-        }
-
-        void OnDestroy()
-        {
-            m_Subscriptions?.Dispose();
         }
     }
 }

@@ -12,17 +12,17 @@ namespace Cosmos.UnityServices.Auth
         [Inject]
         IPublisher<UnityServiceErrorMessage> _unityServiceErrorMessagePublisher;
 
-        public InitializationOptions GenerateAuthenticationOptions(string profile)
+        public InitializationOptions GenerateAuthenticationInitOptions(string profileName)
         {
             try
             {
-                InitializationOptions unityAuthenticationInitOptions = new InitializationOptions();
-                if (profile.Length > 0)
+                InitializationOptions initializationOptions = new InitializationOptions();
+                if (profileName.Length > 0)
                 {
-                    unityAuthenticationInitOptions.SetProfile(profile);
+                    initializationOptions.SetProfile(profileName);
                 }
 
-                return unityAuthenticationInitOptions;
+                return initializationOptions;
             }
             catch (Exception e)
             {
@@ -51,14 +51,14 @@ namespace Cosmos.UnityServices.Auth
             }
         }
 
-        public async Task SwitchProfileAndResignInAsync(string profile)
+        public async Task SwitchProfileAndResignInAsync(string profileName)
         {
             if (AuthenticationService.Instance.IsSignedIn)
             {
                 AuthenticationService.Instance.SignOut();
             }
 
-            AuthenticationService.Instance.SwitchProfile(profile);
+            AuthenticationService.Instance.SwitchProfile(profileName);
 
             try
             {

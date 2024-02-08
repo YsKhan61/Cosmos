@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.Multiplayer.Samples.BossRoom;
 using Unity.Netcode;
+using Unity.Services.Authentication;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -80,6 +81,9 @@ namespace Cosmos.Gameplay.UI
 
             if (string.IsNullOrEmpty(m_OwnerClientName))
             {
+                // Try the AuthenticationService -> if it works!
+                // m_OwnerClientName = AuthenticationService.Instance.PlayerName;
+                
                 m_PersistentPlayersRuntimeCollection.TryGetPlayerName(NetworkManager.Singleton.LocalClientId, out m_OwnerClientName);
             }
 

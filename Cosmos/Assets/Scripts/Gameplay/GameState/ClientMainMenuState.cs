@@ -110,7 +110,7 @@ namespace Cosmos.Gameplay.GameState
             try
             {
                 InitializationOptions unityAuthenticationInitOptions =
-                    _authServiceFacade.GenerateAuthenticationOptions(_profileManager.ProfileName);
+                    _authServiceFacade.GenerateAuthenticationInitOptions(_profileManager.ProfileName);
 
                 await _authServiceFacade.InitializeAndSignInAsync(unityAuthenticationInitOptions);
 

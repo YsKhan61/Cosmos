@@ -1,5 +1,4 @@
 using Cosmos.ConnectionManagement;
-using Cosmos.Gameplay.Configuration;
 using Cosmos.Infrastructure;
 using Cosmos.UnityServices.Lobbies;
 using Cosmos.Utilities;
@@ -32,9 +31,8 @@ namespace Cosmos.Gameplay.UI
 
         [SerializeField] private GameObject _signInSpinner;
 
-        [Inject] NameGenerationDataSO _nameGenerationData;
-        [Inject] ProfileManager _profileManager;
         [Inject] ConnectionManager _connectionManager;
+        [Inject] LocalLobbyUser _localLobbyUser;
 
         public IPHostingUI IPHostingUI => _ipHostingUI;
 
@@ -54,16 +52,12 @@ namespace Cosmos.Gameplay.UI
 
         private void Start()
         {
-            _profileManager.OnProfileChanged += GenerateName;
-
             ToggleCreateIPUI();
-            GenerateName();
         }
 
         private void OnDestroy()
         {
             _connectStatusSubscriber?.Unsubscribe(OnConnectStatusMessage);
-            _profileManager.OnProfileChanged -= GenerateName;
         }
 
         /// <summary>
@@ -143,6 +137,8 @@ namespace Cosmos.Gameplay.UI
             _canvasGroup.blocksRaycasts = true;
 
             DisableSignInSpinner();
+
+            ShowPlayerName();
         }
 
         public void Hide()
@@ -155,11 +151,6 @@ namespace Cosmos.Gameplay.UI
         public void DisableSignInSpinner()
         {
             _signInSpinner.SetActive(false);
-        }
-
-        public void RegenerateName()
-        {
-            _playerNameText.text = _nameGenerationData.GenerateName();
         }
 
         #region STATIC METHODS
@@ -194,10 +185,9 @@ namespace Cosmos.Gameplay.UI
 
         #endregion
 
-        private void GenerateName()
+        private void ShowPlayerName()
         {
-            string profileName = _profileManager.ProfileName;
-            _playerNameText.text = profileName.Substring(0, Mathf.Min(10, profileName.Length));
+            _playerNameText.text = _localLobbyUser.PlayerName;
         }
 
         private void OnConnectStatusMessage(ConnectStatus status)

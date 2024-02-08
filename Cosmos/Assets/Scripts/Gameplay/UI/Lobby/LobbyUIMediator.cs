@@ -29,8 +29,8 @@ namespace Cosmos.Gameplay.UI
         private LobbyServiceFacade _lobbyServiceFacade;
         private LocalLobbyUser _localLobbyUser;
         private LocalLobby _localLobby;
-        private NameGenerationDataSO _nameGenerationData;
-        private ProfileManager _profileManager;
+        // private NameGenerationDataSO _nameGenerationData;
+        // private ProfileManager _profileManager;
         private ConnectionManager _connectionManager;
         ISubscriber<ConnectStatus> _connectStatusSubscriber;
 
@@ -41,10 +41,10 @@ namespace Cosmos.Gameplay.UI
                 _connectStatusSubscriber.Unsubscribe(OnConnectStatusChanged);
             }
 
-            if (_profileManager != null)
+            /*if (_profileManager != null)
             {
                 _profileManager.OnProfileChanged -= GenerateName;
-            }
+            }*/
         }
 
         [Inject]
@@ -62,13 +62,9 @@ namespace Cosmos.Gameplay.UI
             _lobbyServiceFacade = lobbyServiceFacade;
             _localLobbyUser = localLobbyUser;
             _localLobby = localLobby;
-            _nameGenerationData = nameGenerationData;
-            _profileManager = profileManager;
-            _profileManager.OnProfileChanged += GenerateName;
+
             _connectStatusSubscriber = connectStatusSubscriber;
             _connectionManager = connectionManager;
-
-            GenerateName();
 
             _connectStatusSubscriber.Subscribe(OnConnectStatusChanged);
         }
@@ -102,7 +98,7 @@ namespace Cosmos.Gameplay.UI
                 _lobbyServiceFacade.SetRemoteLobby(lobbyCreationAttempt.Lobby);
 
                 Debug.Log($"Created lobby with ID: {_localLobby.LobbyID} and code {_localLobby.LobbyCode}");
-                _connectionManager.StartHostLobby(_localLobbyUser.DisplayName);
+                _connectionManager.StartHostLobby(_localLobbyUser.PlayerName);
             }
             else
             {
@@ -234,6 +230,8 @@ namespace Cosmos.Gameplay.UI
         {
             _canvasGroup.alpha = 1;
             _canvasGroup.blocksRaycasts = true;
+
+            GenerateName();
         }
 
         public void Hide()
@@ -244,18 +242,9 @@ namespace Cosmos.Gameplay.UI
             _lobbyJoiningUI.Hide();
         }
 
-        public void RegenerateName()
-        {
-            _localLobbyUser.DisplayName = _nameGenerationData.GenerateName();
-            _playerNameLabel.text = _localLobbyUser.DisplayName;
-        }
-
         private void GenerateName()
         {
-            // get only first 10 chars from profile name
-            string profileName = _profileManager.ProfileName;
-            _localLobbyUser.DisplayName = profileName.Substring(0, Mathf.Min(10, profileName.Length));
-            _playerNameLabel.text = _localLobbyUser.DisplayName;
+            _playerNameLabel.text = _localLobbyUser.PlayerName;
         }
 
         private void OnConnectStatusChanged(ConnectStatus status)
@@ -286,8 +275,10 @@ namespace Cosmos.Gameplay.UI
         private void OnJoinedLobby(Lobby remoteLobby)
         {
             _lobbyServiceFacade.SetRemoteLobby(remoteLobby);
+#if UNITY_EDITOR
             Debug.Log($"Joined lobby with ID: {_localLobby.LobbyID} and Internal Relay join code {_localLobby.RelayJoinCode}");
-            _connectionManager.StartClientLobby(_localLobbyUser.DisplayName);
+#endif
+            _connectionManager.StartClientLobby(_localLobbyUser.PlayerName);
         }
     }
 }

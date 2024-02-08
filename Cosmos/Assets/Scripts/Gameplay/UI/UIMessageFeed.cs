@@ -81,9 +81,7 @@ namespace Cosmos.Gameplay.UI
 
             if (string.IsNullOrEmpty(m_OwnerClientName))
             {
-                // Try the AuthenticationService -> if it works!
-                // m_OwnerClientName = AuthenticationService.Instance.PlayerName;
-                
+                // Try getting this from the LocalLobbyUser.PlayerName -> make the LocalLobbyUser a scriptable object if needed.
                 m_PersistentPlayersRuntimeCollection.TryGetPlayerName(NetworkManager.Singleton.LocalClientId, out m_OwnerClientName);
             }
 

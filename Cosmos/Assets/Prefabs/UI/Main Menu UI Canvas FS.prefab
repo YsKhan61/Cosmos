@@ -404,6 +404,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7553879920409449737, guid: f9e2acf08c3c44241890dc1629f8d896, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7553879920409449737, guid: f9e2acf08c3c44241890dc1629f8d896, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RefreshPlayerName
+      objectReference: {fileID: 0}
+    - target: {fileID: 7553879920409449737, guid: f9e2acf08c3c44241890dc1629f8d896, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Cosmos.Gameplay.GameState.ClientMainMenuState, Cosmos.Gameplay
+      objectReference: {fileID: 0}
     - target: {fileID: 7638608075282657565, guid: f9e2acf08c3c44241890dc1629f8d896, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -430,26 +442,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7662068346297655812, guid: f9e2acf08c3c44241890dc1629f8d896, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7669537783059223147, guid: f9e2acf08c3c44241890dc1629f8d896, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7669537783059223147, guid: f9e2acf08c3c44241890dc1629f8d896, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7669537783059223147, guid: f9e2acf08c3c44241890dc1629f8d896, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7669537783059223147, guid: f9e2acf08c3c44241890dc1629f8d896, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7669537783059223147, guid: f9e2acf08c3c44241890dc1629f8d896, type: 3}
-      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8204667493885325652, guid: f9e2acf08c3c44241890dc1629f8d896, type: 3}

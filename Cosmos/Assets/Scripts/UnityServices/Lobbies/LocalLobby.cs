@@ -185,7 +185,7 @@ namespace Cosmos.UnityServices.Lobbies
                 LocalLobbyUser localLobbyUser = new()
                 {
                     IsHost = lobby.HostId.Equals(player.Id),
-                    DisplayName = player.Data != null && player.Data.ContainsKey("DisplayName") ? player.Data["DisplayName"].Value : default,
+                    PlayerName = player.Data != null && player.Data.ContainsKey("DisplayName") ? player.Data["DisplayName"].Value : default,
                     ID = player.Id
                 };
 
@@ -257,7 +257,7 @@ namespace Cosmos.UnityServices.Lobbies
         {
             if (!_localLobbyUsers.ContainsKey(localLobbyUser.ID))
             {
-                Debug.LogWarning($"Player {localLobbyUser.DisplayName}({localLobbyUser.ID}) does not exist in lobby: { LobbyID}");
+                Debug.LogWarning($"Player {localLobbyUser.PlayerName}({localLobbyUser.ID}) does not exist in lobby: { LobbyID}");
                 return;
             }
 

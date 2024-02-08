@@ -32,6 +32,7 @@ namespace Cosmos.UnityServices.Auth
             }
         }
 
+
         public async Task InitializeAndSignInAsync(InitializationOptions initializationOptions)
         {
             try
@@ -95,6 +96,20 @@ namespace Cosmos.UnityServices.Auth
             catch (Exception e)
             {
                 //all other exceptions should still bubble up as unhandled ones
+                string reason = e.InnerException == null ? e.Message : $"{e.Message} ({e.InnerException.Message})";
+                _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Authentication Error", reason, UnityServiceErrorMessage.Service.Authentication, e));
+                throw;
+            }
+        }
+
+        public async Task UpdatePlayerNameAsync(string playerName)
+        {
+            try
+            {
+                await AuthenticationService.Instance.UpdatePlayerNameAsync(playerName);
+            }
+            catch (Exception e)
+            {
                 string reason = e.InnerException == null ? e.Message : $"{e.Message} ({e.InnerException.Message})";
                 _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Authentication Error", reason, UnityServiceErrorMessage.Service.Authentication, e));
                 throw;

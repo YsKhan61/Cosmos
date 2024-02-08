@@ -4,6 +4,7 @@ using Cosmos.UnityServices.Auth;
 using Cosmos.UnityServices.Lobbies;
 using Cosmos.Utilities;
 using System;
+using TMPro;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using UnityEngine;
@@ -41,8 +42,12 @@ namespace Cosmos.Gameplay.GameState
         [SerializeField]
         UIProfileSelector _uiProfileSelector;
 
+
         [SerializeField, Tooltip("Detect hovering and check if UGS is initialized correctly or not, and show a tooltip!")]
         private UITooltipDetector _ugsSetupTooltipDetector;
+
+        [SerializeField]
+        TextMeshProUGUI _playerNameText;
 
         [Inject]
         private AuthenticationServiceFacade _authServiceFacade;
@@ -88,6 +93,14 @@ namespace Cosmos.Gameplay.GameState
             builder.RegisterComponent(_ipUIMediator);
         }
 
+        /// <summary>
+        /// Called from the refresh button of Name Display UI.
+        /// </summary>
+        public void RefreshPlayerName()
+        {
+            _profileManager.ProfileName = _nameGenerationData.GetRandomName();
+        }
+
         public void OnLobbyStartButtonClicked()
         {
             _lobbyUIMediator.ToggleJoinLobbyUI();
@@ -109,10 +122,16 @@ namespace Cosmos.Gameplay.GameState
         {
             try
             {
+                _profileManager.ProfileName = _nameGenerationData.GetRandomName();
+                _playerNameText.text = _profileManager.ProfileName;
+
                 InitializationOptions unityAuthenticationInitOptions =
                     _authServiceFacade.GenerateAuthenticationInitOptions(_profileManager.ProfileName);
 
                 await _authServiceFacade.InitializeAndSignInAsync(unityAuthenticationInitOptions);
+
+                // Also update the player name in the authentication service
+                await _authServiceFacade.UpdatePlayerNameAsync(_profileManager.ProfileName);
 
                 OnAuthSignIn();
 
@@ -132,9 +151,9 @@ namespace Cosmos.Gameplay.GameState
 
 #if UNITY_EDITOR
             Debug.Log($"Signed in. Unity Player ID {AuthenticationService.Instance.PlayerId}");
+            Debug.Log($"Signed in. Unity Player Name {AuthenticationService.Instance.PlayerName}");
 #endif
-
-            _localLobbyUser.ID = AuthenticationService.Instance.PlayerId;
+            UpdateLocalLobbyUser();
 
             // The local lobby user object will be hooked into UI before the LocalLobby is populated during lobby join, so the LocalLobby must know about it already
             // when that happens.
@@ -161,19 +180,40 @@ namespace Cosmos.Gameplay.GameState
         {
             _lobbyButton.interactable = false;
             _signInSpinner.SetActive(true);
+
             await _authServiceFacade.SwitchProfileAndResignInAsync(_profileManager.ProfileName);
+            await _authServiceFacade.UpdatePlayerNameAsync(_profileManager.ProfileName);
 
             _lobbyButton.interactable = true;
             _signInSpinner.SetActive(false);
 
 #if UNITY_EDITOR
             Debug.Log($"Signed in. Unity Player ID {AuthenticationService.Instance.PlayerId}");
+            Debug.Log($"Signed in. Unity Player Name {AuthenticationService.Instance.PlayerName}");
 #endif
 
             // Updating LocalLobbyUser and LocalLobby
             _localLobby.RemoveUser(_localLobbyUser);
-            _localLobbyUser.ID = AuthenticationService.Instance.PlayerId;
+            UpdateLocalLobbyUser();
             _localLobby.AddUser(_localLobbyUser);
+
+            _playerNameText.text = _profileManager.ProfileName;
+        }
+
+        private void UpdateLocalLobbyUser()
+        {
+            _localLobbyUser.ID = AuthenticationService.Instance.PlayerId;
+
+            string playerName = AuthenticationService.Instance.PlayerName;
+
+            // trim the player name from '#' character
+            int hashIndex = playerName.IndexOf('#');
+            if (hashIndex != -1)
+            {
+                playerName = playerName.Substring(0, hashIndex);
+            }
+
+            _localLobbyUser.PlayerName = playerName.Substring(0, Mathf.Min(10, playerName.Length));
         }
     }
 }

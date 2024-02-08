@@ -56,7 +56,6 @@ namespace Cosmos.Gameplay.UI
             if (!string.IsNullOrEmpty(name) && !_profileManager.AvailableProfiles.Contains(name))
             {
                 _profileManager.CreateProfile(name);
-                // _profileManager.Profile = profile; // - added to CreateProfile Method of ProfileManager
             }
             else
             {

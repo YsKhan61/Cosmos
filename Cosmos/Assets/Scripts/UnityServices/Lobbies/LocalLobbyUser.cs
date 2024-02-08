@@ -13,12 +13,20 @@ namespace Cosmos.UnityServices.Lobbies
         public struct UserData
         {
             public bool IsHost { get; set; }
-            public string DisplayName { get; set; }
+
+            /// <summary>
+            /// The name with which this player is signed in to the game.
+            /// </summary>
+            public string PlayerName { get; set; }
+
+            /// <summary>
+            /// The unique ID with which the player signed in to the game.
+            /// </summary>
             public string ID { get; set; }
             public UserData(bool isHost, string displayName, string id)
             {
                 IsHost = isHost;
-                DisplayName = displayName;
+                PlayerName = displayName;
                 ID = id;
             }
         }
@@ -32,8 +40,8 @@ namespace Cosmos.UnityServices.Lobbies
         public enum UserMember
         {
             IsHost = 1,
-            DisplayName = 2,
-            ID = 4,
+            PlayerName = 2,             // The name with which this player is signed in to the game.
+            ID = 4,                     // The unique ID with which the player signed in to the game.
         }
 
         private UserMember _lastChangedUserMember;
@@ -47,7 +55,7 @@ namespace Cosmos.UnityServices.Lobbies
 
         public void ResetState()
         {
-            _userData = new UserData(false, _userData.DisplayName, _userData.ID);
+            _userData = new UserData(false, _userData.PlayerName, _userData.ID);
         }
 
         public bool IsHost
@@ -64,20 +72,26 @@ namespace Cosmos.UnityServices.Lobbies
             }
         }
 
-        public string DisplayName
+        /// <summary>
+        /// The name with which this player is signed in to the game.
+        /// </summary>
+        public string PlayerName
         {
-            get => _userData.DisplayName;
+            get => _userData.PlayerName;
             set
             {
-                if (_userData.DisplayName != value)
+                if (_userData.PlayerName != value)
                 {
-                    _userData.DisplayName = value;
-                    _lastChangedUserMember = UserMember.DisplayName;
+                    _userData.PlayerName = value;
+                    _lastChangedUserMember = UserMember.PlayerName;
                     OnChanged?.Invoke(this);
                 }
             }
         }
 
+        /// <summary>
+        /// The unique ID with which the player signed in to the game.
+        /// </summary>
         public string ID
         {
             get => _userData.ID;
@@ -97,7 +111,7 @@ namespace Cosmos.UnityServices.Lobbies
             UserData data = lobby._userData;
             int lastChanged = // Set flags just for the members that will be changed.
                 (_userData.IsHost == data.IsHost ? 0 : (int)UserMember.IsHost) |
-                (_userData.DisplayName == data.DisplayName ? 0 : (int)UserMember.DisplayName) |
+                (_userData.PlayerName == data.PlayerName ? 0 : (int)UserMember.PlayerName) |
                 (_userData.ID == data.ID ? 0 : (int)UserMember.ID);
 
             if (lastChanged == 0)
@@ -112,7 +126,7 @@ namespace Cosmos.UnityServices.Lobbies
         public Dictionary<string, PlayerDataObject> GetDataForUnityServices() =>
             new Dictionary<string, PlayerDataObject>()
             {
-                {"DisplayName", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, DisplayName) }
+                {"DisplayName", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, PlayerName) }
             };
     }
 }

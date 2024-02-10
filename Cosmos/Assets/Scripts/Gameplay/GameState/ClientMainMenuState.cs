@@ -46,8 +46,11 @@ namespace Cosmos.Gameplay.GameState
         [SerializeField, Tooltip("Detect hovering and check if UGS is initialized correctly or not, and show a tooltip!")]
         private UITooltipDetector _ugsSetupTooltipDetector;
 
+        /*[SerializeField]
+        TextMeshProUGUI _playerNameText;*/
+
         [SerializeField]
-        TextMeshProUGUI _playerNameText;
+        TMP_InputField _playerNameInputField;
 
         [Inject]
         private AuthenticationServiceFacade _authServiceFacade;
@@ -123,7 +126,7 @@ namespace Cosmos.Gameplay.GameState
             try
             {
                 _profileManager.ProfileName = _nameGenerationData.GetRandomName();
-                _playerNameText.text = _profileManager.ProfileName;
+                _playerNameInputField.text = _profileManager.ProfileName;
 
                 InitializationOptions unityAuthenticationInitOptions =
                     _authServiceFacade.GenerateAuthenticationInitOptions(_profileManager.ProfileName);
@@ -197,7 +200,7 @@ namespace Cosmos.Gameplay.GameState
             UpdateLocalLobbyUser();
             _localLobby.AddUser(_localLobbyUser);
 
-            _playerNameText.text = _profileManager.ProfileName;
+            _playerNameInputField.text = _profileManager.ProfileName;
         }
 
         private void UpdateLocalLobbyUser()

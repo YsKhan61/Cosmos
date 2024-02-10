@@ -2,6 +2,7 @@ using Cosmos.Infrastructure;
 using System;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
+using Unity.Services.Authentication.PlayerAccounts;
 using Unity.Services.Core;
 using VContainer;
 
@@ -32,8 +33,41 @@ namespace Cosmos.UnityServices.Auth
             }
         }
 
+        public async Task InitializeToUnityServicesAsync(InitializationOptions initializationOptions)
+        {
+            try
+            {
+                await Unity.Services.Core.UnityServices.InitializeAsync(initializationOptions);
+            }
+            catch (Exception e)
+            {
+                string reason = e.InnerException == null ? e.Message : $"{e.Message} ({e.InnerException.Message})";
+                _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Intialization to UnityServices Error", reason, UnityServiceErrorMessage.Service.Authentication, e));
+                throw;
+            }
+        }
 
-        public async Task InitializeAndSignInAsync(InitializationOptions initializationOptions)
+        public async Task SignInAnonymously()
+        {   
+            if (AuthenticationService.Instance.IsSignedIn)
+            {
+                return;
+            }
+
+            try
+            {
+                await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            }
+            catch (Exception e)
+            {
+                string reason = e.InnerException == null ? e.Message : $"{e.Message} ({e.InnerException.Message})";
+                _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Annonymous Sign in Error", reason, UnityServiceErrorMessage.Service.Authentication, e));
+                throw;
+            }
+        }
+
+
+        /*public async Task InitializeAndSignInAsync(InitializationOptions initializationOptions)
         {
             try
             {
@@ -50,7 +84,7 @@ namespace Cosmos.UnityServices.Auth
                 _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Authentication Error", reason, UnityServiceErrorMessage.Service.Authentication, e));
                 throw;
             }
-        }
+        }*/
 
         public async Task SwitchProfileAndResignInAsync(string profileName)
         {
@@ -113,6 +147,61 @@ namespace Cosmos.UnityServices.Auth
                 string reason = e.InnerException == null ? e.Message : $"{e.Message} ({e.InnerException.Message})";
                 _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Authentication Error", reason, UnityServiceErrorMessage.Service.Authentication, e));
                 throw;
+            }
+        }
+
+        public async Task SignInWithUnityAsync()
+        {
+            PlayerAccountService.Instance.SignedIn += SignInWithUnity;
+
+            if (PlayerAccountService.Instance.IsSignedIn)
+            {
+                SignInWithUnity();
+                return;
+            }
+
+            try
+            {
+                await PlayerAccountService.Instance.StartSignInAsync();
+            }
+            catch (Exception e)     // both Authentication and RequestFailedException errors are caught here
+            {
+                string reason = e.InnerException == null ? e.Message : $"{e.Message} ({e.InnerException.Message})";
+                _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Authentication Error", reason, UnityServiceErrorMessage.Service.Authentication, e));
+                throw;
+            }
+        }
+
+        public void SignOutFromAuthenticationService()
+        {
+            AuthenticationService.Instance.SignOut();
+        }
+
+        public void SignOutFromPlayerAccountService()
+        {
+            PlayerAccountService.Instance.SignOut();
+        }
+
+        async void SignInWithUnity()
+        {
+            try
+            {
+                /*if (AuthenticationService.Instance.IsSignedIn)
+                {
+                    return;
+                }*/
+
+                await AuthenticationService.Instance.SignInWithUnityAsync(PlayerAccountService.Instance.AccessToken);
+            }
+            catch (Exception e)
+            {
+                string reason = e.InnerException == null ? e.Message : $"{e.Message} ({e.InnerException.Message})";
+                _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Authentication Error", reason, UnityServiceErrorMessage.Service.Authentication, e));
+                throw;
+            }
+            finally
+            {
+                AuthenticationService.Instance.SignedIn -= SignInWithUnity;
             }
         }
     }

@@ -3423,12 +3423,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2097190514145772723}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3024388952583770075}
+  m_Father: {fileID: 3272531714286948574}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3591,7 +3591,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1757093104410944392}
   - {fileID: 3272531714286948574}
   - {fileID: 7407331832838605106}
   - {fileID: 8806848404842494102}
@@ -5336,7 +5335,20 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Cosmos.Gameplay.GameState.ClientMainMenuState,
+          Cosmos.Gameplay
+        m_MethodName: RefreshPlayerName
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
@@ -6622,9 +6634,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiTooltipPopup: {fileID: 5529010146661083408}
-  _tooltipText: Unity Gaming Services ProjectID not set up. Click the Readme file
-    in the Assets Folder within the Project window in-editor to follow "How to set
-    up Unity Gaming Services"
+  _tooltipText: "Unity Gaming Services ProjectID not set up. \nClick the Readme file
+    in the Assets Folder \nwithin the Project window in-editor to follow \n\"How
+    to set up Unity Gaming Services\""
   _activateOnClick: 1
   _tooltipDelay: 0
 --- !u!1 &3624974992240797191
@@ -14231,6 +14243,81 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &7987204638548321187
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7780339182829529421}
+  - component: {fileID: 7236592124324017767}
+  - component: {fileID: 858719930318067723}
+  m_Layer: 5
+  m_Name: Title (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7780339182829529421
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7987204638548321187}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7407331832838605106}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 200}
+  m_SizeDelta: {x: 1920, y: 1080}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7236592124324017767
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7987204638548321187}
+  m_CullTransparentMesh: 1
+--- !u!114 &858719930318067723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7987204638548321187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 83369d094d479da4eb034553ef769586, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &8078501468120947936
 GameObject:
   m_ObjectHideFlags: 0
@@ -14787,6 +14874,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3272531714286948574}
+  - component: {fileID: 8909450976578618121}
   - component: {fileID: 2728604532807373714}
   - component: {fileID: 8976546305179521734}
   - component: {fileID: 7596057830491302209}
@@ -14809,6 +14897,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1757093104410944392}
   - {fileID: 3912839060423845481}
   - {fileID: 6920126189914347256}
   - {fileID: 296683284992116948}
@@ -14819,6 +14908,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8909450976578618121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8165988103677514980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcbf77920f690274d8946ececf143eb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canvasGroup: {fileID: 7596057830491302209}
+  _clientMainMenuState: {fileID: 0}
 --- !u!222 &2728604532807373714
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15067,6 +15170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7407331832838605106}
   - component: {fileID: 2040248771189502121}
+  - component: {fileID: 7673003568931784136}
   - component: {fileID: 3409747067160911775}
   m_Layer: 5
   m_Name: Start Menu Panel
@@ -15087,6 +15191,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7780339182829529421}
   - {fileID: 4646792372482889724}
   - {fileID: 1963401123149675371}
   - {fileID: 9204920928244230750}
@@ -15107,6 +15212,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8273523971783415076}
   m_CullTransparentMesh: 1
+--- !u!114 &7673003568931784136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8273523971783415076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d995991de17c3144b6095e4248748f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canvasGroup: {fileID: 3409747067160911775}
+  _clientMainMenuState: {fileID: 0}
+  _lobbyButton: {fileID: 5167688358375859048}
+  _directIpButton: {fileID: 5504225739481623678}
+  _lobbyButtonTooltipDetector: {fileID: 2210241073918109638}
 --- !u!225 &3409747067160911775
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -16600,23 +16722,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6087881324202265900, guid: 44eabcfff985f9b4caf8529d1d3845c7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6087881324202265900, guid: 44eabcfff985f9b4caf8529d1d3845c7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6087881324202265900, guid: 44eabcfff985f9b4caf8529d1d3845c7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7673003568931784136}
+    - target: {fileID: 6087881324202265900, guid: 44eabcfff985f9b4caf8529d1d3845c7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6087881324202265900, guid: 44eabcfff985f9b4caf8529d1d3845c7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnLobbyStartButtonClicked
+      value: SignOut
       objectReference: {fileID: 0}
     - target: {fileID: 6087881324202265900, guid: 44eabcfff985f9b4caf8529d1d3845c7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Cosmos.Gameplay.GameState.ClientMainMenuState, Cosmos.Gameplay
+      value: Cosmos.Gameplay.UI.StartMenuUIMediator, Cosmos.Gameplay
       objectReference: {fileID: 0}
     - target: {fileID: 6087881324202265900, guid: 44eabcfff985f9b4caf8529d1d3845c7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -16625,38 +16751,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2445065979927895860, guid: 44eabcfff985f9b4caf8529d1d3845c7, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 875874034242285175}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44eabcfff985f9b4caf8529d1d3845c7, type: 3}
 --- !u!224 &1963401123149675371 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 721806094559343257, guid: 44eabcfff985f9b4caf8529d1d3845c7, type: 3}
   m_PrefabInstance: {fileID: 1241647947622091250}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &3518901989706897094 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2445065979927895860, guid: 44eabcfff985f9b4caf8529d1d3845c7, type: 3}
-  m_PrefabInstance: {fileID: 1241647947622091250}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &875874034242285175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3518901989706897094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ac3c986ccb299f449c4a84a78a0e107, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _uiTooltipPopup: {fileID: 5529010146661083408}
-  _tooltipText: "Link the current account with Unity in order to be able to \nlogin
-    from multiple devices in any platform."
-  _activateOnClick: 1
-  _tooltipDelay: 0
 --- !u!1001 &4344122841918985456
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16752,6 +16853,18 @@ PrefabInstance:
     - target: {fileID: 5566645402613791154, guid: 44eabcfff985f9b4caf8529d1d3845c7, type: 3}
       propertyPath: m_text
       value: Sign In
+      objectReference: {fileID: 0}
+    - target: {fileID: 6087881324202265900, guid: 44eabcfff985f9b4caf8529d1d3845c7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8909450976578618121}
+    - target: {fileID: 6087881324202265900, guid: 44eabcfff985f9b4caf8529d1d3845c7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SignInWithUnityPlayerAccount
+      objectReference: {fileID: 0}
+    - target: {fileID: 6087881324202265900, guid: 44eabcfff985f9b4caf8529d1d3845c7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Cosmos.Gameplay.UI.SignInUIMediator, Cosmos.Gameplay
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16869,7 +16982,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2445065979927895860, guid: 44eabcfff985f9b4caf8529d1d3845c7, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5566645402613791154, guid: 44eabcfff985f9b4caf8529d1d3845c7, type: 3}
       propertyPath: m_text
@@ -17108,9 +17221,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiTooltipPopup: {fileID: 5529010146661083408}
-  _tooltipText: Unity Gaming Services ProjectID not set up. Click the Readme file
-    in the Assets Folder within the Project window in-editor to follow "How to set
-    up Unity Gaming Services"
+  _tooltipText: 'Sign as a guest user.
+
+    Need to link this account inorder to
+    login
+
+    from other devices.'
   _activateOnClick: 1
   _tooltipDelay: 0
 --- !u!224 &6920126189914347256 stripped

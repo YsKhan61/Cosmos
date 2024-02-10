@@ -13,7 +13,7 @@ namespace Cosmos.Gameplay.UI
         private enum QuitMode
         {
             ReturnToMenu,
-            QuitApplication
+            QuitApplication         // Quit can only be possible from the StartMainMenu panel of MainMenu Scene
         }
 
         [SerializeField] private QuitMode _quitMode = QuitMode.ReturnToMenu;

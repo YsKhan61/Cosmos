@@ -44,9 +44,12 @@ namespace Cosmos.Gameplay.UI
             HideLobbyButtonTooltip();
         }
 
+        /// <summary>
+        /// Called from Sign Out button of Start Main Menu UI
+        /// </summary>
         public void SignOut()
         {
-            _clientMainMenuState.TrySignOut();
+            _clientMainMenuState.SignOut();
         }
 
         public void ShowPanel()

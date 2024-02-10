@@ -6,6 +6,7 @@ using Cosmos.UnityServices.Auth;
 using Cosmos.UnityServices.Lobbies;
 using Cosmos.Utilities;
 using System;
+using System.Threading.Tasks;
 using TMPro;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
@@ -57,8 +58,8 @@ namespace Cosmos.Gameplay.GameState
         UIProfileSelector _uiProfileSelector;
 
 
-        [SerializeField, Tooltip("Detect hovering and check if UGS is initialized correctly or not, and show a tooltip!")]
-        private UITooltipDetector _ugsSetupTooltipDetector;
+        /*[SerializeField, Tooltip("Detect hovering and check if UGS is initialized correctly or not, and show a tooltip!")]
+        private UITooltipDetector _ugsSetupTooltipDetector;*/
 
         [SerializeField]
         TMP_InputField _playerNameInputField;
@@ -93,6 +94,7 @@ namespace Cosmos.Gameplay.GameState
         protected override void OnDestroy()
         {
             _profileManager.OnProfileChanged -= OnProfileChanged;
+            Application.wantsToQuit -= OnApplicationWantsToQuit;
             base.OnDestroy();
         }
 
@@ -109,15 +111,19 @@ namespace Cosmos.Gameplay.GameState
             AuthenticationServiceFacade authServiceFacade,
             LocalLobbyUser localLobbyUser,
             LocalLobby localLobby,
-            ProfileManager profileManager,
-            ISubscriber<QuitApplicationMessage> quitApplicationMessageSubscriber)
+            ProfileManager profileManager)
+            // ISubscriber<QuitApplicationMessage> quitApplicationMessageSubscriber)
         {
             _authServiceFacade = authServiceFacade;
             _localLobbyUser = localLobbyUser;
             _localLobby = localLobby;
             _profileManager = profileManager;
-            _quitApplicationMessageSubscriber = quitApplicationMessageSubscriber;
-            _quitApplicationMessageSubscriber.Subscribe(SignOut);
+            // _quitApplicationMessageSubscriber = quitApplicationMessageSubscriber;
+            // _quitApplicationMessageSubscriber.Subscribe(SignOut);
+            _ = _authServiceFacade.InitializeToUnityServicesAsync();
+            _authServiceFacade.SubscribeToSignedInEvent();
+
+            Application.wantsToQuit += OnApplicationWantsToQuit;
         }
 
         /// <summary>
@@ -175,26 +181,26 @@ namespace Cosmos.Gameplay.GameState
         public async void TrySignIn(AccountType accountType)
         {
             _signInSpinner.SetActive(true);
+            _accountType = accountType;
 
             try
             {
-                _profileManager.ProfileName = _nameGenerationData.GetRandomName();
+                /*_profileManager.ProfileName = _nameGenerationData.GetRandomName();
                 _playerNameInputField.text = _profileManager.ProfileName;
 
                 InitializationOptions unityAuthenticationInitOptions =
                     _authServiceFacade.GenerateAuthenticationInitOptions(_profileManager.ProfileName);
 
                 // await _authServiceFacade.InitializeAndSignInAsync(unityAuthenticationInitOptions);
-                await _authServiceFacade.InitializeToUnityServicesAsync(unityAuthenticationInitOptions);
+                await _authServiceFacade.InitializeToUnityServicesAsync(unityAuthenticationInitOptions);*/
+                // await _authServiceFacade.InitializeToUnityServicesAsync();
 
-                switch (accountType)
+                switch (_accountType)
                 {
                     case AccountType.UnityPlayerAccount:
-                        _accountType = AccountType.UnityPlayerAccount;
                         await _authServiceFacade.SignInWithUnityAsync();
                         break;
                     case AccountType.GuestAccount:
-                        _accountType = AccountType.GuestAccount;
                         await _authServiceFacade.SignInAnonymously();
                         break;
                     default:
@@ -206,7 +212,7 @@ namespace Cosmos.Gameplay.GameState
 
                 OnAuthSignIn();
 
-                _profileManager.OnProfileChanged += OnProfileChanged;
+                // _profileManager.OnProfileChanged += OnProfileChanged;
             }
             catch (Exception)
             {
@@ -214,11 +220,18 @@ namespace Cosmos.Gameplay.GameState
             }
         }
 
-        public void TrySignOut()
+        public void SignOut()
         {
-            _authServiceFacade.SignOutFromAuthenticationService();
+            TryAuthSignOut();
+            Debug.Log("ClientMainMenuState: Player Signed out!");
+            OnAuthSignedOut();
+        }
 
-            switch(_accountType)
+        private void TryAuthSignOut()
+        {
+            _authServiceFacade.SignOutFromAuthenticationService(true);
+
+            switch (_accountType)
             {
                 case AccountType.UnityPlayerAccount:
                     _authServiceFacade.SignOutFromPlayerAccountService();
@@ -228,14 +241,15 @@ namespace Cosmos.Gameplay.GameState
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            
-            _startMenuUIMediator.HidePanel();
-            _signInUIMediator.ShowPanel();
-        }
 
-        private void SignOut(QuitApplicationMessage _)
-        {
-            TrySignOut();
+            // clear session token
+            // 
+
+            /*while (_authServiceFacade.IsSignedIn)
+            {
+                await Task.Yield();
+            }*/
+            // wait until 
         }
 
         private void OnAuthSignIn()
@@ -258,13 +272,22 @@ namespace Cosmos.Gameplay.GameState
 
         }
 
+        private void OnAuthSignedOut()
+        {
+            _lobbyButton.interactable = false;
+            // _ugsSetupTooltipDetector.enabled = true;
+            _signInSpinner.SetActive(false);
+            _startMenuUIMediator.ShowLobbyButtonTooltip();
+            _startMenuUIMediator.HidePanel();
+            _signInUIMediator.ShowPanel();
+        }
+
         private void OnSignInFailed()
         {
             if (_lobbyButton)
             {
                 _lobbyButton.interactable = false;
-                _ugsSetupTooltipDetector.enabled = true;
-
+                // _ugsSetupTooltipDetector.enabled = true;
             }
 
             if (_signInSpinner)
@@ -309,6 +332,13 @@ namespace Cosmos.Gameplay.GameState
             }
 
             _localLobbyUser.PlayerName = playerName[..Mathf.Min(10, playerName.Length)];
+        }
+
+        private bool OnApplicationWantsToQuit()
+        {
+            TryAuthSignOut();
+            _authServiceFacade.UnsubscribeFromSignedInEvent();
+            return true;
         }
     }
 }

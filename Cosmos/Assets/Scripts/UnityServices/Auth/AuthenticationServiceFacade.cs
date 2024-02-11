@@ -11,7 +11,41 @@ namespace Cosmos.UnityServices.Auth
     public class AuthenticationServiceFacade
     {
         [Inject]
-        IPublisher<UnityServiceErrorMessage> _unityServiceErrorMessagePublisher;        
+        IPublisher<UnityServiceErrorMessage> _unityServiceErrorMessagePublisher;
+
+        private Action _onAuthSignedIn;
+        private Action _onAuthSignedOut;
+
+        public void SubscribeToSignedInEvent(Action onAuthSignedIn = null, Action onAuthSignedOut = null)
+        {
+            PlayerAccountService.Instance.SignedIn += SignInWithUnity;
+
+            if (onAuthSignedIn != null)
+            {
+                _onAuthSignedIn = onAuthSignedIn;
+                AuthenticationService.Instance.SignedIn += OnAuthSignedIn;
+            }
+            
+            if (onAuthSignedOut != null)
+            {
+                _onAuthSignedOut = onAuthSignedOut;
+                AuthenticationService.Instance.SignedOut += _onAuthSignedOut;
+            }
+
+            AuthenticationService.Instance.SignedOut += ClearSessionToken;
+        }
+
+        public void UnsubscribeFromSignedInEvent()
+        {
+            PlayerAccountService.Instance.SignedIn -= SignInWithUnity;
+            
+            AuthenticationService.Instance.SignedIn -= OnAuthSignedIn;
+
+            if (_onAuthSignedOut != null)
+                AuthenticationService.Instance.SignedOut -= _onAuthSignedOut;
+
+            AuthenticationService.Instance.SignedOut -= ClearSessionToken;
+        }
 
         public InitializationOptions GenerateAuthenticationInitOptions(string profileName)
         {
@@ -60,16 +94,7 @@ namespace Cosmos.UnityServices.Auth
                 throw;
             }
         }
-
-        public void SubscribeToSignedInEvent()
-        {
-            PlayerAccountService.Instance.SignedIn += SignInWithUnity;
-        }
-
-        public void UnsubscribeFromSignedInEvent()
-        {
-            PlayerAccountService.Instance.SignedIn -= SignInWithUnity;
-        }
+        
 
         public async Task SignInAnonymously()
         {   
@@ -90,34 +115,11 @@ namespace Cosmos.UnityServices.Auth
             }
         }
 
-
-        /*public async Task InitializeAndSignInAsync(InitializationOptions initializationOptions)
-        {
-            try
-            {
-                await Unity.Services.Core.UnityServices.InitializeAsync(initializationOptions);
-
-                if (!AuthenticationService.Instance.IsSignedIn)
-                {
-                    await AuthenticationService.Instance.SignInAnonymouslyAsync();
-                }
-            }
-            catch (Exception e)
-            {
-                string reason = e.InnerException == null ? e.Message : $"{e.Message} ({e.InnerException.Message})";
-                _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Authentication Error", reason, UnityServiceErrorMessage.Service.Authentication, e));
-                throw;
-            }
-        }*/
-
         public async Task SwitchProfileAndResignInAsync(string profileName)
         {
-            if (AuthenticationService.Instance.IsSignedIn)
-            {
-                AuthenticationService.Instance.SignOut();
-            }
+            SignOutFromAuthService();
 
-            AuthenticationService.Instance.SwitchProfile(profileName);
+            SwitchProfile(profileName);
 
             try
             {
@@ -162,6 +164,16 @@ namespace Cosmos.UnityServices.Auth
 
         public async Task UpdatePlayerNameAsync(string playerName)
         {
+            if (playerName.Length == 0)
+            {
+                return;
+            }
+            if (!AuthenticationService.Instance.IsSignedIn)
+            {
+                return;
+            }
+            playerName = playerName[..Math.Min(playerName.Length, 10)];
+
             try
             {
                 await AuthenticationService.Instance.UpdatePlayerNameAsync(playerName);
@@ -176,7 +188,12 @@ namespace Cosmos.UnityServices.Auth
 
         public async Task SignInWithUnityAsync()
         {
-            // PlayerAccountService.Instance.SignedIn += SignInWithUnity;
+            if (AuthenticationService.Instance.SessionTokenExists)
+            {
+                SignOutFromAuthService(true);
+
+                SwitchProfile(string.Empty);
+            }    
 
             if (PlayerAccountService.Instance.IsSignedIn)
             {
@@ -196,54 +213,54 @@ namespace Cosmos.UnityServices.Auth
             }
         }
 
-        public void SignOutFromAuthenticationService(bool clearCredentials)
+        public void ClearSessionToken()
         {
-            // _signedOutFromAuthService = false;
+            if (AuthenticationService.Instance.SessionTokenExists)
+                AuthenticationService.Instance.ClearSessionToken();
+        }
 
-            // AuthenticationService.Instance.SignedOut += OnSignedOutFromAuthService;
+        public void SignOutFromAuthService(bool clearCredentials = false)
+        {
             AuthenticationService.Instance.SignOut(clearCredentials);
         }
 
         public void SignOutFromPlayerAccountService()
         {
-            // _signedOutFromPlayerAccountService = false;
-
-            // PlayerAccountService.Instance.SignedOut += OnSignedOutFromPlayerAccountService;
             PlayerAccountService.Instance.SignOut();
         }
 
-        public void ClearSessionTokenAsync()
+        public string GetPlayerName()
         {
-            // clear session token
-            AuthenticationService.Instance.ClearSessionToken();
+            return AuthenticationService.Instance.PlayerName;
         }
 
-        public bool IsSignedIn => AuthenticationService.Instance.IsSignedIn || PlayerAccountService.Instance.IsSignedIn;
-
-        /*private bool _signedOutFromAuthService = false;
-
-        private void OnSignedOutFromAuthService()
+        public string GetPlayerId()
         {
-            _signedOutFromAuthService = true;
-            AuthenticationService.Instance.SignedOut -= OnSignedOutFromAuthService;
+            return AuthenticationService.Instance.PlayerId;
         }
-
-        private bool _signedOutFromPlayerAccountService = false;
-
         
-        private void OnSignedOutFromPlayerAccountService()
+        void SwitchProfile(string profileName)
         {
-            _signedOutFromPlayerAccountService = true;
-            PlayerAccountService.Instance.SignedOut -= OnSignedOutFromPlayerAccountService;
-        }*/
+            AuthenticationService.Instance.SwitchProfile(profileName);
+        }
+
+        private async void OnAuthSignedIn()
+        {
+            await GetPlayerNameAsync();
+
+            _onAuthSignedIn?.Invoke();
+        }
+
+        async Task GetPlayerNameAsync()
+        {
+            if (AuthenticationService.Instance.SessionTokenExists)
+            {
+                await AuthenticationService.Instance.GetPlayerNameAsync();
+            }
+        }
 
         async void SignInWithUnity()
         {
-            /*if (AuthenticationService.Instance.IsSignedIn)
-            {
-                return;
-            }*/
-
             try
             {
                 await AuthenticationService.Instance.SignInWithUnityAsync(PlayerAccountService.Instance.AccessToken);
@@ -254,10 +271,6 @@ namespace Cosmos.UnityServices.Auth
                 _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Authentication Error", reason, UnityServiceErrorMessage.Service.Authentication, e));
                 throw;
             }
-            /*finally
-            {
-                AuthenticationService.Instance.SignedIn -= SignInWithUnity;
-            }*/
         }
     }
 }

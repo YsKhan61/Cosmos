@@ -4,11 +4,8 @@ using Cosmos.Gameplay.UI;
 using Cosmos.Infrastructure;
 using Cosmos.UnityServices.Auth;
 using Cosmos.UnityServices.Lobbies;
-using Cosmos.Utilities;
 using System;
-using System.Threading.Tasks;
 using TMPro;
-using Unity.Services.Authentication;
 using Unity.Services.Core;
 using UnityEngine;
 using UnityEngine.UI;
@@ -48,27 +45,27 @@ namespace Cosmos.Gameplay.GameState
         [SerializeField]
         private IPUIMediator _ipUIMediator;
 
-        [SerializeField]
-        private Button _lobbyButton;
+        /*[SerializeField]
+        private Button _lobbyButton;*/
 
         [SerializeField]
         private GameObject _signInSpinner;
 
-        [SerializeField]
-        UIProfileSelector _uiProfileSelector;
+        /*[SerializeField]
+        UIProfileSelector _uiProfileSelector;*/
 
 
         /*[SerializeField, Tooltip("Detect hovering and check if UGS is initialized correctly or not, and show a tooltip!")]
         private UITooltipDetector _ugsSetupTooltipDetector;*/
 
-        [SerializeField]
-        TMP_InputField _playerNameInputField;
+        /*[SerializeField]
+        TMP_InputField _playerNameInputField;*/
 
         private AuthenticationServiceFacade _authServiceFacade;
         ISubscriber<QuitApplicationMessage> _quitApplicationMessageSubscriber;
         private LocalLobbyUser _localLobbyUser;
         private LocalLobby _localLobby;
-        private ProfileManager _profileManager;
+        // private ProfileManager _profileManager;
 
         public override GameState ActiveState => GameState.MainMenu;
 
@@ -93,7 +90,7 @@ namespace Cosmos.Gameplay.GameState
 
         protected override void OnDestroy()
         {
-            _profileManager.OnProfileChanged -= OnProfileChanged;
+            // _profileManager.OnProfileChanged -= OnProfileChanged;
             Application.wantsToQuit -= OnApplicationWantsToQuit;
             base.OnDestroy();
         }
@@ -110,28 +107,38 @@ namespace Cosmos.Gameplay.GameState
         private void AddDependencies(
             AuthenticationServiceFacade authServiceFacade,
             LocalLobbyUser localLobbyUser,
-            LocalLobby localLobby,
-            ProfileManager profileManager)
+            LocalLobby localLobby)
+            // ProfileManager profileManager)
             // ISubscriber<QuitApplicationMessage> quitApplicationMessageSubscriber)
         {
             _authServiceFacade = authServiceFacade;
             _localLobbyUser = localLobbyUser;
             _localLobby = localLobby;
-            _profileManager = profileManager;
+            // _profileManager = profileManager;
             // _quitApplicationMessageSubscriber = quitApplicationMessageSubscriber;
             // _quitApplicationMessageSubscriber.Subscribe(SignOut);
+            /*InitializationOptions options = _authServiceFacade.GenerateAuthenticationInitOptions(_nameGenerationData.GetRandomName());
+            _ = _authServiceFacade.InitializeToUnityServicesAsync(options);*/
             _ = _authServiceFacade.InitializeToUnityServicesAsync();
-            _authServiceFacade.SubscribeToSignedInEvent();
+            _authServiceFacade.SubscribeToSignedInEvent(OnAuthSignIn);
 
             Application.wantsToQuit += OnApplicationWantsToQuit;
         }
 
         /// <summary>
-        /// Called from the refresh button of Name Display UI.
+        /// Called from the On Edit End event of the Name Display UI(InputField).
         /// </summary>
-        public void RefreshPlayerName()
+        public async void SavePlayerName(string name)
         {
-            _profileManager.ProfileName = _nameGenerationData.GetRandomName();
+            if (name == _localLobbyUser.PlayerName)
+                return;
+
+            await _authServiceFacade.UpdatePlayerNameAsync(name);
+
+            // Updating LocalLobbyUser and LocalLobby
+            _localLobby.RemoveUser(_localLobbyUser);
+            UpdateLocalLobbyUser();
+            _localLobby.AddUser(_localLobbyUser);
         }
 
         public void OnLobbyStartButtonClicked()
@@ -146,10 +153,10 @@ namespace Cosmos.Gameplay.GameState
             _ipUIMediator.Show();
         }
 
-        public void OnChangeProfileButtonClicked()
+        /*public void OnChangeProfileButtonClicked()
         {
             _uiProfileSelector.Show();
-        }
+        }*/
 
         /*public async void TrySignIn()
         {
@@ -185,10 +192,12 @@ namespace Cosmos.Gameplay.GameState
 
             try
             {
-                /*_profileManager.ProfileName = _nameGenerationData.GetRandomName();
-                _playerNameInputField.text = _profileManager.ProfileName;
+                // _profileManager.ProfileName = _nameGenerationData.GetRandomName();
+                // _playerNameInputField.text = _profileManager.ProfileName;
 
-                InitializationOptions unityAuthenticationInitOptions =
+
+
+                /*InitializationOptions unityAuthenticationInitOptions =
                     _authServiceFacade.GenerateAuthenticationInitOptions(_profileManager.ProfileName);
 
                 // await _authServiceFacade.InitializeAndSignInAsync(unityAuthenticationInitOptions);
@@ -210,7 +219,7 @@ namespace Cosmos.Gameplay.GameState
                 // Also update the player name in the authentication service
                 // await _authServiceFacade.UpdatePlayerNameAsync(_profileManager.ProfileName);
 
-                OnAuthSignIn();
+                // OnAuthSignIn();
 
                 // _profileManager.OnProfileChanged += OnProfileChanged;
             }
@@ -229,7 +238,7 @@ namespace Cosmos.Gameplay.GameState
 
         private void TryAuthSignOut()
         {
-            _authServiceFacade.SignOutFromAuthenticationService(true);
+            _authServiceFacade.SignOutFromAuthService(true);
 
             switch (_accountType)
             {
@@ -258,12 +267,12 @@ namespace Cosmos.Gameplay.GameState
             // _ugsSetupTooltipDetector.enabled = false;
             _signInSpinner.SetActive(false);
             _signInUIMediator.HidePanel();
-            _startMenuUIMediator.PlayerSignedInWithUGS();
 
-#if UNITY_EDITOR
-            Debug.Log($"Signed in. Unity Player ID {AuthenticationService.Instance.PlayerId}");
-            Debug.Log($"Signed in. Unity Player Name {AuthenticationService.Instance.PlayerName}");
-#endif
+            _startMenuUIMediator.PlayerSignedInWithUGS(_authServiceFacade.GetPlayerName());
+
+            Debug.Log($"Signed in. Unity Player ID {_authServiceFacade.GetPlayerId()}");
+            Debug.Log($"Signed in. Unity Player Name {_authServiceFacade.GetPlayerName()}");
+
             UpdateLocalLobbyUser();
 
             // The local lobby user object will be hooked into UI before the LocalLobby is populated during lobby join, so the LocalLobby must know about it already
@@ -274,7 +283,7 @@ namespace Cosmos.Gameplay.GameState
 
         private void OnAuthSignedOut()
         {
-            _lobbyButton.interactable = false;
+            // _lobbyButton.interactable = false;
             // _ugsSetupTooltipDetector.enabled = true;
             _signInSpinner.SetActive(false);
             _startMenuUIMediator.ShowLobbyButtonTooltip();
@@ -284,11 +293,11 @@ namespace Cosmos.Gameplay.GameState
 
         private void OnSignInFailed()
         {
-            if (_lobbyButton)
+            /*if (_lobbyButton)
             {
                 _lobbyButton.interactable = false;
                 // _ugsSetupTooltipDetector.enabled = true;
-            }
+            }*/
 
             if (_signInSpinner)
             {
@@ -296,7 +305,7 @@ namespace Cosmos.Gameplay.GameState
             }
         }
 
-        private async void OnProfileChanged()
+        /*private async void OnProfileChanged()
         {
             _lobbyButton.interactable = false;
             _signInSpinner.SetActive(true);
@@ -316,13 +325,13 @@ namespace Cosmos.Gameplay.GameState
             _localLobby.AddUser(_localLobbyUser);
 
             _playerNameInputField.text = _profileManager.ProfileName;
-        }
+        }*/
 
         private void UpdateLocalLobbyUser()
         {
-            _localLobbyUser.ID = AuthenticationService.Instance.PlayerId;
+            _localLobbyUser.ID = _authServiceFacade.GetPlayerId();
 
-            string playerName = AuthenticationService.Instance.PlayerName;
+            string playerName = _authServiceFacade.GetPlayerName();
 
             // trim the player name from '#' character
             int hashIndex = playerName.IndexOf('#');

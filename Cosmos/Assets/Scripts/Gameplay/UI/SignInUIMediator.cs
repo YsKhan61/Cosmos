@@ -16,6 +16,12 @@ namespace Cosmos.Gameplay.UI
         [SerializeField]
         ClientMainMenuState _clientMainMenuState;
 
+        [SerializeField]
+        Button _signInWithPlayerAccountButton;
+
+        [SerializeField]
+        Button _signInAsGuestButton;
+
         private void Awake()
         {
             ShowPanel();
@@ -23,17 +29,21 @@ namespace Cosmos.Gameplay.UI
 
         public void SignInWithUnityPlayerAccount()
         {
-            
             _clientMainMenuState.TrySignIn(AccountType.UnityPlayerAccount);
+            _signInWithPlayerAccountButton.interactable = false;
         }
 
         public void SignInAsGuest()
         {
             _clientMainMenuState.TrySignIn(AccountType.GuestAccount);
+            _signInAsGuestButton.interactable = false;
         }
 
         public void ShowPanel()
         {
+            _signInWithPlayerAccountButton.interactable = true;
+            _signInAsGuestButton.interactable = true;
+
             _canvasGroup.gameObject.SetActive(true);
             _canvasGroup.interactable = true;
         }

@@ -1,4 +1,6 @@
+using Cosmos.Gameplay.Configuration;
 using Cosmos.Gameplay.GameState;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +19,9 @@ namespace Cosmos.Gameplay.UI
         ClientMainMenuState _clientMainMenuState;
 
         [SerializeField]
+        TMP_InputField _playerNameInputField;
+
+        [SerializeField]
         Button _lobbyButton;
 
         [SerializeField]
@@ -24,6 +29,9 @@ namespace Cosmos.Gameplay.UI
 
         [SerializeField]
         UITooltipDetector _lobbyButtonTooltipDetector;
+
+        [SerializeField]
+        NameGenerationDataSO _nameGenerationData;
 
         private void Awake()
         {
@@ -37,19 +45,36 @@ namespace Cosmos.Gameplay.UI
 
         }
 
-        public void PlayerSignedInWithUGS()
-        {
-            _lobbyButton.interactable = true;
-            ShowPanel();
-            HideLobbyButtonTooltip();
-        }
-
         /// <summary>
         /// Called from Sign Out button of Start Main Menu UI
         /// </summary>
         public void SignOut()
         {
             _clientMainMenuState.SignOut();
+        }
+
+        /// <summary>
+        /// Called from refresh button of Start Main Menu UI
+        /// </summary>
+        public void RefreshPlayerName()
+        {
+            _playerNameInputField.text = _nameGenerationData.GetRandomName();
+        }
+
+        /// <summary>
+        /// Called from save button of Start Main Menu UI
+        /// </summary>
+        public void SavePlayerName()
+        {
+            _clientMainMenuState.SavePlayerName(_playerNameInputField.text);
+        }
+
+        public void PlayerSignedInWithUGS(string playerName)
+        {
+            _lobbyButton.interactable = true;
+            ShowPanel();
+            HideLobbyButtonTooltip();
+            _playerNameInputField.text = playerName;
         }
 
         public void ShowPanel()

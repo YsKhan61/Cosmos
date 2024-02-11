@@ -47,7 +47,7 @@ namespace Cosmos.UnityServices.Auth
             AuthenticationService.Instance.SignedOut -= ClearSessionToken;
         }
 
-        public InitializationOptions GenerateAuthenticationInitOptions(string profileName)
+        public InitializationOptions GenerateAuthenticationInitOptions(string profileName = null)
         {
             try
             {
@@ -94,10 +94,43 @@ namespace Cosmos.UnityServices.Auth
                 throw;
             }
         }
-        
+
+        public async Task SignInWithUnityAsync()
+        {
+            if (AuthenticationService.Instance.SessionTokenExists)
+            {
+                SignOutFromAuthService(true);
+
+                SwitchProfile(string.Empty);
+            }
+
+            if (PlayerAccountService.Instance.IsSignedIn)
+            {
+                SignInWithUnity();
+                return;
+            }
+
+            try
+            {
+                await PlayerAccountService.Instance.StartSignInAsync();
+            }
+            catch (Exception e)     // both Authentication and RequestFailedException errors are caught here
+            {
+                string reason = e.InnerException == null ? e.Message : $"{e.Message} ({e.InnerException.Message})";
+                _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Authentication Error", reason, UnityServiceErrorMessage.Service.Authentication, e));
+                throw;
+            }
+        }
 
         public async Task SignInAnonymously()
-        {   
+        {
+            if (AuthenticationService.Instance.SessionTokenExists)
+            {
+                SignOutFromAuthService(true);
+
+                SwitchProfile(string.Empty);
+            }
+
             if (AuthenticationService.Instance.IsSignedIn)
             {
                 return;
@@ -115,7 +148,7 @@ namespace Cosmos.UnityServices.Auth
             }
         }
 
-        public async Task SwitchProfileAndResignInAsync(string profileName)
+        /*public async Task SwitchProfileAndResignInAsync(string profileName)
         {
             SignOutFromAuthService();
 
@@ -131,7 +164,7 @@ namespace Cosmos.UnityServices.Auth
                 _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Authentication Error", reason, UnityServiceErrorMessage.Service.Authentication, e));
                 throw;
             }
-        }
+        }*/
 
         public async Task<bool> EnsurePlayerIsAuthorized()
         {
@@ -179,33 +212,6 @@ namespace Cosmos.UnityServices.Auth
                 await AuthenticationService.Instance.UpdatePlayerNameAsync(playerName);
             }
             catch (Exception e)
-            {
-                string reason = e.InnerException == null ? e.Message : $"{e.Message} ({e.InnerException.Message})";
-                _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Authentication Error", reason, UnityServiceErrorMessage.Service.Authentication, e));
-                throw;
-            }
-        }
-
-        public async Task SignInWithUnityAsync()
-        {
-            if (AuthenticationService.Instance.SessionTokenExists)
-            {
-                SignOutFromAuthService(true);
-
-                SwitchProfile(string.Empty);
-            }    
-
-            if (PlayerAccountService.Instance.IsSignedIn)
-            {
-                SignInWithUnity();
-                return;
-            }
-
-            try
-            {
-                await PlayerAccountService.Instance.StartSignInAsync();
-            }
-            catch (Exception e)     // both Authentication and RequestFailedException errors are caught here
             {
                 string reason = e.InnerException == null ? e.Message : $"{e.Message} ({e.InnerException.Message})";
                 _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Authentication Error", reason, UnityServiceErrorMessage.Service.Authentication, e));

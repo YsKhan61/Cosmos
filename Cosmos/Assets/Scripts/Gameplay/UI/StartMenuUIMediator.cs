@@ -28,6 +28,9 @@ namespace Cosmos.Gameplay.UI
         Button _directIpButton;
 
         [SerializeField]
+        Button _linkAccountButton;
+
+        [SerializeField]
         UITooltipDetector _lobbyButtonTooltipDetector;
 
         [SerializeField]
@@ -40,7 +43,7 @@ namespace Cosmos.Gameplay.UI
             ShowLobbyButtonTooltip();
         }
 
-        public void LinkAccount()
+        public void LinkAccountWithUnity()
         {
 
         }
@@ -69,18 +72,27 @@ namespace Cosmos.Gameplay.UI
             _clientMainMenuState.SavePlayerName(_playerNameInputField.text);
         }
 
-        public void PlayerSignedInWithUGS(string playerName)
+        public void ConfigureStartMenuAfterSignIn(string playerName)
         {
             _lobbyButton.interactable = true;
             ShowPanel();
             HideLobbyButtonTooltip();
             _playerNameInputField.text = playerName;
+
+            if (_clientMainMenuState.AccountType == AccountType.GuestAccount)
+            {
+                _linkAccountButton.gameObject.SetActive(true);
+            }
+            else
+            {
+                _linkAccountButton.gameObject.SetActive(false);
+            }
         }
 
         public void ShowPanel()
         {
             _canvasGroup.gameObject.SetActive(true);
-            _canvasGroup.interactable = true;
+            _canvasGroup.interactable = true;    
         }
 
         public void HidePanel()

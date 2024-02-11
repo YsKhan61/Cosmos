@@ -34,6 +34,12 @@ namespace Cosmos.Gameplay.UI
         private ConnectionManager _connectionManager;
         ISubscriber<ConnectStatus> _connectStatusSubscriber;
 
+        private void Start()
+        {
+            _lobbyCreationUI.Hide();
+            _lobbyJoiningUI.Hide();
+        }
+
         private void OnDestroy()
         {
             if (_connectStatusSubscriber != null)
@@ -53,8 +59,8 @@ namespace Cosmos.Gameplay.UI
             LobbyServiceFacade lobbyServiceFacade,
             LocalLobbyUser localLobbyUser,
             LocalLobby localLobby,
-            NameGenerationDataSO nameGenerationData,
-            ProfileManager profileManager,
+            // NameGenerationDataSO nameGenerationData,
+            // ProfileManager profileManager,
             ISubscriber<ConnectStatus> connectStatusSubscriber,
             ConnectionManager connectionManager)
         {
@@ -231,7 +237,7 @@ namespace Cosmos.Gameplay.UI
             _canvasGroup.alpha = 1;
             _canvasGroup.blocksRaycasts = true;
 
-            GenerateName();
+            ShowName();
         }
 
         public void Hide()
@@ -242,7 +248,7 @@ namespace Cosmos.Gameplay.UI
             _lobbyJoiningUI.Hide();
         }
 
-        private void GenerateName()
+        private void ShowName()
         {
             _playerNameLabel.text = _localLobbyUser.PlayerName;
         }
@@ -275,9 +281,7 @@ namespace Cosmos.Gameplay.UI
         private void OnJoinedLobby(Lobby remoteLobby)
         {
             _lobbyServiceFacade.SetRemoteLobby(remoteLobby);
-#if UNITY_EDITOR
             Debug.Log($"Joined lobby with ID: {_localLobby.LobbyID} and Internal Relay join code {_localLobby.RelayJoinCode}");
-#endif
             _connectionManager.StartClientLobby(_localLobbyUser.PlayerName);
         }
     }

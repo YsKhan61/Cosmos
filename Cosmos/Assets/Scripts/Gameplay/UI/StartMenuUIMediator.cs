@@ -1,5 +1,6 @@
 using Cosmos.Gameplay.Configuration;
 using Cosmos.Gameplay.GameState;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -31,6 +32,11 @@ namespace Cosmos.Gameplay.UI
         Button _linkAccountButton;
 
         [SerializeField]
+        Button _unlinkAccountButton;
+
+        // also need to add delete account button.
+
+        [SerializeField]
         UITooltipDetector _lobbyButtonTooltipDetector;
 
         [SerializeField]
@@ -43,9 +49,20 @@ namespace Cosmos.Gameplay.UI
             ShowLobbyButtonTooltip();
         }
 
+        /// <summary>
+        /// called froim Link button of Start Main Menu UI
+        /// </summary>
         public void LinkAccountWithUnity()
         {
+            _clientMainMenuState.LinkAccountWithUnityAsync();
+        }
 
+        /// <summary>
+        /// Called from Unlink button of Start Main Menu UI
+        /// </summary>
+        public void UnlinkAccountWithUnity() 
+        {
+            _clientMainMenuState.UnlinkAccountWithUnityAsync();
         }
 
         /// <summary>
@@ -72,7 +89,7 @@ namespace Cosmos.Gameplay.UI
             _clientMainMenuState.SavePlayerName(_playerNameInputField.text);
         }
 
-        public void ConfigureStartMenuAfterSignIn(string playerName)
+        internal void ConfigureStartMenuAfterSignIn(string playerName)
         {
             _lobbyButton.interactable = true;
             ShowPanel();
@@ -81,32 +98,55 @@ namespace Cosmos.Gameplay.UI
 
             if (_clientMainMenuState.AccountType == AccountType.GuestAccount)
             {
-                _linkAccountButton.gameObject.SetActive(true);
+                if (!_linkAccountButton.gameObject.activeSelf)
+                    _linkAccountButton.gameObject.SetActive(true);
+
+                if (_unlinkAccountButton.gameObject.activeSelf)
+                    _unlinkAccountButton.gameObject.SetActive(false);
             }
             else
             {
-                _linkAccountButton.gameObject.SetActive(false);
+                if (_linkAccountButton.gameObject.activeSelf)
+                    _linkAccountButton.gameObject.SetActive(false);
+
+                if (!_unlinkAccountButton.gameObject.activeSelf)
+                    _unlinkAccountButton.gameObject.SetActive(true);
             }
         }
 
-        public void ShowPanel()
+        internal void ConfigureStartMenuAfterLinkAccount()
+        {
+            if (_linkAccountButton.gameObject.activeSelf)
+                _linkAccountButton.gameObject.SetActive(false);
+
+            if (!_unlinkAccountButton.gameObject.activeSelf)
+                _unlinkAccountButton.gameObject.SetActive(true);
+        }
+
+        internal void ConfigureStartMenuAfterUnlinkAccount()
+        {
+            _linkAccountButton.gameObject.SetActive(true);
+            _unlinkAccountButton.gameObject.SetActive(false);
+        }
+
+        internal void ShowPanel()
         {
             _canvasGroup.gameObject.SetActive(true);
             _canvasGroup.interactable = true;    
         }
 
-        public void HidePanel()
+        internal void HidePanel()
         {
             _canvasGroup.gameObject.SetActive(false);
             _canvasGroup.interactable = false;
         }
 
-        public void ShowLobbyButtonTooltip()
+        internal void ShowLobbyButtonTooltip()
         {
             _lobbyButtonTooltipDetector.enabled = true;
         }
 
-        public void HideLobbyButtonTooltip()
+        internal void HideLobbyButtonTooltip()
         {
             _lobbyButtonTooltipDetector.enabled = false;
         }

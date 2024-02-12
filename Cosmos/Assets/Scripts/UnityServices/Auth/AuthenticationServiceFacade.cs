@@ -16,6 +16,8 @@ namespace Cosmos.UnityServices.Auth
         private Action _onAuthSignedIn;
         private Action _onAuthSignedOut;
 
+        private bool _link;             // whether it will be sign in or link account
+
         public void SubscribeToSignedInEvent(Action onAuthSignedIn = null, Action onAuthSignedOut = null)
         {
             PlayerAccountService.Instance.SignedIn += SignInWithUnity;
@@ -97,6 +99,8 @@ namespace Cosmos.UnityServices.Auth
 
         public async Task SignInWithUnityAsync()
         {
+            _link = false;
+
             if (AuthenticationService.Instance.SessionTokenExists)
             {
                 SignOutFromAuthService(true);
@@ -118,7 +122,7 @@ namespace Cosmos.UnityServices.Auth
             {
                 string reason = e.InnerException == null ? e.Message : $"{e.Message} ({e.InnerException.Message})";
                 _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Authentication Error", reason, UnityServiceErrorMessage.Service.Authentication, e));
-                throw;
+                // throw;
             }
         }
 
@@ -148,23 +152,49 @@ namespace Cosmos.UnityServices.Auth
             }
         }
 
-        /*public async Task SwitchProfileAndResignInAsync(string profileName)
+        public async Task LinkAccountWithUnityAsync()
         {
-            SignOutFromAuthService();
-
-            SwitchProfile(profileName);
+            _link = true;
 
             try
             {
-                await AuthenticationService.Instance.SignInAnonymouslyAsync();
+                if (!AuthenticationService.Instance.SessionTokenExists)
+                {
+                    // execute catch block
+                    return;
+                }
+
+                await PlayerAccountService.Instance.StartSignInAsync();
             }
-            catch (Exception e)
+            catch (Exception e)     // both Authentication and RequestFailedException errors are caught here
             {
                 string reason = e.InnerException == null ? e.Message : $"{e.Message} ({e.InnerException.Message})";
                 _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Authentication Error", reason, UnityServiceErrorMessage.Service.Authentication, e));
-                throw;
+            } 
+        }
+
+        public async Task UnlinkAccountWithUnityAsync()
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(PlayerAccountService.Instance.IdToken))
+                {
+                    return;
+                }
+                await AuthenticationService.Instance.UnlinkUnityAsync();
             }
-        }*/
+            catch (AuthenticationException ex)
+            {
+                string reason = ex.InnerException == null ? ex.Message : $"{ex.Message} ({ex.InnerException.Message})";
+                _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Unlink Account Error", reason, UnityServiceErrorMessage.Service.Authentication, ex));
+            }
+            catch (RequestFailedException ex)
+            {
+                string reason = ex.InnerException == null ? ex.Message : $"{ex.Message} ({ex.InnerException.Message})";
+                _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Unlink Account Error", reason, UnityServiceErrorMessage.Service.Authentication, ex));
+            }
+
+        }
 
         public async Task<bool> EnsurePlayerIsAuthorized()
         {
@@ -269,13 +299,35 @@ namespace Cosmos.UnityServices.Auth
         {
             try
             {
-                await AuthenticationService.Instance.SignInWithUnityAsync(PlayerAccountService.Instance.AccessToken);
+                if (_link)
+                {
+                    await AuthenticationService.Instance.LinkWithUnityAsync(PlayerAccountService.Instance.AccessToken);
+                }
+                else
+                {
+                    await AuthenticationService.Instance.SignInWithUnityAsync(PlayerAccountService.Instance.AccessToken);
+                }
             }
-            catch (Exception e)
+            /*catch (Exception e)
             {
                 string reason = e.InnerException == null ? e.Message : $"{e.Message} ({e.InnerException.Message})";
                 _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Authentication Error", reason, UnityServiceErrorMessage.Service.Authentication, e));
-                throw;
+            }*/
+            catch (AuthenticationException ex) when (ex.ErrorCode == AuthenticationErrorCodes.AccountAlreadyLinked)
+            {
+                string reason = ex.InnerException == null ? ex.Message : $"{ex.Message} ({ex.InnerException.Message})";
+                _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Link Account Error", reason, UnityServiceErrorMessage.Service.Authentication, ex));
+            }
+
+            catch (AuthenticationException ex)
+            {
+                string reason = ex.InnerException == null ? ex.Message : $"{ex.Message} ({ex.InnerException.Message})";
+                _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Link Account Error", reason, UnityServiceErrorMessage.Service.Authentication, ex)); ;
+            }
+            catch (RequestFailedException ex)
+            {
+                string reason = ex.InnerException == null ? ex.Message : $"{ex.Message} ({ex.InnerException.Message})";
+                _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Link Account Error", reason, UnityServiceErrorMessage.Service.Authentication, ex));
             }
         }
     }

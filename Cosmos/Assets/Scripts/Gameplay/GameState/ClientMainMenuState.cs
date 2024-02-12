@@ -130,7 +130,7 @@ namespace Cosmos.Gameplay.GameState
             _ipUIMediator.Show();
         }
 
-        public async void TrySignIn(AccountType accountType)
+        internal async void TrySignIn(AccountType accountType)
         {
             _signInSpinner.SetActive(true);
             _accountType = accountType;
@@ -155,7 +155,48 @@ namespace Cosmos.Gameplay.GameState
             }
         }
 
-        public void SignOut()
+        internal async void LinkAccountWithUnityAsync()
+        {
+            _signInSpinner.SetActive(true);
+
+            try
+            {
+                await _authServiceFacade.LinkAccountWithUnityAsync();
+                // await _authServiceFacade.SignInWithUnityAsync();
+
+                OnLinkSuccess();
+            }
+            catch (Exception)
+            {
+                OnLinkFailed();
+            }
+            finally
+            {
+                _signInSpinner.SetActive(false);
+            }
+        }
+
+        internal async void UnlinkAccountWithUnityAsync()
+        {
+            _signInSpinner.SetActive(true);
+
+            try
+            {
+                await _authServiceFacade.UnlinkAccountWithUnityAsync();
+
+                OnUnlinkSuccess();
+            }
+            catch (Exception)
+            {
+
+            }
+            finally
+            {
+                _signInSpinner.SetActive(false);
+            }
+        }
+
+        internal void SignOut()
         {
             TryAuthSignOut();
             Debug.Log("ClientMainMenuState: Player Signed out!");
@@ -212,27 +253,23 @@ namespace Cosmos.Gameplay.GameState
             }
         }
 
-        /*private async void OnProfileChanged()
+        private void OnLinkSuccess()
         {
-            _lobbyButton.interactable = false;
-            _signInSpinner.SetActive(true);
+            _startMenuUIMediator.ConfigureStartMenuAfterLinkAccount();
+        }
 
-            // await _authServiceFacade.SwitchProfileAndResignInAsync(_profileManager.ProfileName);
-            await _authServiceFacade.UpdatePlayerNameAsync(_profileManager.ProfileName);
+        private void OnLinkFailed()
+        {
+            if (_signInSpinner)
+            {
+                _signInSpinner.SetActive(false);
+            }
+        }
 
-            // Debug.Log($"Signed in. Unity Player ID {AuthenticationService.Instance.PlayerId}");
-            Debug.Log($"Signed in. Unity Player Name {AuthenticationService.Instance.PlayerName}");
-
-            _lobbyButton.interactable = true;
-            _signInSpinner.SetActive(false);
-
-            // Updating LocalLobbyUser and LocalLobby
-            _localLobby.RemoveUser(_localLobbyUser);
-            UpdateLocalLobbyUser();
-            _localLobby.AddUser(_localLobbyUser);
-
-            _playerNameInputField.text = _profileManager.ProfileName;
-        }*/
+        private void OnUnlinkSuccess()
+        {
+            _startMenuUIMediator.ConfigureStartMenuAfterUnlinkAccount();
+        }
 
         private void UpdateLocalLobbyUser()
         {

@@ -10,83 +10,33 @@ namespace Cosmos.UnityServices.Auth
 {
     public class AuthenticationServiceFacade
     {
-        public class AuthenticationEventChannel
-        {
-            public Action onAuthSignedInSuccess;
-            public Action onAuthSignInFailed;
-            public Action onAuthSignedOutSuccess;
-            public Action onLinkedInWithUnitySuccess;
-            public Action onLinkedInWithUnityFailed;
-            public Action onUnlinkFromUnitySuccess;
-        }
-
+        public event Action onAuthSignInSuccess;
+        public event Action onAuthSignInFailed;
+        public event Action onAuthSignedOutSuccess;
+        public event Action onLinkedInWithUnitySuccess;
+        public event Action onLinkedInWithUnityFailed;
+        public event Action onUnlinkFromUnitySuccess;
+        public event Action onAccountNameUpdateSuccess;
+        public event Action onAccountNameUpdateFailed;
 
         [Inject]
         IPublisher<UnityServiceErrorMessage> _unityServiceErrorMessagePublisher;
 
         private bool _linkWithUnityPlayerAccount;             // whether it will be sign in or link account
-        private AuthenticationEventChannel _authenticationEventChannel;
 
-        /*public void SubscribeToAuthenticationEvents(Action onAuthSignedIn = null, Action onAuthSignedOut = null)
+        public void SubscribeToAuthenticationEvents()
         {
             PlayerAccountService.Instance.SignedIn += SignInWithUnity;
-
-            if (onAuthSignedIn != null)
-            {
-                _onAuthSignedIn = onAuthSignedIn;
-                AuthenticationService.Instance.SignedIn += OnAuthSignedIn;
-            }
-            
-            if (onAuthSignedOut != null)
-            {
-                _onAuthSignedOut = onAuthSignedOut;
-                AuthenticationService.Instance.SignedOut += _onAuthSignedOut;
-            }
-
-            AuthenticationService.Instance.SignedOut += ClearSessionToken;
-        }*/
-
-        public void SubscribeToAuthenticationEvents(AuthenticationEventChannel eventChannel)
-        {
-            _authenticationEventChannel = eventChannel;
-
-            PlayerAccountService.Instance.SignedIn += SignInWithUnity;
-
-            if (_authenticationEventChannel.onAuthSignedInSuccess != null)
-            {
-                AuthenticationService.Instance.SignedIn += OnAuthSignedIn;
-            }
-
-            if (_authenticationEventChannel.onAuthSignedOutSuccess != null)
-            {
-                AuthenticationService.Instance.SignedOut += _authenticationEventChannel.onAuthSignedOutSuccess;
-            }
-
+            AuthenticationService.Instance.SignedIn += OnAuthSignedIn;
+            AuthenticationService.Instance.SignedOut += OnAuthSignedOutSuccess;
             AuthenticationService.Instance.SignedOut += ClearSessionToken;
         }
-
-
-        /*public void UnsubscribeFromAuthenticationEvents()
-        {
-            PlayerAccountService.Instance.SignedIn -= SignInWithUnity;
-            
-            AuthenticationService.Instance.SignedIn -= OnAuthSignedIn;
-
-            if (_onAuthSignedOut != null)
-                AuthenticationService.Instance.SignedOut -= _onAuthSignedOut;
-
-            AuthenticationService.Instance.SignedOut -= ClearSessionToken;
-        }*/
 
         public void UnsubscribeFromAuthenticationEvents()
         {
             PlayerAccountService.Instance.SignedIn -= SignInWithUnity;
-
             AuthenticationService.Instance.SignedIn -= OnAuthSignedIn;
-
-            if (_authenticationEventChannel.onAuthSignedOutSuccess != null)
-                AuthenticationService.Instance.SignedOut -= _authenticationEventChannel.onAuthSignedOutSuccess;
-
+            AuthenticationService.Instance.SignedOut -= onAuthSignedOutSuccess;
             AuthenticationService.Instance.SignedOut -= ClearSessionToken;
         }
 
@@ -161,7 +111,7 @@ namespace Cosmos.UnityServices.Auth
             }
             catch (Exception e)     // both Authentication and RequestFailedException errors are caught here
             {
-                _authenticationEventChannel.onAuthSignInFailed?.Invoke();
+                onAuthSignInFailed?.Invoke();
 
                 string reason = e.InnerException == null ? e.Message : $"{e.Message} ({e.InnerException.Message})";
                 _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Authentication Error", reason, UnityServiceErrorMessage.Service.Authentication, e));
@@ -189,7 +139,7 @@ namespace Cosmos.UnityServices.Auth
             }
             catch (Exception e)
             {
-                _authenticationEventChannel.onAuthSignInFailed?.Invoke();
+                onAuthSignInFailed?.Invoke();
 
                 string reason = e.InnerException == null ? e.Message : $"{e.Message} ({e.InnerException.Message})";
                 _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Annonymous Sign in Error", reason, UnityServiceErrorMessage.Service.Authentication, e));
@@ -213,7 +163,7 @@ namespace Cosmos.UnityServices.Auth
             }
             catch (Exception e)     // both Authentication and RequestFailedException errors are caught here
             {
-                _authenticationEventChannel.onLinkedInWithUnityFailed?.Invoke();
+                onLinkedInWithUnityFailed?.Invoke();
 
                 _linkWithUnityPlayerAccount = false;
                 string reason = e.InnerException == null ? e.Message : $"{e.Message} ({e.InnerException.Message})";
@@ -231,7 +181,7 @@ namespace Cosmos.UnityServices.Auth
                 }
                 await AuthenticationService.Instance.UnlinkUnityAsync();
 
-                _authenticationEventChannel.onUnlinkFromUnitySuccess?.Invoke();
+                onUnlinkFromUnitySuccess?.Invoke();
             }
             catch (AuthenticationException ex)
             {
@@ -290,9 +240,13 @@ namespace Cosmos.UnityServices.Auth
             try
             {
                 await AuthenticationService.Instance.UpdatePlayerNameAsync(playerName);
+
+                onAccountNameUpdateSuccess?.Invoke();
             }
             catch (Exception e)
             {
+                onAccountNameUpdateFailed?.Invoke();
+
                 string reason = e.InnerException == null ? e.Message : $"{e.Message} ({e.InnerException.Message})";
                 _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Authentication Error", reason, UnityServiceErrorMessage.Service.Authentication, e));
                 throw;
@@ -334,7 +288,12 @@ namespace Cosmos.UnityServices.Auth
         {
             await GetPlayerNameAsync();
             // _onAuthSignedIn?.Invoke();
-            _authenticationEventChannel.onAuthSignedInSuccess?.Invoke();
+            onAuthSignInSuccess?.Invoke();
+        }
+
+        private void OnAuthSignedOutSuccess()
+        {
+            onAuthSignedOutSuccess?.Invoke();
         }
 
         async Task GetPlayerNameAsync()
@@ -353,35 +312,30 @@ namespace Cosmos.UnityServices.Auth
                 {
                     await AuthenticationService.Instance.LinkWithUnityAsync(PlayerAccountService.Instance.AccessToken);
 
-                    _authenticationEventChannel.onLinkedInWithUnitySuccess?.Invoke();
+                    onLinkedInWithUnitySuccess?.Invoke();
                 }
                 else
                 {
                     await AuthenticationService.Instance.SignInWithUnityAsync(PlayerAccountService.Instance.AccessToken);
                 }
             }
-            /*catch (Exception e)
-            {
-                string reason = e.InnerException == null ? e.Message : $"{e.Message} ({e.InnerException.Message})";
-                _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Authentication Error", reason, UnityServiceErrorMessage.Service.Authentication, e));
-            }*/
             catch (AuthenticationException ex) when (ex.ErrorCode == AuthenticationErrorCodes.AccountAlreadyLinked)
             {
-                _authenticationEventChannel.onLinkedInWithUnityFailed?.Invoke();
+                onLinkedInWithUnityFailed?.Invoke();
 
                 string reason = ex.InnerException == null ? ex.Message : $"{ex.Message} ({ex.InnerException.Message})";
                 _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Link Account Error", reason, UnityServiceErrorMessage.Service.Authentication, ex));
             }
             catch (AuthenticationException ex)
             {
-                _authenticationEventChannel.onLinkedInWithUnityFailed?.Invoke();
+                onLinkedInWithUnityFailed?.Invoke();
 
                 string reason = ex.InnerException == null ? ex.Message : $"{ex.Message} ({ex.InnerException.Message})";
                 _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Link Account Error", reason, UnityServiceErrorMessage.Service.Authentication, ex)); ;
             }
             catch (RequestFailedException ex)
             {
-                _authenticationEventChannel.onLinkedInWithUnityFailed?.Invoke();
+                onLinkedInWithUnityFailed?.Invoke();
 
                 string reason = ex.InnerException == null ? ex.Message : $"{ex.Message} ({ex.InnerException.Message})";
                 _unityServiceErrorMessagePublisher.Publish(new UnityServiceErrorMessage("Link Account Error", reason, UnityServiceErrorMessage.Service.Authentication, ex));

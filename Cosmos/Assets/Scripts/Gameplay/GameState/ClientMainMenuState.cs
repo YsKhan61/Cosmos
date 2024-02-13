@@ -45,6 +45,9 @@ namespace Cosmos.Gameplay.GameState
         [SerializeField]
         private GameObject _signInSpinner;
 
+        [SerializeField]
+        AuthStatusUI _authStatusUI;
+
         private AuthenticationServiceFacade _authServiceFacade;
         ISubscriber<QuitApplicationMessage> _quitApplicationMessageSubscriber;
         private LocalLobbyUser _localLobbyUser;
@@ -88,25 +91,21 @@ namespace Cosmos.Gameplay.GameState
             AuthenticationServiceFacade authServiceFacade,
             LocalLobbyUser localLobbyUser,
             LocalLobby localLobby)
-            // ProfileManager profileManager)
-            // ISubscriber<QuitApplicationMessage> quitApplicationMessageSubscriber)
         {
             _authServiceFacade = authServiceFacade;
             _localLobbyUser = localLobbyUser;
             _localLobby = localLobby;
-            /*InitializationOptions options = _authServiceFacade.GenerateAuthenticationInitOptions();
-            _ = _authServiceFacade.InitializeToUnityServicesAsync(options);*/
             _ = _authServiceFacade.InitializeToUnityServicesAsync();
-
-            _authServiceFacade.SubscribeToAuthenticationEvents(new AuthenticationServiceFacade.AuthenticationEventChannel
-            {
-                onAuthSignedInSuccess = OnAuthSignInSuccess,
-                onAuthSignedOutSuccess = OnAuthSignedOutSuccess,
-                onAuthSignInFailed = OnSignInFailed,
-                onLinkedInWithUnitySuccess = OnLinkSuccess,
-                onLinkedInWithUnityFailed = OnLinkFailed,
-                onUnlinkFromUnitySuccess = OnUnlinkSuccess
-            });
+            _authServiceFacade.SubscribeToAuthenticationEvents();
+            
+            _authServiceFacade.onAuthSignInSuccess += OnAuthSignInSuccess;
+            _authServiceFacade.onAuthSignInFailed += OnSignInFailed;
+            _authServiceFacade.onAuthSignedOutSuccess += OnAuthSignedOutSuccess;
+            _authServiceFacade.onLinkedInWithUnitySuccess += OnLinkSuccess;
+            _authServiceFacade.onLinkedInWithUnityFailed += OnLinkFailed;
+            _authServiceFacade.onUnlinkFromUnitySuccess += OnUnlinkSuccess;
+            _authServiceFacade.onAccountNameUpdateSuccess += UpdateNameSuccess;
+            _authServiceFacade.onAccountNameUpdateFailed += UpdateNameFailed;
 
             Application.wantsToQuit += OnApplicationWantsToQuit;
         }
@@ -120,11 +119,6 @@ namespace Cosmos.Gameplay.GameState
                 return;
 
             await _authServiceFacade.UpdatePlayerNameAsync(name);
-
-            // Updating LocalLobbyUser and LocalLobby
-            _localLobby.RemoveUser(_localLobbyUser);
-            UpdateLocalLobbyUser();
-            _localLobby.AddUser(_localLobbyUser);
         }
 
         public void OnLobbyStartButtonClicked()
@@ -171,11 +165,10 @@ namespace Cosmos.Gameplay.GameState
             try
             {
                 await _authServiceFacade.LinkAccountWithUnityAsync();
-                // OnLinkSuccess();
             }
             catch (Exception)
             {
-                // OnLinkFailed();
+
             }
             finally
             {
@@ -206,7 +199,6 @@ namespace Cosmos.Gameplay.GameState
         internal void SignOut()
         {
             TryAuthSignOut();
-            // OnAuthSignedOutSuccess();
         }
 
         private void TryAuthSignOut()
@@ -243,6 +235,7 @@ namespace Cosmos.Gameplay.GameState
             // when that happens.
             _localLobby.AddUser(_localLobbyUser);
 
+            _authStatusUI.DisplayStatus("Signed in success!", 3);
         }
 
         private void OnAuthSignedOutSuccess()
@@ -251,6 +244,8 @@ namespace Cosmos.Gameplay.GameState
             _startMenuUIMediator.ShowLobbyButtonTooltip();
             _startMenuUIMediator.HidePanel();
             _signInUIMediator.ShowPanel();
+
+            _authStatusUI.DisplayStatus("Signed out success!", 3);
         }
 
         private void OnSignInFailed()
@@ -259,12 +254,16 @@ namespace Cosmos.Gameplay.GameState
             {
                 _signInSpinner.SetActive(false);
             }
+
+            _authStatusUI.DisplayStatus("Sign in failed!", 2);
         }
 
         private void OnLinkSuccess()
         {
             _startMenuUIMediator.ConfigureStartMenuAfterLinkAccountSuccess();
             _accountType = AccountType.UnityPlayerAccount;
+
+            _authStatusUI.DisplayStatus("Link account success!", 3);
         }
 
         private void OnLinkFailed()
@@ -277,6 +276,8 @@ namespace Cosmos.Gameplay.GameState
             }
 
             _startMenuUIMediator.ConfigureStartMenuAfterLinkAccountFailed();
+
+            _authStatusUI.DisplayStatus("Link account failed!", 2);
         }
 
         private void OnUnlinkSuccess()
@@ -286,6 +287,23 @@ namespace Cosmos.Gameplay.GameState
 
             _startMenuUIMediator.ConfigureStartMenuAfterUnlinkAccount();
             _accountType = AccountType.GuestAccount;
+
+            _authStatusUI.DisplayStatus("Unlink account success!", 3);
+        }
+
+        private void UpdateNameSuccess()
+        {
+            // Updating LocalLobbyUser and LocalLobby
+            _localLobby.RemoveUser(_localLobbyUser);
+            UpdateLocalLobbyUser();
+            _localLobby.AddUser(_localLobbyUser);
+
+            _authStatusUI.DisplayStatus("Name update success!", 3);
+        }
+
+        private void UpdateNameFailed()
+        {
+            _authStatusUI.DisplayStatus("Name update failed!", 2);
         }
 
         private void UpdateLocalLobbyUser()

@@ -22,6 +22,11 @@ namespace Cosmos.Gameplay.UI
         private float _pointerEnterTime = 0;
         private bool _isShwingTooltip;
 
+        private void OnDisable()
+        {
+            HideTooltip();
+        }
+
         public void SetText(string text)
         {
             bool wasChanged = text != _tooltipText;

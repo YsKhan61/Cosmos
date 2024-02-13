@@ -97,7 +97,16 @@ namespace Cosmos.Gameplay.GameState
             /*InitializationOptions options = _authServiceFacade.GenerateAuthenticationInitOptions();
             _ = _authServiceFacade.InitializeToUnityServicesAsync(options);*/
             _ = _authServiceFacade.InitializeToUnityServicesAsync();
-            _authServiceFacade.SubscribeToSignedInEvent(OnAuthSignIn);
+
+            _authServiceFacade.SubscribeToAuthenticationEvents(new AuthenticationServiceFacade.AuthenticationEventChannel
+            {
+                onAuthSignedInSuccess = OnAuthSignInSuccess,
+                onAuthSignedOutSuccess = OnAuthSignedOutSuccess,
+                onAuthSignInFailed = OnSignInFailed,
+                onLinkedInWithUnitySuccess = OnLinkSuccess,
+                onLinkedInWithUnityFailed = OnLinkFailed,
+                onUnlinkFromUnitySuccess = OnUnlinkSuccess
+            });
 
             Application.wantsToQuit += OnApplicationWantsToQuit;
         }
@@ -151,7 +160,7 @@ namespace Cosmos.Gameplay.GameState
             }
             catch (Exception)
             {
-                OnSignInFailed();
+                // OnSignInFailed();
             }
         }
 
@@ -162,13 +171,11 @@ namespace Cosmos.Gameplay.GameState
             try
             {
                 await _authServiceFacade.LinkAccountWithUnityAsync();
-                // await _authServiceFacade.SignInWithUnityAsync();
-
-                OnLinkSuccess();
+                // OnLinkSuccess();
             }
             catch (Exception)
             {
-                OnLinkFailed();
+                // OnLinkFailed();
             }
             finally
             {
@@ -199,18 +206,19 @@ namespace Cosmos.Gameplay.GameState
         internal void SignOut()
         {
             TryAuthSignOut();
-            Debug.Log("ClientMainMenuState: Player Signed out!");
-            OnAuthSignedOut();
+            // OnAuthSignedOutSuccess();
         }
 
         private void TryAuthSignOut()
         {
             _authServiceFacade.SignOutFromAuthService(true);
+            Debug.Log("ClientMainMenuState: Player Signed out from Authentication services!");
 
             switch (_accountType)
             {
                 case AccountType.UnityPlayerAccount:
                     _authServiceFacade.SignOutFromPlayerAccountService();
+                    Debug.Log("ClientMainMenuState: Player Signed out from Unity Player Account!");
                     break;
                 case AccountType.GuestAccount:
                     break;
@@ -219,12 +227,12 @@ namespace Cosmos.Gameplay.GameState
             }
         }
 
-        private void OnAuthSignIn()
+        private void OnAuthSignInSuccess()
         {
             _signInSpinner.SetActive(false);
             _signInUIMediator.HidePanel();
 
-            _startMenuUIMediator.ConfigureStartMenuAfterSignIn(_authServiceFacade.GetPlayerName());
+            _startMenuUIMediator.ConfigureStartMenuAfterSignInSuccess(_authServiceFacade.GetPlayerName());
 
             Debug.Log($"Signed in. Unity Player ID {_authServiceFacade.GetPlayerId()}");
             Debug.Log($"Signed in. Unity Player Name {_authServiceFacade.GetPlayerName()}");
@@ -237,7 +245,7 @@ namespace Cosmos.Gameplay.GameState
 
         }
 
-        private void OnAuthSignedOut()
+        private void OnAuthSignedOutSuccess()
         {
             _signInSpinner.SetActive(false);
             _startMenuUIMediator.ShowLobbyButtonTooltip();
@@ -255,20 +263,29 @@ namespace Cosmos.Gameplay.GameState
 
         private void OnLinkSuccess()
         {
-            _startMenuUIMediator.ConfigureStartMenuAfterLinkAccount();
+            _startMenuUIMediator.ConfigureStartMenuAfterLinkAccountSuccess();
+            _accountType = AccountType.UnityPlayerAccount;
         }
 
         private void OnLinkFailed()
         {
+            _authServiceFacade.SignOutFromPlayerAccountService();
+
             if (_signInSpinner)
             {
                 _signInSpinner.SetActive(false);
             }
+
+            _startMenuUIMediator.ConfigureStartMenuAfterLinkAccountFailed();
         }
 
         private void OnUnlinkSuccess()
         {
+            _authServiceFacade.SignOutFromPlayerAccountService();
+            Debug.Log("ClientMainMenuState: Player Signed out from Unity Player Account!");
+
             _startMenuUIMediator.ConfigureStartMenuAfterUnlinkAccount();
+            _accountType = AccountType.GuestAccount;
         }
 
         private void UpdateLocalLobbyUser()
@@ -291,7 +308,7 @@ namespace Cosmos.Gameplay.GameState
         {
             Application.wantsToQuit -= OnApplicationWantsToQuit;
             TryAuthSignOut();
-            _authServiceFacade.UnsubscribeFromSignedInEvent();
+            _authServiceFacade.UnsubscribeFromAuthenticationEvents();
             return true;
         }
     }

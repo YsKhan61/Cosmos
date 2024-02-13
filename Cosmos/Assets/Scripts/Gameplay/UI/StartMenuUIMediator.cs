@@ -89,7 +89,7 @@ namespace Cosmos.Gameplay.UI
             _clientMainMenuState.SavePlayerName(_playerNameInputField.text);
         }
 
-        internal void ConfigureStartMenuAfterSignIn(string playerName)
+        internal void ConfigureStartMenuAfterSignInSuccess(string playerName)
         {
             _lobbyButton.interactable = true;
             ShowPanel();
@@ -114,13 +114,22 @@ namespace Cosmos.Gameplay.UI
             }
         }
 
-        internal void ConfigureStartMenuAfterLinkAccount()
+        internal void ConfigureStartMenuAfterLinkAccountSuccess()
         {
             if (_linkAccountButton.gameObject.activeSelf)
                 _linkAccountButton.gameObject.SetActive(false);
 
             if (!_unlinkAccountButton.gameObject.activeSelf)
                 _unlinkAccountButton.gameObject.SetActive(true);
+        }
+
+        internal void ConfigureStartMenuAfterLinkAccountFailed()
+        {
+            if (!_linkAccountButton.gameObject.activeSelf)
+                _linkAccountButton.gameObject.SetActive(true);
+
+            if (_unlinkAccountButton.gameObject.activeSelf)
+                _unlinkAccountButton.gameObject.SetActive(false);
         }
 
         internal void ConfigureStartMenuAfterUnlinkAccount()

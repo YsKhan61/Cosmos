@@ -5,10 +5,8 @@ using Cosmos.Gameplay.UI;
 using Cosmos.Infrastructure;
 using Cosmos.UnityServices.Auth;
 using Cosmos.UnityServices.Lobbies;
-using Cosmos.Utilities;
 using System;
 using System.Threading.Tasks;
-using Unity.Services.Authentication;
 using Unity.Services.Core;
 using UnityEngine;
 using VContainer;
@@ -16,12 +14,6 @@ using VContainer.Unity;
 
 namespace Cosmos.Gameplay.GameState
 {
-    public enum AccountType
-    {
-        UnityPlayerAccount,
-        GuestAccount,
-    }
-
     /// <summary>
     /// Game logic that runs when sitting at the MainMenu. This is likely to be "nothing", as no game has been started.
     /// But it is nonetheless important to have a game state, as the GameStateBehaviour system requires that all scenes have states.
@@ -54,15 +46,12 @@ namespace Cosmos.Gameplay.GameState
         AuthStatusUI _authStatusUI;
 
         private AuthenticationServiceFacade _authServiceFacade;
-        ISubscriber<QuitApplicationMessage> _quitApplicationMessageSubscriber;
         private LocalLobbyUser _localLobbyUser;
         private LocalLobby _localLobby;
 
         public override GameState ActiveState => GameState.MainMenu;
 
-        private AccountType _accountType;
-        public AccountType AccountType => _accountType;
-
+        public AccountType AccountType => _authServiceFacade.AccountType;
         protected override void Awake()
         {
             base.Awake();
@@ -75,11 +64,31 @@ namespace Cosmos.Gameplay.GameState
                 OnSignInFailed();
                 return;
             }
+
+            
+            /*InitializationOptions options = new InitializationOptions();
+            options.SetProfile(profileManager.ProfileName);
+            _ = _authServiceFacade.InitializeToUnityServicesAsync(options);*/
+
+            _ = _authServiceFacade.InitializeToUnityServicesAsync();
         }
 
         protected override void Start()
         {
             base.Start();
+
+            _authServiceFacade.SubscribeToAuthenticationEvents();
+
+            _authServiceFacade.onAuthSignInSuccess += OnAuthSignInSuccess;
+            _authServiceFacade.onAuthSignInFailed += OnSignInFailed;
+            _authServiceFacade.onAuthSignedOutSuccess += OnAuthSignedOutSuccess;
+            _authServiceFacade.onLinkedInWithUnitySuccess += OnLinkSuccess;
+            _authServiceFacade.onLinkedInWithUnityFailed += OnLinkFailed;
+            _authServiceFacade.onUnlinkFromUnitySuccess += OnUnlinkSuccess;
+            _authServiceFacade.onAccountNameUpdateSuccess += UpdateNameSuccess;
+            _authServiceFacade.onAccountNameUpdateFailed += UpdateNameFailed;
+
+            Application.wantsToQuit += OnApplicationWantsToQuit;
 
             ConfigureMainMenuAtStart();
         }
@@ -88,6 +97,16 @@ namespace Cosmos.Gameplay.GameState
         {
             // Application.wantsToQuit -= OnApplicationWantsToQuit;
             base.OnDestroy();
+
+            _authServiceFacade.onAuthSignInSuccess -= OnAuthSignInSuccess;
+            _authServiceFacade.onAuthSignInFailed -= OnSignInFailed;
+            _authServiceFacade.onAuthSignedOutSuccess -= OnAuthSignedOutSuccess;
+            _authServiceFacade.onLinkedInWithUnitySuccess -= OnLinkSuccess;
+            _authServiceFacade.onLinkedInWithUnityFailed -= OnLinkFailed;
+            _authServiceFacade.onUnlinkFromUnitySuccess -= OnUnlinkSuccess;
+            _authServiceFacade.onAccountNameUpdateSuccess -= UpdateNameSuccess;
+            _authServiceFacade.onAccountNameUpdateFailed -= UpdateNameFailed;
+            _authServiceFacade.UnsubscribeFromAuthenticationEvents();
         }
 
         protected override void Configure(IContainerBuilder builder)
@@ -108,25 +127,6 @@ namespace Cosmos.Gameplay.GameState
             _authServiceFacade = authServiceFacade;
             _localLobbyUser = localLobbyUser;
             _localLobby = localLobby;
-
-            /*InitializationOptions options = new InitializationOptions();
-            options.SetProfile(profileManager.ProfileName);
-            _ = _authServiceFacade.InitializeToUnityServicesAsync(options);*/
-
-            _ = _authServiceFacade.InitializeToUnityServicesAsync();
-
-            _authServiceFacade.SubscribeToAuthenticationEvents();
-            
-            _authServiceFacade.onAuthSignInSuccess += OnAuthSignInSuccess;
-            _authServiceFacade.onAuthSignInFailed += OnSignInFailed;
-            _authServiceFacade.onAuthSignedOutSuccess += OnAuthSignedOutSuccess;
-            _authServiceFacade.onLinkedInWithUnitySuccess += OnLinkSuccess;
-            _authServiceFacade.onLinkedInWithUnityFailed += OnLinkFailed;
-            _authServiceFacade.onUnlinkFromUnitySuccess += OnUnlinkSuccess;
-            _authServiceFacade.onAccountNameUpdateSuccess += UpdateNameSuccess;
-            _authServiceFacade.onAccountNameUpdateFailed += UpdateNameFailed;
-
-            Application.wantsToQuit += OnApplicationWantsToQuit;
         }
 
         /// <summary>
@@ -160,11 +160,10 @@ namespace Cosmos.Gameplay.GameState
                 return false;
             }
 
-            _signInSpinner.SetActive(true);
-            _accountType = accountType;
-
             try
             {
+                _signInSpinner.SetActive(true);
+
                 _authServiceFacade.SignOutFromAuthService(true);
 
                 InitializationOptions options = _authServiceFacade.GenerateAuthenticationInitOptions(profileName);
@@ -172,7 +171,7 @@ namespace Cosmos.Gameplay.GameState
 
                 _authServiceFacade.SwitchProfile(profileName);
 
-                switch (_accountType)
+                switch (accountType)
                 {
                     case AccountType.UnityPlayerAccount:
                         await _authServiceFacade.SignInWithUnityAsync();
@@ -230,9 +229,22 @@ namespace Cosmos.Gameplay.GameState
             }
         }
 
-        internal void SignOut()
+        internal void TrySignOut()
         {
-            TryAuthSignOut();
+            _authServiceFacade.SignOutFromAuthService(true);
+            Debug.Log("ClientMainMenuState: Player Signed out from Authentication services!");
+
+            switch (AccountType)
+            {
+                case AccountType.UnityPlayerAccount:
+                    _authServiceFacade.SignOutFromPlayerAccountService();
+                    Debug.Log("ClientMainMenuState: Player Signed out from Unity Player Account!");
+                    break;
+                case AccountType.GuestAccount:
+                    break;
+                default:
+                    break;
+            }
         }
 
 
@@ -251,24 +263,6 @@ namespace Cosmos.Gameplay.GameState
             else
             {
                 _signInUIMediator.ShowPanel();
-            }
-        }
-
-        private void TryAuthSignOut()
-        {
-            _authServiceFacade.SignOutFromAuthService(true);
-            Debug.Log("ClientMainMenuState: Player Signed out from Authentication services!");
-
-            switch (_accountType)
-            {
-                case AccountType.UnityPlayerAccount:
-                    _authServiceFacade.SignOutFromPlayerAccountService();
-                    Debug.Log("ClientMainMenuState: Player Signed out from Unity Player Account!");
-                    break;
-                case AccountType.GuestAccount:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -315,7 +309,6 @@ namespace Cosmos.Gameplay.GameState
         private void OnLinkSuccess()
         {
             _startMenuUIMediator.ConfigureStartMenuAfterLinkAccountSuccess();
-            _accountType = AccountType.UnityPlayerAccount;
 
             _authStatusUI.DisplayStatus("Link account success!", 3);
         }
@@ -340,7 +333,6 @@ namespace Cosmos.Gameplay.GameState
             Debug.Log("ClientMainMenuState: Player Signed out from Unity Player Account!");
 
             _startMenuUIMediator.ConfigureStartMenuAfterUnlinkAccount();
-            _accountType = AccountType.GuestAccount;
 
             _authStatusUI.DisplayStatus("Unlink account success!", 3);
         }
@@ -379,7 +371,7 @@ namespace Cosmos.Gameplay.GameState
         private bool OnApplicationWantsToQuit()
         {
             Application.wantsToQuit -= OnApplicationWantsToQuit;
-            TryAuthSignOut();
+            TrySignOut();
             _authServiceFacade.UnsubscribeFromAuthenticationEvents();
             return true;
         }

@@ -1,4 +1,5 @@
 using Cosmos.Gameplay.GameState;
+using Cosmos.UnityServices.Auth;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

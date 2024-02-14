@@ -40,6 +40,9 @@ namespace Cosmos.Gameplay.UI
         [Tooltip("Text element containing player count which updates as players connect")]
         TextMeshProUGUI m_NumPlayersText;
 
+        [SerializeField]
+        Sprite m_OwnerIcon;
+
         private void Awake()
         {
             m_NetcodeHooks.OnNetworkSpawnHook += OnNetworkSpawn;
@@ -120,11 +123,31 @@ namespace Cosmos.Gameplay.UI
                 m_MemberInfos[i].ClientId = m_NetworkCharSelection.LobbyPlayers[i].ClientId;
                 m_MemberInfos[i].NameText.text = m_NetworkCharSelection.LobbyPlayers[i].PlayerName;
 
-                // Only the host can kick other members
-                if (NetworkManager.Singleton.IsHost && m_MemberInfos[i].ClientId != NetworkManager.Singleton.LocalClientId)
+
+                if (m_NetworkCharSelection.LobbyPlayers[i].IsHost)
+                {
                     m_MemberInfos[i].KickButton.gameObject.SetActive(true);
+                    m_MemberInfos[i].KickButton.image.sprite = m_OwnerIcon;
+                }
+                else if (NetworkManager.Singleton.IsHost)
+                {
+                    m_MemberInfos[i].KickButton.gameObject.SetActive(true);
+                }
                 else
+                {
                     m_MemberInfos[i].KickButton.gameObject.SetActive(false);
+                }
+
+                /*// Only the host can kick other members
+                if (NetworkManager.Singleton.IsHost
+                    && !m_NetworkCharSelection.LobbyPlayers[i].IsHost)
+                {
+                    m_MemberInfos[i].KickButton.gameObject.SetActive(true);
+                }
+                else
+                {
+                    m_MemberInfos[i].KickButton.gameObject.SetActive(false);
+                }*/
             }
         }
 

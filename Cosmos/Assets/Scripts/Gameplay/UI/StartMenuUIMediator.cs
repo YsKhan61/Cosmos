@@ -1,5 +1,6 @@
 using Cosmos.Gameplay.Configuration;
 using Cosmos.Gameplay.GameState;
+using Cosmos.UnityServices.Auth;
 using System;
 using TMPro;
 using UnityEngine;
@@ -70,7 +71,7 @@ namespace Cosmos.Gameplay.UI
         /// </summary>
         public void SignOut()
         {
-            _clientMainMenuState.SignOut();
+            _clientMainMenuState.TrySignOut();
         }
 
         /// <summary>

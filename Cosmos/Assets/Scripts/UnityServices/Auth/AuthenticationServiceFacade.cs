@@ -8,6 +8,13 @@ using VContainer;
 
 namespace Cosmos.UnityServices.Auth
 {
+    public enum AccountType
+    {
+        None,
+        UnityPlayerAccount,
+        GuestAccount,
+    }
+
     public class AuthenticationServiceFacade
     {
         public event Action onAuthSignInSuccess;
@@ -23,6 +30,8 @@ namespace Cosmos.UnityServices.Auth
         IPublisher<UnityServiceErrorMessage> _unityServiceErrorMessagePublisher;
 
         private bool _linkWithUnityPlayerAccount;             // whether it will be sign in or link account
+
+        public AccountType AccountType {get; private set;}
 
         public void SubscribeToAuthenticationEvents()
         {
@@ -62,9 +71,15 @@ namespace Cosmos.UnityServices.Auth
 
         public async Task InitializeToUnityServicesAsync()
         {
+            if (Unity.Services.Core.UnityServices.State == ServicesInitializationState.Initialized)
+            {
+                return;
+            }
+
             try
             {
                 await Unity.Services.Core.UnityServices.InitializeAsync();
+                AccountType = AccountType.None;
             }
             catch (Exception e)
             {
@@ -79,6 +94,7 @@ namespace Cosmos.UnityServices.Auth
             try
             {
                 await Unity.Services.Core.UnityServices.InitializeAsync(initializationOptions);
+                AccountType = AccountType.None;
             }
             catch (Exception e)
             {
@@ -91,13 +107,6 @@ namespace Cosmos.UnityServices.Auth
         public async Task SignInWithUnityAsync()
         {
             _linkWithUnityPlayerAccount = false;
-
-            /*if (AuthenticationService.Instance.SessionTokenExists)
-            {
-                SignOutFromAuthService(true);
-
-                SwitchProfile(string.Empty);
-            }*/
 
             if (PlayerAccountService.Instance.IsSignedIn)
             {
@@ -123,13 +132,6 @@ namespace Cosmos.UnityServices.Auth
         {
             try
             {
-                /*if (AuthenticationService.Instance.SessionTokenExists)
-                {
-                    SignOutFromAuthService(true);
-
-                    SwitchProfile(string.Empty);
-                }*/
-
                 if (AuthenticationService.Instance.IsSignedIn)
                 {
                     // throw exception
@@ -137,6 +139,8 @@ namespace Cosmos.UnityServices.Auth
                 }
 
                 await AuthenticationService.Instance.SignInAnonymouslyAsync();
+
+                AccountType = AccountType.GuestAccount;
             }
             catch (Exception e)
             {
@@ -262,12 +266,17 @@ namespace Cosmos.UnityServices.Auth
 
         public void SignOutFromAuthService(bool clearCredentials = false)
         {
-            AuthenticationService.Instance.SignOut(clearCredentials);
+            if (IsSignedIn())
+            {
+                AuthenticationService.Instance.SignOut(clearCredentials);
+                AccountType = AccountType.None;
+            }
         }
 
         public void SignOutFromPlayerAccountService()
         {
             PlayerAccountService.Instance.SignOut();
+            AccountType = AccountType.GuestAccount;
         }
 
         public string GetPlayerName()
@@ -303,6 +312,7 @@ namespace Cosmos.UnityServices.Auth
 
         private void OnAuthSignedOutSuccess()
         {
+            AccountType = AccountType.None;
             onAuthSignedOutSuccess?.Invoke();
         }
 
@@ -321,13 +331,14 @@ namespace Cosmos.UnityServices.Auth
                 if (_linkWithUnityPlayerAccount)
                 {
                     await AuthenticationService.Instance.LinkWithUnityAsync(PlayerAccountService.Instance.AccessToken);
-
+                   
                     onLinkedInWithUnitySuccess?.Invoke();
                 }
                 else
                 {
                     await AuthenticationService.Instance.SignInWithUnityAsync(PlayerAccountService.Instance.AccessToken);
                 }
+                AccountType = AccountType.UnityPlayerAccount;
             }
             catch (AuthenticationException ex) when (ex.ErrorCode == AuthenticationErrorCodes.AccountAlreadyLinked)
             {

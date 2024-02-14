@@ -23,7 +23,7 @@ namespace Cosmos.Gameplay.GameState
         public struct LobbyPlayerState : INetworkSerializable, IEquatable<LobbyPlayerState>
         {
             public ulong ClientId;
-
+            public bool IsHost;
             private FixedPlayerName m_PlayerName; // I'm sad also there's no 256Bytes fixed list :(
 
             public int PlayerNumber; // this player's assigned "P#". (0=P1, 1=P2, etc.)
@@ -32,9 +32,10 @@ namespace Cosmos.Gameplay.GameState
 
             public SeatState SeatState;
 
-            public LobbyPlayerState(ulong clientId, string name, int playerNumber, SeatState state, int seatIdx = -1, float lastChangeTime = 0)
+            public LobbyPlayerState(ulong clientId, bool isHost, string name, int playerNumber, SeatState state, int seatIdx = -1, float lastChangeTime = 0)
             {
                 ClientId = clientId;
+                IsHost = isHost;
                 PlayerNumber = playerNumber;
                 SeatState = state;
                 SeatIdx = seatIdx;

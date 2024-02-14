@@ -1,10 +1,15 @@
-﻿using Cosmos.ApplicationLifecycle.Messages;
+﻿using Codice.Client.Common;
+using Cosmos.ApplicationLifecycle.Messages;
 using Cosmos.Gameplay.Configuration;
 using Cosmos.Gameplay.UI;
 using Cosmos.Infrastructure;
 using Cosmos.UnityServices.Auth;
 using Cosmos.UnityServices.Lobbies;
+using Cosmos.Utilities;
 using System;
+using System.Threading.Tasks;
+using Unity.Services.Authentication;
+using Unity.Services.Core;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -72,6 +77,13 @@ namespace Cosmos.Gameplay.GameState
             }
         }
 
+        protected override void Start()
+        {
+            base.Start();
+
+            ConfigureMainMenuAtStart();
+        }
+
         protected override void OnDestroy()
         {
             // Application.wantsToQuit -= OnApplicationWantsToQuit;
@@ -91,11 +103,18 @@ namespace Cosmos.Gameplay.GameState
             AuthenticationServiceFacade authServiceFacade,
             LocalLobbyUser localLobbyUser,
             LocalLobby localLobby)
+            // ProfileManager profileManager)
         {
             _authServiceFacade = authServiceFacade;
             _localLobbyUser = localLobbyUser;
             _localLobby = localLobby;
+
+            /*InitializationOptions options = new InitializationOptions();
+            options.SetProfile(profileManager.ProfileName);
+            _ = _authServiceFacade.InitializeToUnityServicesAsync(options);*/
+
             _ = _authServiceFacade.InitializeToUnityServicesAsync();
+
             _authServiceFacade.SubscribeToAuthenticationEvents();
             
             _authServiceFacade.onAuthSignInSuccess += OnAuthSignInSuccess;
@@ -133,13 +152,26 @@ namespace Cosmos.Gameplay.GameState
             _ipUIMediator.Show();
         }
 
-        internal async void TrySignIn(AccountType accountType)
+        internal async Task<bool> TrySignIn(AccountType accountType, string profileName)
         {
+            if (string.IsNullOrEmpty(profileName))
+            {
+                _authStatusUI.DisplayStatus("Profile name can't be empty!", 2);
+                return false;
+            }
+
             _signInSpinner.SetActive(true);
             _accountType = accountType;
 
             try
             {
+                _authServiceFacade.SignOutFromAuthService(true);
+
+                InitializationOptions options = _authServiceFacade.GenerateAuthenticationInitOptions(profileName);
+                await _authServiceFacade.InitializeToUnityServicesAsync(options);
+
+                _authServiceFacade.SwitchProfile(profileName);
+
                 switch (_accountType)
                 {
                     case AccountType.UnityPlayerAccount:
@@ -155,7 +187,9 @@ namespace Cosmos.Gameplay.GameState
             catch (Exception)
             {
                 // OnSignInFailed();
+                return false;
             }
+            return true;
         }
 
         internal async void LinkAccountWithUnityAsync()
@@ -201,6 +235,25 @@ namespace Cosmos.Gameplay.GameState
             TryAuthSignOut();
         }
 
+
+        /// <summary>
+        /// Temporary method to configure the main menu UI at start.
+        /// If the player just starts the game, then show SignIn Panel, 
+        /// if the player is returning back from lobby/game scene, then show Start Main Menu Panel.
+        /// </summary>
+        private void ConfigureMainMenuAtStart()
+        {
+            if (_authServiceFacade.IsSignedIn())
+            {
+                _signInUIMediator.HidePanel();
+                _startMenuUIMediator.ConfigureStartMenuAfterSignInSuccess(_authServiceFacade.GetPlayerName());
+            }
+            else
+            {
+                _signInUIMediator.ShowPanel();
+            }
+        }
+
         private void TryAuthSignOut()
         {
             _authServiceFacade.SignOutFromAuthService(true);
@@ -240,12 +293,13 @@ namespace Cosmos.Gameplay.GameState
 
         private void OnAuthSignedOutSuccess()
         {
-            _signInSpinner.SetActive(false);
-            _startMenuUIMediator.ShowLobbyButtonTooltip();
-            _startMenuUIMediator.HidePanel();
-            _signInUIMediator.ShowPanel();
+            if (_signInSpinner) _signInSpinner.SetActive(false); // This can be null if the scene is being unloaded on play mode stop.
 
-            _authStatusUI.DisplayStatus("Signed out success!", 3);
+            _startMenuUIMediator?.ShowLobbyButtonTooltip();
+            _startMenuUIMediator?.HidePanel();
+            _signInUIMediator?.ShowPanel();
+
+            _authStatusUI?.DisplayStatus("Signed out success!", 3);
         }
 
         private void OnSignInFailed()

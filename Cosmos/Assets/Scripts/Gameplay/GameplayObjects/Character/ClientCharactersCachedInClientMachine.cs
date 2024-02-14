@@ -3,7 +3,6 @@ using Cosmos.Gameplay.Configuration;
 using Cosmos.Infrastructure;
 using System;
 using System.Collections.Generic;
-using Unity.Multiplayer.Samples.BossRoom;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -24,7 +23,7 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
     [RequireComponent(typeof(ClientCharacter))]
     public class ClientCharactersCachedInClientMachine : NetworkBehaviour
     {
-        static List<ClientCharacter> s_ActivePlayers = new List<ClientCharacter>();
+        static List<ClientCharacter> s_ActivePlayers = new();
 
         [SerializeField]
         ClientCharacter m_CachedServerCharacter;
@@ -34,10 +33,16 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
             s_ActivePlayers.Add(m_CachedServerCharacter);
         }
 
-        void Disable()
+        public override void OnNetworkDespawn()
         {
+            base.OnNetworkDespawn();
             s_ActivePlayers.Remove(m_CachedServerCharacter);
         }
+
+        /*void Disable()
+        {
+            s_ActivePlayers.Remove(m_CachedServerCharacter);
+        }*/
 
         /// <summary>
         /// Returns a list of all active players' ClientCharacters. Treat the list as read-only!

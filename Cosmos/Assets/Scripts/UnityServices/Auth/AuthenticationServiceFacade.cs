@@ -92,12 +92,12 @@ namespace Cosmos.UnityServices.Auth
         {
             _linkWithUnityPlayerAccount = false;
 
-            if (AuthenticationService.Instance.SessionTokenExists)
+            /*if (AuthenticationService.Instance.SessionTokenExists)
             {
                 SignOutFromAuthService(true);
 
                 SwitchProfile(string.Empty);
-            }
+            }*/
 
             if (PlayerAccountService.Instance.IsSignedIn)
             {
@@ -121,20 +121,21 @@ namespace Cosmos.UnityServices.Auth
 
         public async Task SignInAnonymously()
         {
-            if (AuthenticationService.Instance.SessionTokenExists)
-            {
-                SignOutFromAuthService(true);
-
-                SwitchProfile(string.Empty);
-            }
-
-            if (AuthenticationService.Instance.IsSignedIn)
-            {
-                return;
-            }
-
             try
             {
+                /*if (AuthenticationService.Instance.SessionTokenExists)
+                {
+                    SignOutFromAuthService(true);
+
+                    SwitchProfile(string.Empty);
+                }*/
+
+                if (AuthenticationService.Instance.IsSignedIn)
+                {
+                    // throw exception
+                    throw new Exception();
+                }
+
                 await AuthenticationService.Instance.SignInAnonymouslyAsync();
             }
             catch (Exception e)
@@ -279,15 +280,24 @@ namespace Cosmos.UnityServices.Auth
             return AuthenticationService.Instance.PlayerId;
         }
         
-        void SwitchProfile(string profileName)
+        public void SwitchProfile(string profileName)
         {
+            if (AuthenticationService.Instance.IsSignedIn)
+            {
+                SignOutFromAuthService(true);
+            }
+
             AuthenticationService.Instance.SwitchProfile(profileName);
+        }
+
+        public bool IsSignedIn()
+        {
+            return AuthenticationService.Instance.IsSignedIn;
         }
 
         private async void OnAuthSignedIn()
         {
             await GetPlayerNameAsync();
-            // _onAuthSignedIn?.Invoke();
             onAuthSignInSuccess?.Invoke();
         }
 

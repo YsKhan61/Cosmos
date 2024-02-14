@@ -1,4 +1,5 @@
 using Cosmos.Gameplay.GameState;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,21 +23,24 @@ namespace Cosmos.Gameplay.UI
         [SerializeField]
         Button _signInAsGuestButton;
 
+        [SerializeField]
+        TMP_InputField _profileNameInputField;
+
         private void Awake()
         {
             ShowPanel();
         }
 
-        public void SignInWithUnityPlayerAccount()
+        public async void SignInWithUnityPlayerAccount()
         {
-            _clientMainMenuState.TrySignIn(AccountType.UnityPlayerAccount);
-            _signInWithPlayerAccountButton.interactable = false;
+            bool success = await _clientMainMenuState.TrySignIn(AccountType.UnityPlayerAccount, _profileNameInputField.text);
+            if (success) _signInWithPlayerAccountButton.interactable = false;
         }
 
-        public void SignInAsGuest()
+        public async void SignInAsGuest()
         {
-            _clientMainMenuState.TrySignIn(AccountType.GuestAccount);
-            _signInAsGuestButton.interactable = false;
+            bool success = await _clientMainMenuState.TrySignIn(AccountType.GuestAccount, _profileNameInputField.text);
+            if (success) _signInAsGuestButton.interactable = false;
         }
 
         public void ShowPanel()

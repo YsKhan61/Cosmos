@@ -152,12 +152,13 @@ namespace Cosmos.Gameplay.UI
 
         internal void ShowLobbyButtonTooltip()
         {
-            _lobbyButtonTooltipDetector.enabled = true;
+            // the _lobbyButtonTooltipDetector can be null if the StartMenuUIMediator is not enabled in the scene
+            if (_lobbyButtonTooltipDetector != null && !_lobbyButtonTooltipDetector.enabled) _lobbyButtonTooltipDetector.enabled = true;
         }
 
         internal void HideLobbyButtonTooltip()
         {
-            _lobbyButtonTooltipDetector.enabled = false;
+            if (_lobbyButtonTooltipDetector != null && _lobbyButtonTooltipDetector.enabled) _lobbyButtonTooltipDetector.enabled = false;
         }
     }
 }

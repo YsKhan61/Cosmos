@@ -148,7 +148,8 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
                 return true;
             }
 
-            Debug.LogError("OwnerRadarSystem: GetAvatarPosition: ClientId not found in the list.");
+            // Try to think some better approach for future
+            Debug.LogWarning("OwnerRadarSystem: GetAvatarPosition: ClientId not found in the list.");
             avatarPosition = Vector3.zero;
             return false;
         }

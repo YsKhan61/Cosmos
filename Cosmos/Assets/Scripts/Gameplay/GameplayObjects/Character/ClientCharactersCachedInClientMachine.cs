@@ -39,11 +39,6 @@ namespace Cosmos.Gameplay.GameplayObjects.Character
             s_ActivePlayers.Remove(m_CachedServerCharacter);
         }
 
-        /*void Disable()
-        {
-            s_ActivePlayers.Remove(m_CachedServerCharacter);
-        }*/
-
         /// <summary>
         /// Returns a list of all active players' ClientCharacters. Treat the list as read-only!
         /// The list will be empty on the client.

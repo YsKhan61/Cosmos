@@ -124,10 +124,11 @@ namespace Cosmos.Gameplay.UI
                 m_MemberInfos[i].NameText.text = m_NetworkCharSelection.LobbyPlayers[i].PlayerName;
 
 
-                if (m_NetworkCharSelection.LobbyPlayers[i].IsHost)
+                if (m_NetworkCharSelection.LobbyPlayers[i].ClientId == NetworkManager.ServerClientId)
                 {
                     m_MemberInfos[i].KickButton.gameObject.SetActive(true);
                     m_MemberInfos[i].KickButton.image.sprite = m_OwnerIcon;
+                    continue;
                 }
                 else if (NetworkManager.Singleton.IsHost)
                 {

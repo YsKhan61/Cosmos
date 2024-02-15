@@ -130,7 +130,6 @@ namespace Cosmos.Gameplay.GameState
                         // Instead of granting lock request, change this player to Inactive state.
                         networkCharSelection.LobbyPlayers[idx] = new NetworkCharSelection.LobbyPlayerState(
                             clientId,
-                            clientId == NetworkManager.Singleton.LocalClientId,
                             networkCharSelection.LobbyPlayers[idx].PlayerName,
                             networkCharSelection.LobbyPlayers[idx].PlayerNumber,
                             NetworkCharSelection.SeatState.Inactive);
@@ -143,7 +142,6 @@ namespace Cosmos.Gameplay.GameState
 
             networkCharSelection.LobbyPlayers[idx] = new NetworkCharSelection.LobbyPlayerState(
                 clientId,
-                clientId == NetworkManager.Singleton.LocalClientId,
                 networkCharSelection.LobbyPlayers[idx].PlayerName,
                 networkCharSelection.LobbyPlayers[idx].PlayerNumber,
                 lockedIn ? NetworkCharSelection.SeatState.LockedIn : NetworkCharSelection.SeatState.Active,
@@ -161,7 +159,6 @@ namespace Cosmos.Gameplay.GameState
                         // change this player to Inactive state.
                         networkCharSelection.LobbyPlayers[i] = new NetworkCharSelection.LobbyPlayerState(
                             networkCharSelection.LobbyPlayers[i].ClientId,
-                            clientId == NetworkManager.Singleton.LocalClientId,
                             networkCharSelection.LobbyPlayers[i].PlayerName,
                             networkCharSelection.LobbyPlayers[i].PlayerNumber,
                             NetworkCharSelection.SeatState.Inactive);
@@ -256,9 +253,8 @@ namespace Cosmos.Gameplay.GameState
 
                 networkCharSelection.LobbyPlayers.Add(new NetworkCharSelection.LobbyPlayerState(
                     clientId,
-                    clientId == NetworkManager.Singleton.LocalClientId,
-                    playerData.PlayerName, 
-                    playerData.PlayerNumber, 
+                    playerData.PlayerName,
+                    playerData.PlayerNumber,
                     NetworkCharSelection.SeatState.Inactive));
                 SessionManager<SessionPlayerData>.Instance.SetPlayerData(clientId, playerData);
             }

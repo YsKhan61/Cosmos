@@ -1167,7 +1167,7 @@ PrefabInstance:
       objectReference: {fileID: 303362997}
     - target: {fileID: 5113408392437615310, guid: 4eddc94136896f84185c9315a624d2eb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 12194.072
+      value: 21565.547
       objectReference: {fileID: 0}
     - target: {fileID: 6173547275747461569, guid: 4eddc94136896f84185c9315a624d2eb, type: 3}
       propertyPath: m_ServerChatSystem

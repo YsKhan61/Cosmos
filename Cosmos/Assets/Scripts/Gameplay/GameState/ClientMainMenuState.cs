@@ -1,12 +1,8 @@
-﻿using Codice.Client.Common;
-using Cosmos.ApplicationLifecycle.Messages;
-using Cosmos.Gameplay.Configuration;
+﻿using Cosmos.Gameplay.Configuration;
 using Cosmos.Gameplay.UI;
-using Cosmos.Infrastructure;
 using Cosmos.UnityServices.Auth;
 using Cosmos.UnityServices.Lobbies;
 using System;
-using System.Threading.Tasks;
 using Unity.Services.Core;
 using UnityEngine;
 using VContainer;

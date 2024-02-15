@@ -152,12 +152,12 @@ namespace Cosmos.Gameplay.GameState
             _ipUIMediator.Show();
         }
 
-        internal async Task<bool> TrySignIn(AccountType accountType, string profileName)
+        internal async void TrySignIn(AccountType accountType, string profileName)
         {
             if (string.IsNullOrEmpty(profileName))
             {
                 _authStatusUI.DisplayStatus("Profile name can't be empty!", 2);
-                return false;
+                return;
             }
 
             try
@@ -186,9 +186,9 @@ namespace Cosmos.Gameplay.GameState
             catch (Exception)
             {
                 // OnSignInFailed();
-                return false;
+                return;
             }
-            return true;
+            return;
         }
 
         internal async void LinkAccountWithUnityAsync()
@@ -302,6 +302,8 @@ namespace Cosmos.Gameplay.GameState
             {
                 _signInSpinner.SetActive(false);
             }
+
+            _signInUIMediator.ConfigurePanelOnSignInFailed();
 
             _authStatusUI.DisplayStatus("Sign in failed!", 2);
         }

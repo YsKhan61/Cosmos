@@ -32,19 +32,33 @@ namespace Cosmos.Gameplay.UI
             ShowPanel();
         }
 
-        public async void SignInWithUnityPlayerAccount()
+        /// <summary>
+        /// Called from Button UI element. Attempts to sign in with Unity Player Account.
+        /// </summary>
+        public void SignInWithUnityPlayerAccount()
         {
-            bool success = await _clientMainMenuState.TrySignIn(AccountType.UnityPlayerAccount, _profileNameInputField.text);
-            if (success) _signInWithPlayerAccountButton.interactable = false;
+            _clientMainMenuState.TrySignIn(AccountType.UnityPlayerAccount, _profileNameInputField.text);
+            _signInWithPlayerAccountButton.interactable = false;
+            _signInAsGuestButton.interactable = false;
         }
 
-        public async void SignInAsGuest()
+        /// <summary>
+        /// Called from Button UI element. Attempts to sign in as a guest.
+        /// </summary>
+        public void SignInAsGuest()
         {
-            bool success = await _clientMainMenuState.TrySignIn(AccountType.GuestAccount, _profileNameInputField.text);
-            if (success) _signInAsGuestButton.interactable = false;
+            _clientMainMenuState.TrySignIn(AccountType.GuestAccount, _profileNameInputField.text);
+            _signInAsGuestButton.interactable = false;
+            _signInWithPlayerAccountButton.interactable = false;
         }
 
-        public void ShowPanel()
+        internal void ConfigurePanelOnSignInFailed()
+        {
+            _signInWithPlayerAccountButton.interactable = true;
+            _signInAsGuestButton.interactable = true;
+        }
+
+        internal void ShowPanel()
         {
             _signInWithPlayerAccountButton.interactable = true;
             _signInAsGuestButton.interactable = true;
@@ -53,7 +67,7 @@ namespace Cosmos.Gameplay.UI
             _canvasGroup.interactable = true;
         }
 
-        public void HidePanel()
+        internal void HidePanel()
         {
             _canvasGroup.gameObject.SetActive(false);
             _canvasGroup.interactable = false;

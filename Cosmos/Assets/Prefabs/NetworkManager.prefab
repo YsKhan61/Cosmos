@@ -51,7 +51,7 @@ MonoBehaviour:
     PlayerPrefab: {fileID: 5312622522671544307, guid: 49fe32af3529a444badffad2e004728f, type: 3}
     Prefabs:
       NetworkPrefabsLists:
-      - {fileID: 11400000, guid: cd908f4be5f6689408a9d8bf26ecb82f, type: 2}
+      - {fileID: 11400000, guid: 18a1d2cdb290d1043b3f4fb410baba52, type: 2}
     TickRate: 30
     ClientConnectionBufferTimeout: 5
     ConnectionApproval: 1

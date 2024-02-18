@@ -781,9 +781,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6746425974583477947, guid: 6308023857c353849823b04c147886a1, type: 3}
+      propertyPath: m_BoolEventChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: 3e456ac57bc8c874cbed76328a70cc85, type: 2}
     - target: {fileID: 7217547041887648259, guid: 6308023857c353849823b04c147886a1, type: 3}
       propertyPath: m_Name
       value: FlatScreen Player Camera with TouchScreen Input
+      objectReference: {fileID: 0}
+    - target: {fileID: 7217547041887648259, guid: 6308023857c353849823b04c147886a1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

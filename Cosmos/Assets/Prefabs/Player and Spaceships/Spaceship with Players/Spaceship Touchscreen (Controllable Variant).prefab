@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3238084280083268060, guid: c539f74e7854ea6428eed66e7c96f4de, type: 3}
       propertyPath: m_Name
-      value: Spaceship Touchscreen Player (Green Model Variant) Variant
+      value: Spaceship Touchscreen (Controllable Variant)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

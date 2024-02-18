@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8265979412809182012}
   - component: {fileID: 8301572036633439730}
   m_Layer: 0
-  m_Name: Sphere (1)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: -25.884, z: 0}
 --- !u!33 &8611796006224184408
 MeshFilter:
@@ -41,7 +41,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 316789013762874180}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &8265979412809182012
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -105,6 +105,111 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &452027744641499491
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7763666519813856315}
+  - component: {fileID: 4977460769282838186}
+  - component: {fileID: 3999860842888590897}
+  - component: {fileID: 5612163011464532238}
+  m_Layer: 0
+  m_Name: Center Star
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7763666519813856315
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452027744641499491}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1978954967728607157}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &4977460769282838186
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452027744641499491}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &3999860842888590897
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452027744641499491}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 5a7713d73d1503846a4954c79547de47, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &5612163011464532238
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452027744641499491}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &650541545091160039
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +223,7 @@ GameObject:
   - component: {fileID: 3609362509625749991}
   - component: {fileID: 4220249820042233833}
   m_Layer: 0
-  m_Name: Sphere (9)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -137,7 +242,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: -239.01599, z: 0}
 --- !u!33 &3843994157052920050
 MeshFilter:
@@ -146,7 +251,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 650541545091160039}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &3609362509625749991
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -223,7 +328,7 @@ GameObject:
   - component: {fileID: 5440428550316443795}
   - component: {fileID: 3737688667142215536}
   m_Layer: 0
-  m_Name: Capsule (8)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -242,7 +347,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: -51.3, z: 0}
 --- !u!33 &4535758287483943288
 MeshFilter:
@@ -251,7 +356,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 840791795293669822}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &5440428550316443795
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -330,7 +435,7 @@ GameObject:
   - component: {fileID: 6164511357539660637}
   - component: {fileID: 1033257795829804466}
   m_Layer: 0
-  m_Name: Capsule (9)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -349,7 +454,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: -51.3, z: 0}
 --- !u!33 &7992200627931956672
 MeshFilter:
@@ -358,7 +463,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 928235219633583105}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &6164511357539660637
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -437,7 +542,7 @@ GameObject:
   - component: {fileID: 185772450246088005}
   - component: {fileID: 572205664718298660}
   m_Layer: 0
-  m_Name: Cube (3)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -456,7 +561,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: -24.406, z: 0}
 --- !u!33 &307736175166116844
 MeshFilter:
@@ -465,7 +570,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1519030620925285308}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &185772450246088005
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -542,7 +647,7 @@ GameObject:
   - component: {fileID: 7384470635604569195}
   - component: {fileID: 9107167405163972921}
   m_Layer: 0
-  m_Name: Cylinder (8)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -561,7 +666,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: -51.3, z: 0}
 --- !u!33 &7585995971745377752
 MeshFilter:
@@ -570,7 +675,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1521827493226395378}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &7384470635604569195
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -649,7 +754,7 @@ GameObject:
   - component: {fileID: 1202801573827116291}
   - component: {fileID: 5223290655682201125}
   m_Layer: 0
-  m_Name: Cylinder (2)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -668,7 +773,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4923112695819254947
 MeshFilter:
@@ -677,7 +782,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1808513031540924576}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1202801573827116291
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -743,6 +848,132 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!1 &1884995458894912491
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2656906495269419413}
+  - component: {fileID: 8090383257271655874}
+  m_Layer: 0
+  m_Name: EmissiveStarPlacer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2656906495269419413
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1884995458894912491}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5751854822388516820}
+  - {fileID: 4725081838237983336}
+  - {fileID: 627205255620341283}
+  - {fileID: 999726681785639003}
+  - {fileID: 6488884226447382887}
+  - {fileID: 8231008127525265126}
+  - {fileID: 4233585473271102066}
+  - {fileID: 5344485422626159475}
+  - {fileID: 5540544960034634541}
+  - {fileID: 7313439546726066334}
+  - {fileID: 7964403955695543007}
+  - {fileID: 3233343079912349770}
+  - {fileID: 3531837600819868586}
+  - {fileID: 4605674125043292559}
+  - {fileID: 2295721529355207382}
+  - {fileID: 5333299450450735675}
+  - {fileID: 6216512321745944450}
+  - {fileID: 6574841904318686935}
+  - {fileID: 6927592226571643026}
+  - {fileID: 783112246995684202}
+  - {fileID: 6054643520878696574}
+  - {fileID: 6739023063993003219}
+  - {fileID: 730457356050647171}
+  - {fileID: 6315882310559558013}
+  - {fileID: 7819912213245144142}
+  - {fileID: 4487623525964174653}
+  - {fileID: 8932505861319397219}
+  - {fileID: 2853470714475538827}
+  - {fileID: 3756740077454369845}
+  - {fileID: 2847233008157666682}
+  - {fileID: 8896297634878533040}
+  - {fileID: 591367922708083319}
+  - {fileID: 377823834980207978}
+  - {fileID: 1732650150760977977}
+  - {fileID: 5912633581767356137}
+  - {fileID: 2469873741204884772}
+  - {fileID: 2080698795021012985}
+  - {fileID: 7967076513982987420}
+  - {fileID: 9001205754773979580}
+  - {fileID: 5692602709525707667}
+  m_Father: {fileID: 1978954967728607157}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8090383257271655874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1884995458894912491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f905b05002806924793ffbe4873f09e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Stars:
+  - {fileID: 7814302957838686851}
+  - {fileID: 2781784841256054817}
+  - {fileID: 6116910355476351201}
+  - {fileID: 5644488866814672352}
+  - {fileID: 8285228503570779276}
+  - {fileID: 3360164227898918579}
+  - {fileID: 1519030620925285308}
+  - {fileID: 2735643944003784362}
+  - {fileID: 3932117828527212938}
+  - {fileID: 6518924733899547931}
+  - {fileID: 3568122995764297532}
+  - {fileID: 6569633348815093414}
+  - {fileID: 8181678600063337370}
+  - {fileID: 2721254414258362970}
+  - {fileID: 5772317298154956959}
+  - {fileID: 316789013762874180}
+  - {fileID: 7451413264706427960}
+  - {fileID: 7664600135079296674}
+  - {fileID: 2361572128799881336}
+  - {fileID: 650541545091160039}
+  - {fileID: 7132013655464066603}
+  - {fileID: 8168376565824120112}
+  - {fileID: 5684616506734405198}
+  - {fileID: 5992481061987416989}
+  - {fileID: 840791795293669822}
+  - {fileID: 8038314562495040563}
+  - {fileID: 2684890760650992820}
+  - {fileID: 7546678650185603142}
+  - {fileID: 7919537842471205265}
+  - {fileID: 928235219633583105}
+  - {fileID: 5376412439327926113}
+  - {fileID: 1808513031540924576}
+  - {fileID: 4831065705178025774}
+  - {fileID: 7487377216706631949}
+  - {fileID: 1521827493226395378}
+  - {fileID: 9213271617109939740}
+  - {fileID: 4398166614125991733}
+  - {fileID: 6029381433783593608}
+  - {fileID: 4413153868132277381}
+  - {fileID: 7469641757154656870}
+  m_Range: {x: 5000, y: 5010}
 --- !u!1 &2361572128799881336
 GameObject:
   m_ObjectHideFlags: 0
@@ -756,7 +987,7 @@ GameObject:
   - component: {fileID: 1138674421115408585}
   - component: {fileID: 280483307110285385}
   m_Layer: 0
-  m_Name: Sphere (7)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -775,7 +1006,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: -187.716, z: 0}
 --- !u!33 &1922764604427199661
 MeshFilter:
@@ -784,7 +1015,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2361572128799881336}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1138674421115408585
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -877,46 +1108,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5751854822388516820}
-  - {fileID: 4725081838237983336}
-  - {fileID: 627205255620341283}
-  - {fileID: 999726681785639003}
-  - {fileID: 6488884226447382887}
-  - {fileID: 8231008127525265126}
-  - {fileID: 4233585473271102066}
-  - {fileID: 5344485422626159475}
-  - {fileID: 5540544960034634541}
-  - {fileID: 7313439546726066334}
-  - {fileID: 7964403955695543007}
-  - {fileID: 3233343079912349770}
-  - {fileID: 3531837600819868586}
-  - {fileID: 4605674125043292559}
-  - {fileID: 2295721529355207382}
-  - {fileID: 5333299450450735675}
-  - {fileID: 6216512321745944450}
-  - {fileID: 6574841904318686935}
-  - {fileID: 6927592226571643026}
-  - {fileID: 783112246995684202}
-  - {fileID: 6054643520878696574}
-  - {fileID: 6739023063993003219}
-  - {fileID: 730457356050647171}
-  - {fileID: 6315882310559558013}
-  - {fileID: 7819912213245144142}
-  - {fileID: 4487623525964174653}
-  - {fileID: 8932505861319397219}
-  - {fileID: 2853470714475538827}
-  - {fileID: 3756740077454369845}
-  - {fileID: 2847233008157666682}
-  - {fileID: 8896297634878533040}
-  - {fileID: 591367922708083319}
-  - {fileID: 377823834980207978}
-  - {fileID: 1732650150760977977}
-  - {fileID: 5912633581767356137}
-  - {fileID: 2469873741204884772}
-  - {fileID: 2080698795021012985}
-  - {fileID: 7967076513982987420}
-  - {fileID: 9001205754773979580}
-  - {fileID: 5692602709525707667}
+  - {fileID: 7763666519813856315}
+  - {fileID: 2656906495269419413}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2684890760650992820
@@ -932,7 +1125,7 @@ GameObject:
   - component: {fileID: 621327885067846284}
   - component: {fileID: 6105817674164773142}
   m_Layer: 0
-  m_Name: Capsule (3)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -951,7 +1144,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1356739301231113430
 MeshFilter:
@@ -960,7 +1153,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2684890760650992820}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &621327885067846284
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1039,7 +1232,7 @@ GameObject:
   - component: {fileID: 6088723353356100352}
   - component: {fileID: 3790214913937808351}
   m_Layer: 0
-  m_Name: Sphere (6)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1058,7 +1251,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: -25.884, z: 0}
 --- !u!33 &4981720251866461528
 MeshFilter:
@@ -1067,7 +1260,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2721254414258362970}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &6088723353356100352
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1144,7 +1337,7 @@ GameObject:
   - component: {fileID: 7013800644528574716}
   - component: {fileID: 4449601378257664000}
   m_Layer: 0
-  m_Name: Cube (5)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1163,7 +1356,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6965778994927327159
 MeshFilter:
@@ -1172,7 +1365,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2735643944003784362}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &7013800644528574716
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1249,7 +1442,7 @@ GameObject:
   - component: {fileID: 1847702310403963464}
   - component: {fileID: 1712575957264972006}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1268,7 +1461,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: -24.406, z: 0}
 --- !u!33 &5164714371079132087
 MeshFilter:
@@ -1277,7 +1470,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2781784841256054817}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1847702310403963464
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1354,7 +1547,7 @@ GameObject:
   - component: {fileID: 3032672031438439599}
   - component: {fileID: 9092462868437147555}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1373,7 +1566,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: -24.406, z: 0}
 --- !u!33 &7197280713347920956
 MeshFilter:
@@ -1382,7 +1575,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3360164227898918579}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &3032672031438439599
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1459,7 +1652,7 @@ GameObject:
   - component: {fileID: 6498746644238027303}
   - component: {fileID: 8866338871163241783}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1478,7 +1671,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5171371900011149187
 MeshFilter:
@@ -1487,7 +1680,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3568122995764297532}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &6498746644238027303
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1564,7 +1757,7 @@ GameObject:
   - component: {fileID: 7389674549842203318}
   - component: {fileID: 2159521809296902926}
   m_Layer: 0
-  m_Name: Cube (7)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1583,7 +1776,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &529735870559806095
 MeshFilter:
@@ -1592,7 +1785,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3932117828527212938}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &7389674549842203318
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1669,7 +1862,7 @@ GameObject:
   - component: {fileID: 4752427293006757105}
   - component: {fileID: 90047881450539222}
   m_Layer: 0
-  m_Name: Cylinder (3)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1688,7 +1881,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5141224349055710319
 MeshFilter:
@@ -1697,7 +1890,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4398166614125991733}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &4752427293006757105
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1776,7 +1969,7 @@ GameObject:
   - component: {fileID: 1280726870337986920}
   - component: {fileID: 7922278166771316086}
   m_Layer: 0
-  m_Name: Cylinder (7)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1795,7 +1988,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4834572520413882500
 MeshFilter:
@@ -1804,7 +1997,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4413153868132277381}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1280726870337986920
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1883,7 +2076,7 @@ GameObject:
   - component: {fileID: 4755534612259559488}
   - component: {fileID: 7627559869268247797}
   m_Layer: 0
-  m_Name: Cylinder (4)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1902,7 +2095,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3971570252534263784
 MeshFilter:
@@ -1911,7 +2104,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4831065705178025774}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &4755534612259559488
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1990,7 +2183,7 @@ GameObject:
   - component: {fileID: 5545245274891515825}
   - component: {fileID: 5511812360612920554}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2009,7 +2202,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6624988738112544472
 MeshFilter:
@@ -2018,7 +2211,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5376412439327926113}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &5545245274891515825
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2097,7 +2290,7 @@ GameObject:
   - component: {fileID: 4041589885634162999}
   - component: {fileID: 8749850217408743943}
   m_Layer: 0
-  m_Name: Cube (6)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2116,7 +2309,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: -24.406, z: 0}
 --- !u!33 &2910611368191849679
 MeshFilter:
@@ -2125,7 +2318,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5644488866814672352}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &4041589885634162999
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2202,7 +2395,7 @@ GameObject:
   - component: {fileID: 7192976694208259736}
   - component: {fileID: 642911000856488046}
   m_Layer: 0
-  m_Name: Capsule (4)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2221,7 +2414,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: -187.716, z: 0}
 --- !u!33 &1031100926736971973
 MeshFilter:
@@ -2230,7 +2423,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5684616506734405198}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &7192976694208259736
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2309,7 +2502,7 @@ GameObject:
   - component: {fileID: 3790084347353946197}
   - component: {fileID: 4849933817775737695}
   m_Layer: 0
-  m_Name: Sphere (8)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2328,7 +2521,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: -77.184, z: 0}
 --- !u!33 &6872659329471616732
 MeshFilter:
@@ -2337,7 +2530,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5772317298154956959}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &3790084347353946197
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2414,7 +2607,7 @@ GameObject:
   - component: {fileID: 4628104043215291872}
   - component: {fileID: 2302041070233649677}
   m_Layer: 0
-  m_Name: Capsule (6)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2433,7 +2626,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: -187.716, z: 0}
 --- !u!33 &264441996009316451
 MeshFilter:
@@ -2442,7 +2635,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5992481061987416989}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &4628104043215291872
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2521,7 +2714,7 @@ GameObject:
   - component: {fileID: 740224566457706330}
   - component: {fileID: 8112284995897116198}
   m_Layer: 0
-  m_Name: Cylinder (5)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2540,7 +2733,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8942372892613607461
 MeshFilter:
@@ -2549,7 +2742,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6029381433783593608}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &740224566457706330
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2628,7 +2821,7 @@ GameObject:
   - component: {fileID: 2085666623192891445}
   - component: {fileID: 7260797392600152511}
   m_Layer: 0
-  m_Name: Cube (4)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2647,7 +2840,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: -24.406, z: 0}
 --- !u!33 &1667479364491658528
 MeshFilter:
@@ -2656,7 +2849,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6116910355476351201}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &2085666623192891445
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2733,7 +2926,7 @@ GameObject:
   - component: {fileID: 697228426230556284}
   - component: {fileID: 1676173022598046978}
   m_Layer: 0
-  m_Name: Cube (9)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2752,7 +2945,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: -51.3, z: 0}
 --- !u!33 &1732174280272558771
 MeshFilter:
@@ -2761,7 +2954,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6518924733899547931}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &697228426230556284
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2838,7 +3031,7 @@ GameObject:
   - component: {fileID: 5093306346860695884}
   - component: {fileID: 7739628096330129806}
   m_Layer: 0
-  m_Name: Sphere (2)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2857,7 +3050,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5189969044069344561
 MeshFilter:
@@ -2866,7 +3059,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6569633348815093414}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &5093306346860695884
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2943,7 +3136,7 @@ GameObject:
   - component: {fileID: 8399524302437214109}
   - component: {fileID: 3004985171761387887}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2962,7 +3155,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: -187.716, z: 0}
 --- !u!33 &4455658876324382035
 MeshFilter:
@@ -2971,7 +3164,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7132013655464066603}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &8399524302437214109
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3050,7 +3243,7 @@ GameObject:
   - component: {fileID: 6614429126677374378}
   - component: {fileID: 1157687738941987546}
   m_Layer: 0
-  m_Name: Sphere (3)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3069,7 +3262,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: -187.716, z: 0}
 --- !u!33 &408798683691991213
 MeshFilter:
@@ -3078,7 +3271,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7451413264706427960}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &6614429126677374378
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3155,7 +3348,7 @@ GameObject:
   - component: {fileID: 2781158071697274852}
   - component: {fileID: 4989877332653933704}
   m_Layer: 0
-  m_Name: Cylinder (9)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3174,7 +3367,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: -51.3, z: 0}
 --- !u!33 &4633460954621154733
 MeshFilter:
@@ -3183,7 +3376,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7469641757154656870}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &2781158071697274852
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3262,7 +3455,7 @@ GameObject:
   - component: {fileID: 2320930451405295763}
   - component: {fileID: 2456418934483091164}
   m_Layer: 0
-  m_Name: Cylinder (6)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3281,7 +3474,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8639780489476697044
 MeshFilter:
@@ -3290,7 +3483,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7487377216706631949}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &2320930451405295763
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3369,7 +3562,7 @@ GameObject:
   - component: {fileID: 7135129502539069600}
   - component: {fileID: 1003914508344396250}
   m_Layer: 0
-  m_Name: Capsule (5)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3388,7 +3581,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2900485651016474995
 MeshFilter:
@@ -3397,7 +3590,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7546678650185603142}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &7135129502539069600
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3476,7 +3669,7 @@ GameObject:
   - component: {fileID: 445632071914309646}
   - component: {fileID: 8911065353400176006}
   m_Layer: 0
-  m_Name: Sphere (5)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3495,7 +3688,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: -187.716, z: 0}
 --- !u!33 &1875872768755611477
 MeshFilter:
@@ -3504,7 +3697,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7664600135079296674}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &445632071914309646
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3581,7 +3774,7 @@ GameObject:
   - component: {fileID: 5348110898764258162}
   - component: {fileID: 8292276795814748469}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3600,7 +3793,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: -24.406, z: 0}
 --- !u!33 &7196360875307652268
 MeshFilter:
@@ -3609,7 +3802,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7814302957838686851}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &5348110898764258162
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3686,7 +3879,7 @@ GameObject:
   - component: {fileID: 7779501759836509029}
   - component: {fileID: 8254650743872804680}
   m_Layer: 0
-  m_Name: Capsule (7)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3701,11 +3894,11 @@ Transform:
   m_GameObject: {fileID: 7919537842471205265}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.000008, y: -64.899994, z: -131.40001}
+  m_LocalPosition: {x: 16, y: -64.899994, z: -131.40001}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1575546517581568750
 MeshFilter:
@@ -3714,7 +3907,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7919537842471205265}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &7779501759836509029
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3793,7 +3986,7 @@ GameObject:
   - component: {fileID: 1506839134956625832}
   - component: {fileID: 5920826579562546264}
   m_Layer: 0
-  m_Name: Capsule (1)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3812,7 +4005,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &571711654816335906
 MeshFilter:
@@ -3821,7 +4014,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8038314562495040563}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1506839134956625832
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3900,7 +4093,7 @@ GameObject:
   - component: {fileID: 3820776819397493505}
   - component: {fileID: 8860844407832960402}
   m_Layer: 0
-  m_Name: Capsule (2)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3919,7 +4112,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: -187.716, z: 0}
 --- !u!33 &4051994361523526325
 MeshFilter:
@@ -3928,7 +4121,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8168376565824120112}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &3820776819397493505
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4007,7 +4200,7 @@ GameObject:
   - component: {fileID: 9048548912783256176}
   - component: {fileID: 2251287388913522812}
   m_Layer: 0
-  m_Name: Sphere (4)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4026,7 +4219,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: -25.884, z: 0}
 --- !u!33 &5320219294919823857
 MeshFilter:
@@ -4035,7 +4228,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8181678600063337370}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &9048548912783256176
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4112,7 +4305,7 @@ GameObject:
   - component: {fileID: 7333835380892822162}
   - component: {fileID: 1811484752739839460}
   m_Layer: 0
-  m_Name: Cube (8)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4131,7 +4324,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: -75.706, z: 0}
 --- !u!33 &2306646927608348872
 MeshFilter:
@@ -4140,7 +4333,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8285228503570779276}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &7333835380892822162
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4217,7 +4410,7 @@ GameObject:
   - component: {fileID: 1163139699160157801}
   - component: {fileID: 8712681102570180300}
   m_Layer: 0
-  m_Name: Cylinder (1)
+  m_Name: Distant Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4236,7 +4429,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1978954967728607157}
+  m_Father: {fileID: 2656906495269419413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8627766944654582414
 MeshFilter:
@@ -4245,7 +4438,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9213271617109939740}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1163139699160157801
 MeshRenderer:
   m_ObjectHideFlags: 0

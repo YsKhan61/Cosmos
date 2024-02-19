@@ -48,5 +48,8 @@ MonoBehaviour:
   - {fileID: 4094712988404164134, guid: 11d625fafb7309c49bd143cc6e22fc19, type: 3}
   - {fileID: 3958601893779640284, guid: 6ae2756d6fc97e44885e4cc406380935, type: 3}
   - {fileID: 3576870432682369891, guid: e008a5d886c96fd4087e20a413652965, type: 3}
-  m_SpawnCount: 10
-  m_SpawnRange: {x: 100, y: 110}
+  m_SpawnCount: 30
+  m_SpawnRange: {x: 1000, y: 1100}
+  m_OrbitCenterRange: {x: 0, y: 100}
+  m_RotateSpeedRange: {x: 1, y: 5}
+  m_RevolveSpeedRange: {x: 5, y: 10}

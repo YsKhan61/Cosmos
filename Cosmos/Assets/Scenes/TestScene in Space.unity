@@ -504,18 +504,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2575608336993121425, guid: 636570f95c9fe9343af743c9e24f4a58, type: 3}
-      propertyPath: m_SpawnCount
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2575608336993121425, guid: 636570f95c9fe9343af743c9e24f4a58, type: 3}
-      propertyPath: m_SpawnRange.x
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 2575608336993121425, guid: 636570f95c9fe9343af743c9e24f4a58, type: 3}
-      propertyPath: m_SpawnRange.y
-      value: 600
-      objectReference: {fileID: 0}
     - target: {fileID: 6343905315461514240, guid: 636570f95c9fe9343af743c9e24f4a58, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -71,11 +71,71 @@ namespace Cosmos.UnityServices.Lobbies
         }
 
         /// <summary>
-        /// Attempt to create a new lobby and then join it.
+        /// starts tracking lobby events. 
+        /// If the local user is the host, it also initiates sending heartbeat pings to keep the lobby alive
         /// </summary>
-        /// <param name="lobbyName"></param>
-        /// <param name="maxPlayers"></param>
-        /// <param name="isPrivate"></param>
+        public void BeginTracking()
+        {
+            if (!_isTracking)
+            {
+                _isTracking = true;
+                SubscribeToJoinedLobbyAsync();
+
+                // Only the host sends heartbeat pings to the service to keep the lobby alive
+                if (_localLobbyUser.IsHost)
+                {
+                    _heartBeatTime = 0;
+                    _updateRunner.Subscribe(DoLobbyHeartbeat, 1.5f);
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// stops tracking lobby events. 
+        /// If the local user is the host, it also stops sending heartbeat pings. 
+        /// If a lobby is currently active, the host will delete it, while other users will leave it.
+        /// </summary>
+        public void EndTracking()
+        {
+            if (_isTracking)
+            {
+                _isTracking = false;
+                UnsubscribeToJoinedLobbyAsync();
+
+                // Only the host sends heartbeats pings to the service to keep the lobby alive
+                if (_localLobbyUser.IsHost)
+                {
+                    _updateRunner.Unsubscribe(DoLobbyHeartbeat);
+                }
+            }
+
+            if (CurrentUnityLobby != null)
+            {
+                if (_localLobbyUser.IsHost)
+                {
+                    DeleteLobbyAsync();
+                }
+                else
+                {
+                    LeaveLobbyAsync();
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// an asynchronous method that attempts to create a new lobby with the specified name, maximum number of players, and privacy setting. 
+        /// It first checks if the rate limit for creating lobbies has been reached. 
+        /// If it has, it logs a warning and returns false. If not, it calls the CreateLobby method on the _lobbyApiInterface object. 
+        /// If the lobby creation is successful, it returns true and the created lobby. 
+        /// If an exception occurs during the creation of the lobby, it checks if the exception is due to rate limiting. 
+        /// If it is, it puts the host on cooldown. If the exception is due to another reason, it publishes the error. 
+        /// If the lobby creation is not successful, it returns false and null.
+        /// </summary>
+        /// <param name="lobbyName">The name of the lobby to be created</param>
+        /// <param name="maxPlayers"> Maximum number of players allowed in the lobby</param>
+        /// <param name="isPrivate">Is the lobby private</param>
         /// <returns></returns>
         public async Task<(bool Success, Lobby Lobby)> TryCreateLobbyAsync(string lobbyName, int maxPlayers, bool isPrivate)
         {
@@ -107,12 +167,21 @@ namespace Cosmos.UnityServices.Lobbies
             return (false, null);
         }
 
+
         /// <summary>
-        /// Attempt to join an existing lobby. Will try to join via code, if code is null - will try to join via ID.
+        /// an asynchronous method that attempts to join an existing lobby using either a lobby code or a lobby ID. 
+        /// It first checks if the rate limit for joining lobbies has been reached or if both the lobby ID and code are null. 
+        /// If either condition is met, it logs a warning and returns false. 
+        /// If a lobby code is provided, it attempts to join the lobby using the code. 
+        /// If no code is provided, it attempts to join the lobby using the ID. 
+        /// If the lobby join is successful, it returns true and the joined lobby. 
+        /// If an exception occurs during the join, it checks if the exception is due to rate limiting. 
+        /// If it is, it puts the join on cooldown. If the exception is due to another reason, it publishes the error. 
+        /// If the lobby join is not successful, it returns false and null.
         /// </summary>
-        /// <param name="lobbyId"></param>
-        /// <param name="lobbyCode"></param>
-        /// <returns></returns>
+        /// <param name="lobbyId">The ID of the lobby to join</param>
+        /// <param name="lobbyCode">The code of the lobby to join</param>
+        /// <returns>The success status and the joined lobby</returns>
         public async Task<(bool Success, Lobby Lobby)> TryJoinLobbyAsync(string lobbyId, string lobbyCode)
         {
             if (!_rateLimitJoin.CanCall ||
@@ -150,6 +219,18 @@ namespace Cosmos.UnityServices.Lobbies
             return (false, null);
         }
 
+
+        /// <summary>
+        /// an asynchronous method that attempts to quickly join a lobby. 
+        /// It first checks if the rate limit for quick joining lobbies has been reached. 
+        /// If it has, it logs a warning and returns false. 
+        /// If not, it calls the QuickJoinLobby method on the _lobbyApiInterface object. 
+        /// If the quick join is successful, it returns true and the joined lobby. 
+        /// If an exception occurs during the quick join, it checks if the exception is due to rate limiting. 
+        /// If it is, it puts the quick join on cooldown. If the exception is due to another reason, it publishes the error. 
+        /// If the quick join is not successful, it returns false and null.
+        /// </summary>
+        /// <returns>The success status and the joined lobby</returns>
         public async Task<(bool Success, Lobby Lobby)> TryQuickJoinLobbyAsync()
         {
             if (!_rateLimitQuickJoin.CanCall)
@@ -177,16 +258,29 @@ namespace Cosmos.UnityServices.Lobbies
             return (false, null);
         }
 
+
+        /// <summary>
+        /// Sets the local lobby to the provided lobby and updates the current unity lobby with the remote lobby data.
+        /// </summary>
+        /// <param name="lobby">New lobby to set as the local lobby</param>
         public void SetRemoteLobby(Lobby lobby)
         {
             CurrentUnityLobby = lobby;
             _localLobby.ApplyRemoteData(lobby);
         }
 
+
         /// <summary>
-        /// Used for getting the list of all active lobbies, without needing full into for each.
+        /// an asynchronous method that retrieves a list of all active lobbies and publishes it. 
+        /// It first checks if the rate limit for querying lobbies has been reached. 
+        /// If it has, it logs an error and returns. 
+        /// If not, it calls the QueryAllLobbies method on the _lobbyApiInterface object to get a list of all active lobbies. 
+        /// It then publishes this list using the _lobbyListFetchedMessagePublisher object. 
+        /// If an exception occurs during the retrieval of the lobby list, it checks if the exception is due to rate limiting. 
+        /// If it is, it puts the query on cooldown. 
+        /// If the exception is due to another reason, it publishes the error.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation</returns>
         public async Task RetrieveAndPublishLobbyListAsync()
         {
             if (!_rateLimitQuery.CanCall)
@@ -213,60 +307,17 @@ namespace Cosmos.UnityServices.Lobbies
             }
         }
 
-        /// <summary>
-        /// Initiates tracking of joined lobby's events. The host also starts sending heartbeat pings here.
-        /// </summary>
-        public void BeginTracking()
-        {
-            if (!_isTracking)
-            {
-                _isTracking = true;
-                SubscribeToJoinedLobbyAsync();
-
-                // Only the host sends heartbeat pings to the service to keep the lobby alive
-                if (_localLobbyUser.IsHost)
-                {
-                    _heartBeatTime = 0;
-                    _updateRunner.Subscribe(DoLobbyHeartbeat, 1.5f);
-                }    
-            }    
-        }
-        
 
         /// <summary>
-        /// Emds tracking of joined lobby's events and leaves or deletes the lobby. The host also stops sending heartbeat pings here.
+        /// updates the data of the current lobby and unlocks it. 
+        /// It first checks if the rate limit for querying lobbies has been reached. 
+        /// If not, it retrieves the local lobby data and merges it with the current lobby data. 
+        /// Then, it attempts to update the lobby data on the server. 
+        /// If the update is successful, it updates the current lobby with the returned result. 
+        /// If a rate limit exception occurs during the update, it puts the query on cooldown. 
+        /// If any other exception occurs, it publishes the error.
         /// </summary>
-        public void EndTracking()
-        {
-            if (_isTracking)
-            {
-                _isTracking = false;
-                UnsubscribeToJoinedLobbyAsync();
-
-                // Only the host sends heartbeats pings to the service to keep the lobby alive
-                if (_localLobbyUser.IsHost)
-                {
-                    _updateRunner.Unsubscribe(DoLobbyHeartbeat);
-                }
-            }
-
-            if (CurrentUnityLobby != null)
-            {
-                if (_localLobbyUser.IsHost)
-                {
-                    DeleteLobbyAsync();
-                }
-                else
-                {
-                    LeaveLobbyAsync();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Attempt to update the set of key-value pairs associated with a given lobby and unlocks it so clients can see it.
-        /// </summary>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation</returns>
         public async Task UpdateLobbyDataAndUnlockAsync()
         {
             if (!_rateLimitQuery.CanCall)
@@ -315,11 +366,17 @@ namespace Cosmos.UnityServices.Lobbies
             }
         }
 
+
         /// <summary>
-        /// Attempt to push a set of key-value pairs associated with the local player which will overwrite any existing data
-        /// for these keys. Lobby can be provided info about Relay (or any other remote allocation) so it can add automatic disconnect handling.
+        /// updates the data associated with a player in the current lobby. 
+        /// It first checks if the rate limit for querying lobbies has been reached. 
+        /// If not, it attempts to update the player data on the server. 
+        /// If the update is successful, it updates the current lobby with the returned result. 
+        /// If a rate limit exception occurs during the update, it puts the query on cooldown. 
+        /// If the lobby is not found and the user is not the host, it assumes the lobby has already been deleted and does not publish the error. 
+        /// For any other exceptions, it publishes the error.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The task object representing the asynchronous operation</returns>
         public async Task UpdatePlayerDataAsync(string allocationId, string connectionInfo)
         {
             if (!_rateLimitQuery.CanCall)
@@ -350,6 +407,14 @@ namespace Cosmos.UnityServices.Lobbies
             }
         }
 
+
+        /// <summary>
+        /// tries to reconnect to a lobby.
+        /// If the lobby is not found and the user is not the host, it assumes the lobby has been deleted and doesn't report an error. 
+        /// For other exceptions, it reports an error.
+        /// If reconnection fails, it returns null.
+        /// </summary>
+        /// <returns>The task object representing the asynchronous operation</returns>
         public async Task<Lobby> ReconnectToLobbyAsync()
         {
             try
@@ -369,6 +434,15 @@ namespace Cosmos.UnityServices.Lobbies
             return null;
         }
 
+
+        /// <summary>
+        /// attempts to remove a player from a lobby. 
+        /// If the current user is the host, 
+        /// it calls the RemovePlayerFromLobby method on the _lobbyApiInterface object with the provided user ID and the local lobby ID. 
+        /// If an exception occurs during this process, it publishes the error. 
+        /// If the current user is not the host, it logs an error message stating that only the host can remove players from the lobby.
+        /// </summary>
+        /// <param name="uasId">The ID of the user to remove from the lobby</param>
         public async void RemovePlayerFromLobbyAsync(string uasId)
         {
             if (_localLobbyUser.IsHost)
@@ -388,8 +462,14 @@ namespace Cosmos.UnityServices.Lobbies
             }
         }
 
+
+
         /// <summary>
-        /// Attempt to leave a lobby
+        /// attempts to remove the current user from a lobby. 
+        /// If the lobby is not found and the user is not the host, 
+        /// it assumes the lobby has been deleted and doesn't report an error. 
+        /// For other exceptions, it reports an error. 
+        /// After the operation, it resets the lobby regardless of whether the operation was successful or not.
         /// </summary>
         private async void LeaveLobbyAsync()
         {
@@ -412,6 +492,11 @@ namespace Cosmos.UnityServices.Lobbies
             }
         }
 
+
+        /// <summary>
+        /// resets the current lobby state. 
+        /// It sets CurrentUnityLobby to null, resets the state of _localLobbyUser if it's not null, and resets _localLobby with _localLobbyUser if _localLobby is not null. 
+        /// </summary>
         private void ResetLobby()
         {
             CurrentUnityLobby = null;
@@ -427,6 +512,13 @@ namespace Cosmos.UnityServices.Lobbies
             // no need to disconnect Netcode, it should already be handled by Netcode's Callback to disconnect
         }
 
+
+        /// <summary>
+        /// asynchronous method in the LobbyServiceFacade class that attempts to delete a lobby if the current user is the host. 
+        /// If the deletion operation throws a LobbyServiceException, the method catches the exception and publishes the error. 
+        /// Regardless of whether the operation succeeds or fails, the method resets the current lobby state. 
+        /// If the current user is not the host, the method logs an error message and does not attempt to delete the lobby.
+        /// </summary>
         private async void DeleteLobbyAsync()
         {
             if (_localLobbyUser.IsHost)
@@ -450,6 +542,13 @@ namespace Cosmos.UnityServices.Lobbies
             }
         }
 
+
+        /// <summary>
+        /// This method sends a heartbeat ping to the current lobby at regular intervals defined by HEART_BEAT_PERIOD. 
+        /// If the lobby is not found and the user is not the host, it assumes the lobby has been deleted and doesn't report an error. 
+        /// For other exceptions, it reports an error.
+        /// </summary>
+        /// <param name="dt">The time since the last frame</param>
         private void DoLobbyHeartbeat(float dt)
         {
             _heartBeatTime += dt;
@@ -471,6 +570,13 @@ namespace Cosmos.UnityServices.Lobbies
             }
         }
 
+
+        /// <summary>
+        /// This asynchronous method subscribes to events related to the joined lobby. 
+        /// It sets up callbacks for when the lobby changes, when the user is kicked from the lobby, 
+        /// and when the lobby event connection state changes. 
+        /// The callbacks are managed by the Lobby SDK and will be unsubscribed when UnsubscribeAsync is called on the _lobbyEvents object.
+        /// </summary>
         private async void SubscribeToJoinedLobbyAsync()
         {
             LobbyEventCallbacks lobbyEventCallbacks = new();
@@ -482,6 +588,12 @@ namespace Cosmos.UnityServices.Lobbies
             _lobbyEvents = await _lobbyApiInterface.SubscribeToLobby(_localLobby.LobbyID, lobbyEventCallbacks);
         }
 
+
+        /// <summary>
+        /// This asynchronous method unsubscribes from the events of the joined lobby 
+        /// if the lobby events object (_lobbyEvents) is not null and the lobby event connection state is not Unsubscribed. 
+        /// In the Unity editor, it catches and logs 
+        /// </summary>
         private async void UnsubscribeToJoinedLobbyAsync()
         {
             if (_lobbyEvents != null && _lobbyEventConnectionState != LobbyEventConnectionState.Unsubscribed)
@@ -503,6 +615,13 @@ namespace Cosmos.UnityServices.Lobbies
             }
         }
 
+
+        /// <summary>
+        /// This method handles lobby changes. If the lobby is deleted, it resets the lobby and stops tracking. 
+        /// If the lobby is updated, it applies the changes to the current lobby and checks if the host is still in the lobby. 
+        /// If the host has left, it publishes an error message and stops tracking.
+        /// </summary>
+        /// <param name="changes">The changes to the lobby</param>
         private void OnLobbyChanges(ILobbyChanges changes)
         {
             if (changes.LobbyDeleted)
@@ -535,6 +654,10 @@ namespace Cosmos.UnityServices.Lobbies
             }
         }
 
+
+        /// <summary>
+        /// This method handles the event of the user being kicked from the lobby. It resets the lobby and stops tracking.
+        /// </summary>
         private void OnKickedFromLobby()
         {
             Debug.Log("Kicked from lobby");
@@ -542,14 +665,23 @@ namespace Cosmos.UnityServices.Lobbies
             EndTracking();
         }
 
+
+        /// <summary>
+        /// This method updates the lobby event connection state and logs the new state.
+        /// </summary>
+        /// <param name="state"></param>
         private void OnLobbyEventConnectionStateChanged(LobbyEventConnectionState state)
         {
             _lobbyEventConnectionState = state;
             Debug.Log($"LobbyEventConnectionState changed to {state}");
         }
 
-        
 
+        /// <summary>
+        /// This method publishes an error message with the details of the provided LobbyServiceException. 
+        /// The error message includes the service (Lobby), 
+        /// </summary>
+        /// <param name="e">The LobbyServiceException to publish</param>
         private void PublishError(LobbyServiceException e)
         {
             string reason = e.InnerException == null ? e.Message : $"{e.Message} ({e.InnerException.Message})"; // Lobby error type, then HTTP error type

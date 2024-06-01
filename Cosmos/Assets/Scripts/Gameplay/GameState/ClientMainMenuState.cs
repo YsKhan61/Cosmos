@@ -66,7 +66,7 @@ namespace Cosmos.Gameplay.GameState
             options.SetProfile(profileManager.ProfileName);
             _ = _authServiceFacade.InitializeToUnityServicesAsync(options);*/
 
-            _ = _authServiceFacade.InitializeToUnityServicesAsync();
+            _ = _authServiceFacade.InitializeUnityServicesAsync();
         }
 
         protected override void Start()
@@ -163,7 +163,7 @@ namespace Cosmos.Gameplay.GameState
                 _authServiceFacade.SignOutFromAuthService(true);
 
                 InitializationOptions options = _authServiceFacade.GenerateAuthenticationInitOptions(profileName);
-                await _authServiceFacade.InitializeToUnityServicesAsync(options);
+                await _authServiceFacade.InitializeUnityServicesAsync(options);
 
                 _authServiceFacade.SwitchProfile(profileName);
 

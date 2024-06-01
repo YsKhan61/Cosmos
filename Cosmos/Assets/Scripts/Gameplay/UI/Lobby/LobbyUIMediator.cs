@@ -1,12 +1,12 @@
 using Cosmos.ConnectionManagement;
-using Cosmos.Gameplay.Configuration;
 using Cosmos.Infrastructure;
 using Cosmos.UnityServices.Auth;
 using Cosmos.UnityServices.Lobbies;
-using Cosmos.Utilities;
 using TMPro;
 using Unity.Services.Lobbies.Models;
+using UnityEditor.VersionControl;
 using UnityEngine;
+using UnityEngine.tvOS;
 using VContainer;
 
 namespace Cosmos.Gameplay.UI
@@ -75,8 +75,12 @@ namespace Cosmos.Gameplay.UI
             _connectStatusSubscriber.Subscribe(OnConnectStatusChanged);
         }
 
-        // Lobby and Relay calls done from UI
 
+        /// <summary>
+        /// Creates a new lobby with a given name and privacy setting. 
+        /// If the player is authorized, it attempts to create the lobby and sets the local user as the host if successful. 
+        /// The UI is blocked during the process and unblocked afterwards, regardless of success or failure.
+        /// </summary>
         public async void CreateLobbyRequest(string lobbyName, bool isPrivate)
         {
             // before sending request to lobby service, populate an empty lobby name, if necessary
@@ -112,6 +116,14 @@ namespace Cosmos.Gameplay.UI
             }
         }
 
+        /// <summary>
+        /// an asynchronous method that retrieves and publishes a list of lobbies. 
+        /// If the blockUI parameter is true, it blocks the user interface during the process. 
+        /// It first checks if the Unity Services are initialized, and if not, it returns. 
+        /// Then, it checks if the player is authorized. If the player is not authorized and blockUI is true, 
+        /// it unblocks the user interface and returns. After retrieving and publishing the lobby list, 
+        /// it unblocks the user interface if blockUI is true.
+        /// </summary>
         public async void QueryLobbiesRequest(bool blockUI)
         {
             if (Unity.Services.Core.UnityServices.State != Unity.Services.Core.ServicesInitializationState.Initialized)
@@ -140,6 +152,12 @@ namespace Cosmos.Gameplay.UI
             }
         }
 
+        /// <summary>
+        /// an asynchronous method that attempts to join a lobby using a provided lobby code. 
+        /// It blocks the user interface during the process. If the player is not authorized, 
+        /// it unblocks the user interface and returns. If the attempt to join the lobby is successful, 
+        /// it calls the OnJoinedLobby method. If the attempt is not successful, it unblocks the user interface.
+        /// </summary>
         public async void JoinLobbyWithCodeRequest(string lobbyCode)
         {
             BlockUIWhileLoadingIsInProgress();
@@ -164,6 +182,12 @@ namespace Cosmos.Gameplay.UI
             }
         }
 
+        /// <summary>
+        /// an asynchronous method that attempts to join a specific lobby identified by the localLobby parameter. 
+        /// It blocks the user interface during the process. If the player is not authorized, 
+        /// it unblocks the user interface and returns. If the attempt to join the lobby is successful, 
+        /// it calls the OnJoinedLobby method. If the attempt is not successful, it unblocks the user interface.
+        /// </summary>
         public async void JoinLobbyRequest(LocalLobby localLobby)
         {
             BlockUIWhileLoadingIsInProgress();
@@ -188,6 +212,12 @@ namespace Cosmos.Gameplay.UI
             }
         }
 
+        /// <summary>
+        /// an asynchronous method that attempts to quickly join a lobby. 
+        /// It blocks the user interface during the process. If the player is not authorized, 
+        /// it unblocks the user interface and returns. If the attempt to join the lobby is successful, 
+        /// it calls the OnJoinedLobby method. If the attempt is not successful, it unblocks the user interface.
+        /// </summary>
         public async void QuickJoinRequest()
         {
             BlockUIWhileLoadingIsInProgress();

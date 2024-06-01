@@ -15,33 +15,33 @@ namespace Cosmos.Gameplay.UI
     public class StartMenuUIMediator : MonoBehaviour
     {
         [SerializeField]
-        CanvasGroup _canvasGroup;
+        private CanvasGroup _canvasGroup;
 
         [SerializeField]
-        ClientMainMenuState _clientMainMenuState;
+        private ClientMainMenuState _clientMainMenuState;
 
         [SerializeField]
-        TMP_InputField _playerNameInputField;
+        private TMP_InputField _playerNameInputField;
 
         [SerializeField]
-        Button _lobbyButton;
+        private Button _lobbyButton;
 
         [SerializeField]
-        Button _directIpButton;
+        private Button _directIpButton;
 
         [SerializeField]
-        Button _linkAccountButton;
+        private Button _linkAccountButton;
 
         [SerializeField]
-        Button _unlinkAccountButton;
+        private Button _unlinkAccountButton;
 
         // also need to add delete account button.
 
         [SerializeField]
-        UITooltipDetector _lobbyButtonTooltipDetector;
+        private UITooltipDetector _lobbyButtonTooltipDetector;
 
         [SerializeField]
-        NameGenerationDataSO _nameGenerationData;
+        private NameGenerationDataSO _nameGenerationData;
 
         private void Awake()
         {

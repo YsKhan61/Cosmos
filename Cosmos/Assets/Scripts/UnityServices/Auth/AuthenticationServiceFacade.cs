@@ -27,7 +27,7 @@ namespace Cosmos.UnityServices.Auth
         public event Action onAccountNameUpdateFailed;
 
         [Inject]
-        IPublisher<UnityServiceErrorMessage> _unityServiceErrorMessagePublisher;
+        private IPublisher<UnityServiceErrorMessage> _unityServiceErrorMessagePublisher;
 
         private bool _linkWithUnityPlayerAccount;             // whether it will be sign in or link account
 
@@ -316,7 +316,7 @@ namespace Cosmos.UnityServices.Auth
             onAuthSignedOutSuccess?.Invoke();
         }
 
-        async Task GetPlayerNameAsync()
+        private async Task GetPlayerNameAsync()
         {
             if (AuthenticationService.Instance.SessionTokenExists)
             {
@@ -324,7 +324,7 @@ namespace Cosmos.UnityServices.Auth
             }
         }
 
-        async void SignInWithUnity()
+        private async void SignInWithUnity()
         {
             try
             {

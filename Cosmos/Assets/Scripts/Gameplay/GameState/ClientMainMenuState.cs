@@ -35,9 +35,6 @@ namespace Cosmos.Gameplay.GameState
         [SerializeField]
         private GameObject _signInSpinner;
 
-        [SerializeField]
-        AuthStatusUI _authStatusUI;
-
         private AuthenticationServiceFacade _authServiceFacade;
         private LocalLobbyUser _localLobbyUser;
         private LocalLobby _localLobby;
@@ -142,11 +139,6 @@ namespace Cosmos.Gameplay.GameState
         {
             _lobbyUIMediator.Hide();
             _ipUIMediator.Show();
-        }
-
-        public void DisplayStatus(string status, int duration)
-        {
-            _authStatusUI.DisplayStatus(status, duration);
         }
 
         internal async void TrySignIn(AccountType accountType, string profileName)
@@ -273,7 +265,7 @@ namespace Cosmos.Gameplay.GameState
             // when that happens.
             _localLobby.AddUser(_localLobbyUser);
 
-            _authStatusUI.DisplayStatus("Signed in success!", 3);
+            PopupManager.DisplayStatus("Signed in success!", 3);
         }
 
         private void OnAuthSignedOutSuccess()
@@ -284,7 +276,7 @@ namespace Cosmos.Gameplay.GameState
             _startMenuUIMediator?.HidePanel();
             _signInUIMediator?.ShowPanel();
 
-            _authStatusUI?.DisplayStatus("Signed out success!", 3);
+            PopupManager.DisplayStatus("Signed out success!", 3);
         }
 
         private void OnSignInFailed()
@@ -296,14 +288,14 @@ namespace Cosmos.Gameplay.GameState
 
             _signInUIMediator.ConfigurePanelOnSignInFailed();
 
-            _authStatusUI.DisplayStatus("Sign in failed!", 2);
+            PopupManager.DisplayStatus("Sign in failed!", 2);
         }
 
         private void OnLinkSuccess()
         {
             _startMenuUIMediator.ConfigureStartMenuAfterLinkAccountSuccess();
 
-            _authStatusUI.DisplayStatus("Link account success!", 3);
+            PopupManager.DisplayStatus("Link account success!", 3);
         }
 
         private void OnLinkFailed()
@@ -317,7 +309,7 @@ namespace Cosmos.Gameplay.GameState
 
             _startMenuUIMediator.ConfigureStartMenuAfterLinkAccountFailed();
 
-            _authStatusUI.DisplayStatus("Link account failed!", 2);
+            PopupManager.DisplayStatus("Link account failed!", 2);
         }
 
         private void OnUnlinkSuccess()
@@ -327,7 +319,7 @@ namespace Cosmos.Gameplay.GameState
 
             _startMenuUIMediator.ConfigureStartMenuAfterUnlinkAccount();
 
-            _authStatusUI.DisplayStatus("Unlink account success!", 3);
+            PopupManager.DisplayStatus("Unlink account success!", 3);
         }
 
         private void UpdateNameSuccess()
@@ -337,12 +329,12 @@ namespace Cosmos.Gameplay.GameState
             UpdateLocalLobbyUser();
             _localLobby.AddUser(_localLobbyUser);
 
-            _authStatusUI.DisplayStatus("Name update success!", 3);
+            PopupManager.DisplayStatus("Name update success!", 3);
         }
 
         private void UpdateNameFailed()
         {
-            _authStatusUI.DisplayStatus("Name update failed!", 2);
+            PopupManager.DisplayStatus("Name update failed!", 2);
         }
 
         private void UpdateLocalLobbyUser()

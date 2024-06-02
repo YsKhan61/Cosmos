@@ -17,8 +17,11 @@ namespace Cosmos.Gameplay.UI
         [SerializeField]
         private GameObject _popupPanelPrefab;
 
-        [SerializeField]
+        [SerializeField, Tooltip("The parent canvas of the Popup that will not be destroyed")]
         private GameObject _canvas;
+
+        [SerializeField]
+        private NotificationUI _notificationUI;
 
         private List<PopupPanel> _popupPanels = new List<PopupPanel>();
 
@@ -52,6 +55,11 @@ namespace Cosmos.Gameplay.UI
 
             Debug.LogError($"No popuppanel instance found. Cannot display message: {titleText}: {mainText}");
             return null;
+        }
+
+        public static void DisplayStatus(string status, int duration)
+        {
+            _instance._notificationUI.DisplayStatus(status, duration);
         }
 
         private PopupPanel DisplayPopupPanel(string titleText, string mainText, bool closeableByUser)

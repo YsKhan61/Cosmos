@@ -39,7 +39,7 @@ namespace Cosmos.Gameplay.UI
         {
             if (string.IsNullOrEmpty(_profileNameInputField.text))
             {
-                _clientMainMenuState.DisplayStatus("Profile name can't be empty!", 2);
+                PopupManager.DisplayStatus("Profile name can't be empty!", 2);
                 return;
             }
 
@@ -55,7 +55,7 @@ namespace Cosmos.Gameplay.UI
         {
             if (string.IsNullOrEmpty(_profileNameInputField.text))
             {
-                _clientMainMenuState.DisplayStatus("Profile name can't be empty!", 2);
+                PopupManager.DisplayStatus("Profile name can't be empty!", 2);
                 return;
             }
 

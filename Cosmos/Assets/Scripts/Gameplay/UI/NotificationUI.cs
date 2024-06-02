@@ -7,9 +7,9 @@ using UnityEngine;
 namespace Cosmos.Gameplay.UI
 {
     /// <summary>
-    /// Display or Hide the authentication status panel.
+    /// Display or Hide the notification ui
     /// </summary>
-    public class AuthStatusUI : MonoBehaviour
+    public class NotificationUI : MonoBehaviour
     {
         const string DISPLAY = "Display";
         const string HIDE = "Hide";

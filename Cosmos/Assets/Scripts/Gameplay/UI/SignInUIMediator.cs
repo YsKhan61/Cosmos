@@ -37,6 +37,12 @@ namespace Cosmos.Gameplay.UI
         /// </summary>
         public void SignInWithUnityPlayerAccount()
         {
+            if (string.IsNullOrEmpty(_profileNameInputField.text))
+            {
+                _clientMainMenuState.DisplayStatus("Profile name can't be empty!", 2);
+                return;
+            }
+
             _clientMainMenuState.TrySignIn(AccountType.UnityPlayerAccount, _profileNameInputField.text);
             _signInWithPlayerAccountButton.interactable = false;
             _signInAsGuestButton.interactable = false;
@@ -47,6 +53,12 @@ namespace Cosmos.Gameplay.UI
         /// </summary>
         public void SignInAsGuest()
         {
+            if (string.IsNullOrEmpty(_profileNameInputField.text))
+            {
+                _clientMainMenuState.DisplayStatus("Profile name can't be empty!", 2);
+                return;
+            }
+
             _clientMainMenuState.TrySignIn(AccountType.GuestAccount, _profileNameInputField.text);
             _signInAsGuestButton.interactable = false;
             _signInWithPlayerAccountButton.interactable = false;

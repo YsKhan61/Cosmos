@@ -21,9 +21,6 @@ namespace Cosmos.Gameplay.GameState
     public class ClientMainMenuState : GameStateBehaviour
     {
         [SerializeField]
-        private NameGenerationDataSO _nameGenerationData;
-
-        [SerializeField]
         private SignInUIMediator _signInUIMediator;
 
         [SerializeField]
@@ -108,7 +105,6 @@ namespace Cosmos.Gameplay.GameState
         protected override void Configure(IContainerBuilder builder)
         {
             base.Configure(builder);
-            builder.RegisterComponent(_nameGenerationData);
             builder.RegisterComponent(_lobbyUIMediator);
             builder.RegisterComponent(_ipUIMediator);
         }
@@ -148,14 +144,13 @@ namespace Cosmos.Gameplay.GameState
             _ipUIMediator.Show();
         }
 
+        public void DisplayStatus(string status, int duration)
+        {
+            _authStatusUI.DisplayStatus(status, duration);
+        }
+
         internal async void TrySignIn(AccountType accountType, string profileName)
         {
-            if (string.IsNullOrEmpty(profileName))
-            {
-                _authStatusUI.DisplayStatus("Profile name can't be empty!", 2);
-                return;
-            }
-
             try
             {
                 _signInSpinner.SetActive(true);

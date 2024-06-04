@@ -105,7 +105,7 @@ namespace Cosmos.Gameplay.UI
             if (lobbyCreationAttempt.Success)
             {
                 _localLobbyUser.IsHost = true;
-                _lobbyServiceFacade.SetRemoteAndLocalLobby(lobbyCreationAttempt.Lobby);
+                _lobbyServiceFacade.SetRemoteLobby(lobbyCreationAttempt.Lobby);
 
                 Debug.Log($"Created lobby with ID: {_localLobby.LobbyID} and code {_localLobby.LobbyCode}");
                 _connectionManager.StartHostLobby(_localLobbyUser.PlayerName);
@@ -310,7 +310,7 @@ namespace Cosmos.Gameplay.UI
 
         private void OnJoinedLobby(Lobby remoteLobby)
         {
-            _lobbyServiceFacade.SetRemoteAndLocalLobby(remoteLobby);
+            _lobbyServiceFacade.SetRemoteLobby(remoteLobby);
             Debug.Log($"Joined lobby with ID: {_localLobby.LobbyID} and Internal Relay join code {_localLobby.RelayJoinCode}");
             _connectionManager.StartClientLobby(_localLobbyUser.PlayerName);
         }

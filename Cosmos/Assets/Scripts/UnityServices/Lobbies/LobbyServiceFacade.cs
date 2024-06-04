@@ -263,7 +263,7 @@ namespace Cosmos.UnityServices.Lobbies
         /// Sets the local lobby to the provided lobby and updates the current unity lobby with the remote lobby data.
         /// </summary>
         /// <param name="lobby">New lobby to set as the local lobby</param>
-        public void SetRemoteLobby(Lobby lobby)
+        public void SetRemoteAndLocalLobby(Lobby lobby)
         {
             CurrentUnityLobby = lobby;
             _localLobby.ApplyRemoteData(lobby);

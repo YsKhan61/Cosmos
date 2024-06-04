@@ -10,6 +10,10 @@ namespace Cosmos.UnityServices.Lobbies
     [Serializable]
     public class LocalLobbyUser
     {
+        /// <summary>
+        /// This struct holds the data for a local lobby user.
+        /// It is used to update the data and is observed to know when to push local user changes to the entire lobby.
+        /// </summary>
         public struct UserData
         {
             public bool IsHost { get; set; }

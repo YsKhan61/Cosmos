@@ -31,7 +31,7 @@ namespace Cosmos.UnityServices.Lobbies
         [Inject] private IPublisher<UnityServiceErrorMessage> _unityServiceErrorMessagePublisher;
         [Inject] private IPublisher<LobbyListFetchedMessage> _lobbyListFetchedMessagePublisher;
 
-        private float _heartBeatTime = 0;
+        // private float _heartBeatTime = 0;
 
         private LifetimeScope _serviceLifetimeScope;
         private LobbyAPIInterface _lobbyApiInterface;
@@ -89,7 +89,7 @@ namespace Cosmos.UnityServices.Lobbies
                 // Only the host sends heartbeat pings to the service to keep the lobby alive
                 if (_localLobbyUser.IsHost)
                 {
-                    _heartBeatTime = 0;
+                    // _heartBeatTime = 0;
                     _updateRunner.Subscribe(DoLobbyHeartbeat, HEART_BEAT_PERIOD);           // 1.5f was the last value, reset it if the new value doesn't work
                 }
             }
@@ -268,7 +268,7 @@ namespace Cosmos.UnityServices.Lobbies
         /// Sets the local lobby to the provided lobby and updates the current unity lobby with the remote lobby data.
         /// </summary>
         /// <param name="lobby">New lobby to set as the local lobby</param>
-        public void SetRemoteAndLocalLobby(Lobby lobby)
+        public void SetRemoteLobby(Lobby lobby)
         {
             CurrentUnityLobby = lobby;
             _localLobby.ApplyRemoteData(lobby);

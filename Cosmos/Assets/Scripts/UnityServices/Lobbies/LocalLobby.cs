@@ -114,8 +114,6 @@ namespace Cosmos.UnityServices.Lobbies
         /// <summary>
         /// Create a list of new LocalLobbies from the result of a lobby list query.
         /// </summary>
-        /// <param name="response"></param>
-        /// <returns></returns>
         public static List<LocalLobby> CreateLocalLobbies(QueryResponse response)
         {
             List<LocalLobby> localLobbyList = new List<LocalLobby>();
@@ -126,6 +124,10 @@ namespace Cosmos.UnityServices.Lobbies
             return localLobbyList;
         }
 
+
+        /// <summary>
+        /// Create a new LocalLobby from a remote lobby object.
+        /// </summary>
         public static LocalLobby Create(Lobby lobby)
         {
             LocalLobby localLobby = new LocalLobby();
@@ -133,6 +135,9 @@ namespace Cosmos.UnityServices.Lobbies
             return localLobby;
         }
 
+        /// <summary>
+        /// Add a new user to the local lobby.
+        /// </summary>
         public void AddUser(LocalLobbyUser localLobbyUser)
         {
             if (!_localLobbyUsers.ContainsKey(localLobbyUser.ID))
@@ -142,12 +147,18 @@ namespace Cosmos.UnityServices.Lobbies
             }
         }
 
+        /// <summary>
+        /// Remove a user from the local lobby.
+        /// </summary>
         public void RemoveUser(LocalLobbyUser localLobbyUser)
         {
             DoRemoveUser(localLobbyUser);
             OnChanged?.Invoke(this);
         }
 
+        /// <summary>
+        /// Apply the data from a remote lobby object to the local lobby.
+        /// </summary>
         public void ApplyRemoteData(Lobby lobby)
         {
             LobbyDataStruct lobbyData = new LobbyDataStruct();  // Technically, this is largely redundant after the first assignment, but it won't do any harm to assign it again.
@@ -195,12 +206,18 @@ namespace Cosmos.UnityServices.Lobbies
             CopyDataFrom(lobbyData, localLobbyUsers);
         }
 
+        /// <summary>
+        /// Reset the local lobby to a new state with a single user.
+        /// </summary>
         public void Reset(LocalLobbyUser localLobbyUser)
         {
             CopyDataFrom(new LobbyDataStruct(), new Dictionary<string, LocalLobbyUser>());
             AddUser(localLobbyUser);
         }
 
+        /// <summary>
+        /// Get the data for Unity Services to send to the server.
+        /// </summary>
         internal Dictionary<string, DataObject> GetDataForUnityServices() =>
            new Dictionary<string, DataObject>
            {

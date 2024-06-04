@@ -18,6 +18,11 @@ namespace Cosmos.UnityServices.Lobbies
     public class LobbyServiceFacade : IDisposable, IStartable
     {
         private const float HEART_BEAT_PERIOD = 8; // the heartbeat must be rate-limited to 5 calls per 30 seconds, We'll aim for longer in case periods don't allign.
+        private const float QUERY_RATE = 1f;
+        private const float JOIN_RATE = 3f;
+        private const float QUICK_JOIN_RATE = 10f;
+        private const float HOST_RATE = 3f;
+
 
         [Inject] private LifetimeScope _parentLifetimeScope;
         [Inject] private UpdateRunner _updateRunner;
@@ -54,10 +59,10 @@ namespace Cosmos.UnityServices.Lobbies
 
             _lobbyApiInterface = _serviceLifetimeScope.Container.Resolve<LobbyAPIInterface>();
 
-            _rateLimitQuery = new RateLimitCooldown(1f);
-            _rateLimitJoin = new RateLimitCooldown(3f);
-            _rateLimitQuickJoin = new RateLimitCooldown(10f);
-            _rateLimitHost = new RateLimitCooldown(3f);
+            _rateLimitQuery = new RateLimitCooldown(QUERY_RATE);
+            _rateLimitJoin = new RateLimitCooldown(JOIN_RATE);
+            _rateLimitQuickJoin = new RateLimitCooldown(QUICK_JOIN_RATE);
+            _rateLimitHost = new RateLimitCooldown(HOST_RATE);
         }
 
         public void Dispose()
@@ -85,7 +90,7 @@ namespace Cosmos.UnityServices.Lobbies
                 if (_localLobbyUser.IsHost)
                 {
                     _heartBeatTime = 0;
-                    _updateRunner.Subscribe(DoLobbyHeartbeat, 1.5f);
+                    _updateRunner.Subscribe(DoLobbyHeartbeat, HEART_BEAT_PERIOD);           // 1.5f was the last value, reset it if the new value doesn't work
                 }
             }
         }
@@ -551,8 +556,27 @@ namespace Cosmos.UnityServices.Lobbies
         /// <param name="dt">The time since the last frame</param>
         private void DoLobbyHeartbeat(float dt)
         {
+            try
+            {
+                _lobbyApiInterface.SendHeartbeatPing(CurrentUnityLobby.Id);
+            }
+            catch (LobbyServiceException e)
+            {
+                // If Lobby is not found and if we are not the host, it has already been deleted. No need to publish the error here.
+                if (e.Reason != LobbyExceptionReason.LobbyNotFound && !_localLobbyUser.IsHost)
+                {
+                    PublishError(e);
+                }
+            }
+        }
+
+
+        // As the DoLobbyHeartbeat is already getting called after the HEART_BEAT_PERIOD, hence probably we dont need to recheck the interval inside DoLobbyHeartBeat.
+        // Delete the commented method after testing.
+        /*private void DoLobbyHeartbeat(float dt)
+        {
             _heartBeatTime += dt;
-            if (_heartBeatTime > HEART_BEAT_PERIOD)
+            if (_heartBeatTime >= HEART_BEAT_PERIOD)
             {
                 _heartBeatTime -= HEART_BEAT_PERIOD;
                 try
@@ -568,7 +592,7 @@ namespace Cosmos.UnityServices.Lobbies
                     }
                 }
             }
-        }
+        }*/
 
 
         /// <summary>

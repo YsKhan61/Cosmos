@@ -21,13 +21,20 @@ namespace Cosmos.ConnectionManagement
         protected const string DTLS_CONNECTION_TYPE = "dtls";
 
         protected ConnectionManager _connectionManager;
-        readonly ProfileManager _profileManager;
+        // protected readonly ProfileManager _profileManager;
         protected readonly string _playerName;
         
-        public ConnectionMethodBase(ConnectionManager connectionManager, ProfileManager profileManager, string playerName)
+        // ProfileManager is removed
+        /*public ConnectionMethodBase(ConnectionManager connectionManager, ProfileManager profileManager, string playerName)
         {
             _connectionManager = connectionManager;
             _profileManager = profileManager;
+            _playerName = playerName;
+        }*/
+
+        public ConnectionMethodBase(ConnectionManager connectionManager, string playerName)
+        {
+            _connectionManager = connectionManager;
             _playerName = playerName;
         }
 
@@ -77,11 +84,12 @@ namespace Cosmos.ConnectionManagement
         {
             if (Unity.Services.Core.UnityServices.State != ServicesInitializationState.Initialized)
             {
-                return ClientPrefs.GetGUID() + _profileManager.ProfileName;
+                // return ClientPrefs.GetGUID() + _profileManager.ProfileName;
+                return ClientPrefs.GetGUID() + _playerName;
             }
 
             return AuthenticationService.Instance.IsSignedIn ? AuthenticationService.Instance.PlayerId
-                : ClientPrefs.GetGUID() + _profileManager.ProfileName;
+                : ClientPrefs.GetGUID() + _playerName; // ClientPrefs.GetGUID() + _profileManager.ProfileName;
         }
     }
 
@@ -93,8 +101,10 @@ namespace Cosmos.ConnectionManagement
         private string _ipAddress;
         private ushort _port;
 
-        public ConnectionMethodIP(string ip, ushort port, ConnectionManager connectionManager, ProfileManager profileManager, string playerName)
-            : base(connectionManager, profileManager, playerName)
+        /*public ConnectionMethodIP(string ip, ushort port, ConnectionManager connectionManager, ProfileManager profileManager, string playerName)
+            : base(connectionManager, profileManager, playerName)*/
+        public ConnectionMethodIP(string ip, ushort port, ConnectionManager connectionManager, string playerName)
+            : base(connectionManager, playerName)
         {
             _ipAddress = ip;
             _port = port;
@@ -134,8 +144,10 @@ namespace Cosmos.ConnectionManagement
         private LobbyServiceFacade _lobbyServiceFacade;
         private LocalLobby _localLobby;
 
-        public ConnectionMethodRelay(LobbyServiceFacade lobbyServiceFacade, LocalLobby localLobby, ConnectionManager connectionManager, ProfileManager profileManager, string playerName) 
-            : base(connectionManager, profileManager, playerName)
+        /*public ConnectionMethodRelay(LobbyServiceFacade lobbyServiceFacade, LocalLobby localLobby, ConnectionManager connectionManager, ProfileManager profileManager, string playerName) 
+            : base(connectionManager, profileManager, playerName)*/
+        public ConnectionMethodRelay(LobbyServiceFacade lobbyServiceFacade, LocalLobby localLobby, ConnectionManager connectionManager, string playerName)
+            : base(connectionManager, playerName)
         {
             _connectionManager = connectionManager;
             _lobbyServiceFacade = lobbyServiceFacade;

@@ -14,6 +14,8 @@ namespace Cosmos.Gameplay.UI
     /// </summary>
     public class LobbyJoiningUI : MonoBehaviour
     {
+        private const float REFRESH_RATE = 10f;
+
         [SerializeField] private LobbyListItemUI _lobbyListItemUIPrototype;
         [SerializeField] private TMP_InputField _joinCodeInputField;
         [SerializeField] private CanvasGroup _canvasGroup;
@@ -97,7 +99,7 @@ namespace Cosmos.Gameplay.UI
         {
             _canvasGroup.alpha = 1f;
             _canvasGroup.blocksRaycasts = true;
-            _updateRunner.Subscribe(PeriodicRefresh, 10f);
+            _updateRunner.Subscribe(PeriodicRefresh, REFRESH_RATE);
         }
 
         private string SanitizeJoinCode(string dirtyString)

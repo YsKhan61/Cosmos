@@ -201,7 +201,13 @@ namespace Cosmos.UnityServices.Lobbies
             AddUser(localLobbyUser);
         }
 
-        public void CopyDataFrom(LobbyDataStruct lobbyData, Dictionary<string, LocalLobbyUser> currentLocalLobbyUsers)
+        internal Dictionary<string, DataObject> GetDataForUnityServices() =>
+           new Dictionary<string, DataObject>
+           {
+                { "RelayJoinCode", new DataObject(DataObject.VisibilityOptions.Public, RelayJoinCode) }
+           };
+
+        private void CopyDataFrom(LobbyDataStruct lobbyData, Dictionary<string, LocalLobbyUser> currentLocalLobbyUsers)
         {
             _lobbyData = lobbyData;
 
@@ -240,12 +246,6 @@ namespace Cosmos.UnityServices.Lobbies
 
             OnChanged?.Invoke(this);
         }
-
-        internal Dictionary<string, DataObject> GetDataForUnityServices() =>
-            new Dictionary<string, DataObject>
-            {
-                { "RelayJoinCode", new DataObject(DataObject.VisibilityOptions.Public, RelayJoinCode) }
-            };
 
         private void DoAddUser(LocalLobbyUser localLobbyUser)
         {
